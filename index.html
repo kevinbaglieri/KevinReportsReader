@@ -868,7 +868,7 @@ const FLAGS={
   fast:{label:'Very short exam',sev:1,desc:'Exam passed faster than the minimum time'},
   dup:{label:'Duplicate enrollment',sev:1,desc:'Same crew member enrolled twice in one course code'},
   inactive:{label:'Inactive user',sev:1,desc:'Open item for a user marked inactive in the Users report'},
-  retake:{label:'Failed, later passed',sev:0,desc:'Failure resolved by a pass or resit'},
+  retake:{label:'Failed, later passed',sev:0,desc:'Failure resolved by a pass, or by a passed resit of the same exam within 7 days'},
   resitskip:{label:'Resit not needed',sev:0,desc:'Untouched resit after a passed main exam'},
   nocatalog:{label:'Not in catalogue',sev:0,desc:'Course code missing from the Course Learning Report'},
   superseded:{label:'Replaced',sev:0,desc:'Expired enrollment replaced by a newer enrollment or a completed attempt'}
@@ -981,6 +981,16 @@ function classify(title,code){
   const a=autoClassify(title,code),o=(S.settings.ov||{})[code];
   return Object.assign({},a,o||{},{edited:!!(o&&['area','kind','test'].some(k=>k in o)),auto:a});
 }
+const RS_STOP=new Set('resit retake re retest remedial exam set test v version of the and for a b cabin crew january february march april may june july august september october november december jan feb mar apr jun jul aug sep sept oct nov dec new old'.split(' '));
+const rsToks=t=>new Set((String(t).toLowerCase().replace(/&/g,' and ').match(/[a-z]+/g)||[]).filter(w=>w.length>1&&!RS_STOP.has(w)));
+const dayDiff=(a,b)=>Math.round((Date.parse(b)-Date.parse(a))/864e5);
+/* a failed exam is resolved when the same person passed a resit / re-test of the same exam within 7 days */
+function passedResit(f,list){
+  if(!list||!f.subject||f.subject==='Other')return false;const fd=f.compl||f.start;if(!fd)return false;const a=rsToks(f.title);
+  return list.some(o=>{if(o===f||o.st!=='done'||o.subject!==f.subject)return false;const od=o.compl||o.start;if(!od)return false;const d=dayDiff(fd,od);if(d<0||d>7)return false;
+    const b=rsToks(o.title);let i=0;a.forEach(w=>{if(b.has(w))i++;});const j=i/Math.max(1,new Set([...a,...b]).size);
+    return j===1||(j>=0.6&&/\b(resit|retake|re-?test|remedial)\b/i.test(o.title));});
+}
 function baseKey(title){
   return title.toLowerCase().replace(/\(\s*resit\s*\)/g,' ').replace(/\bresit\b/g,' ').replace(/\bretake\b/g,' ')
     .replace(/\bset\s*\d+\b/g,' ').replace(/\ba\s*&\s*b\b/g,' ').replace(/_?\bv\.?\s*\d+(\.\d+)*/g,' ').replace(/_v\.?\d+(\.\d+)*/g,' ')
@@ -996,7 +1006,7 @@ function build(){
       start:normDate(r['Start Date']),expiry:normDate(r['Expiry Date']),score:isNaN(sc)?null:sc,time:r['Total Time']||'',secs:secs(r['Total Time']),
       status:r['Learning Status']||'',st:STATUS[r['Learning Status']]||'other',compl:normDate(r['Completion Date']),pct:Number(r['%']||0)||0,enrExp:/expired/i.test(r['Active']||''),base:baseKey(title),flags:[]},classify(title,code));});
   for(const r of recs){const u=S.dir.get(r.login);r.role=u&&u.role||'';r.fleet=u&&u.fleet||'';r.emp=u&&u.emp||'';r.inactive=!!(u&&!u.active);}
-  const grp=new Map(),dup=new Map();
+  const grp=new Map(),dup=new Map(),byLogin=new Map();for(const r of recs){if(!byLogin.has(r.login))byLogin.set(r.login,[]);byLogin.get(r.login).push(r);}
   for(const r of recs){const k=r.login+'|'+r.base;if(!grp.has(k))grp.set(k,[]);grp.get(k).push(r);if(!r.enrExp){const d=r.login+'|'+r.code;dup.set(d,(dup.get(d)||0)+1);}}
   for(const r of recs){
     const g=grp.get(r.login+'|'+r.base),open=r.st==='notstarted'||r.st==='incomplete';
@@ -1004,7 +1014,7 @@ function build(){
     const expd=r.enrExp||(r.expiry&&r.expiry<today);
     if(expd&&(open||r.st==='failed')&&g.some(x=>x!==r&&(x.st==='done'||(!x.enrExp&&!(x.expiry&&x.expiry<today)&&(x.start||'')>=(r.start||''))))){r.flags.push('superseded');}
     else if(open){if(r.resit&&g.some(x=>x!==r&&!x.resit&&x.st==='done'))r.flags.push('resitskip');else{r.flags.push(r.st);due();}}
-    if(r.st==='failed'){if(g.some(x=>x!==r&&x.st==='done'))r.flags.push('retake');else{r.flags.push('failed');due();}}
+    if(r.st==='failed'&&!r.flags.includes('superseded')){if(g.some(x=>x!==r&&x.st==='done')||passedResit(r,byLogin.get(r.login)))r.flags.push('retake');else{r.flags.push('failed');due();}}
     if(r.st==='done'){if(r.kind==='Exam'&&r.score!==null&&pass&&r.score<pass)r.flags.push('lowscore');if(!r.compl)r.flags.push('nodate');if(r.kind==='Exam'&&minSec&&r.secs>0&&r.secs<minSec)r.flags.push('fast');}
     if(!r.enrExp&&dup.get(r.login+'|'+r.code)>1)r.flags.push('dup');
     if(!r.enrExp&&catalog.size&&r.code&&!catalog.has(r.code))r.flags.push('nocatalog');
