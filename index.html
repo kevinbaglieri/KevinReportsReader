@@ -424,6 +424,26 @@ td.cname{min-width:150px;max-width:220px;overflow-wrap:anywhere}
 @media (min-width:981px){#btnLoad{order:1;flex:none}.side-in>.brand{order:0;flex:none}.side-in>.nav{order:2;flex:none}.side-in>.reports{order:3;flex:0 1 auto;min-height:0;overflow:hidden;-webkit-mask-image:linear-gradient(#000 calc(100% - 28px),transparent);mask-image:linear-gradient(#000 calc(100% - 28px),transparent)}.side-in>.privacy{order:4}body.sidemin .side-in{gap:12px}}
 @media (min-width:981px) and (max-height:700px){body.sidemin .nav button{height:40px}body.sidemin .nav{gap:1px}body.sidemin .sbtn.primary{height:40px}}
 
+/* formatted email */
+.mfmt{display:flex;flex-direction:column;gap:8px;padding:12px;border-radius:16px;background:linear-gradient(135deg,var(--lav-soft),var(--glass-2));border:1px solid color-mix(in srgb,var(--accent-2) 30%,transparent)}
+.mf-h{display:flex;flex-direction:column;gap:1px}.mf-h b{font-size:13px}.mf-h span{font-size:12px;color:var(--muted)}
+.mplain>summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--muted);padding:6px 2px}
+.mplain{display:flex;flex-direction:column;gap:8px}.mplain[open]>summary{margin-bottom:6px}
+.mhint{text-transform:none;letter-spacing:0;font-weight:500;color:var(--faint);font-size:11.5px}
+
+/* issues email bar */
+.ibar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 14px;border-radius:18px;background:linear-gradient(135deg,var(--lav-soft),var(--glass-2));border:1px solid color-mix(in srgb,var(--accent-2) 30%,transparent)}
+.ib-l{display:flex;align-items:center;gap:12px;flex:1 1 260px;min-width:0}
+.ib-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;flex:none}
+.ib-ic svg{width:20px;height:20px}
+.ib-l b{display:block;font-size:14px}.ib-l small{color:var(--muted);font-size:12px}
+.ib-t{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--muted)}
+.ib-b{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ipk{width:34px;padding-right:0!important}
+.ipk input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
+.mcompose2{gap:12px}
+.mcompose2 .ddb{width:100%}
+
 /* email crew */
 .mchips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 @media (max-width:900px){.mchips{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -805,7 +825,7 @@ const NAVG=[['Audit',['overview','issues','courses','crew','batches','matrix','e
 
 const S={
   started:false,staged:[],hasSaved:false,files:[],enr:[],users:[],people:[],dir:new Map(),courses:[],recs:[],noEnroll:[],demo:false,history:[],changes:null,chgKind:'',bOnly:false,accEdit:null,
-  settings:{passMark:75,dueDays:7,minExamMin:2,remember:true,ov:{},acc:{},mailCC:'',mailMode:'app'},
+  settings:{passMark:75,dueDays:7,minExamMin:2,remember:true,ov:{},acc:{},mailCC:'gcabrera@riyadhair.com; gfraj@riyadhair.com',mailMode:'app'},
   mail:{status:'notstarted',sel:null,subj:null,body:null,cc:null,done:{}},
   f:{q:'',area:'',subj:'',kind:'',prog:'',role:[],fleet:'',status:'',from:'',to:'',hideTest:true,batch:null},
   catGroup:'area', catSort:'issues', catShow:'', collapsed:new Set(),
@@ -986,13 +1006,13 @@ function renderTable(id,allCols,rows,opts={}){
   const lim=S.limit[id]||200,shown=rows.slice(0,lim);
   S.tables[id]={cols:allCols,rows,shown,onRow:opts.onRow,name:opts.exportName||id};
   if(!rows.length)return`<div class="empty"><b>${opts.emptyTitle||'Nothing to show'}</b>${opts.empty||'No records match these filters.'}</div>`;
-  const head=cols.map(c=>c.key==='_sev'?`<th data-sort="_sev" data-table="${id}">Priority${s.key==='_sev'?`<span class="ar">${s.dir==='desc'?'↓':'↑'}</span>`:''}</th>`:`<th class="${c.num?'n':''}" data-sort="${c.key}" data-table="${id}">${esc(c.label)}${s.key===c.key?`<span class="ar">${s.dir==='desc'?'↓':'↑'}</span>`:''}</th>`).join('');
+  const head=cols.map(c=>c.headHtml!=null?`<th class="nosort ${c.thCls||''}">${c.headHtml}</th>`:c.key==='_sev'?`<th data-sort="_sev" data-table="${id}">Priority${s.key==='_sev'?`<span class="ar">${s.dir==='desc'?'↓':'↑'}</span>`:''}</th>`:`<th class="${c.num?'n':''}" data-sort="${c.key}" data-table="${id}">${esc(c.label)}${s.key===c.key?`<span class="ar">${s.dir==='desc'?'↓':'↑'}</span>`:''}</th>`).join('');
   const sevC=cols.find(c=>c.key==='_sev');
   const body=shown.map((r,i)=>`<tr class="${opts.onRow?'click':''} ${sevC?'r'+Math.max(-1,sevC.val(r)):''}" data-i="${i}" data-table="${id}">${cols.map(c=>{if(c.key==='_sev'){return`<td class="nw">${priPill(c.val(r))}</td>`;}return`<td class="${c.num?'n':''} ${c.cls||''}">${c.html?c.html(r):esc(c.val(r))}</td>`;}).join('')}</tr>`).join('');
   return`<div class="tframe"><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>${rows.length>lim?`<div class="more"><button class="btn sm" data-more="${id}">Show more · ${N(rows.length-lim)} remaining</button></div>`:''}`;
 }
 function exportBar(id){return`<div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm" data-copy="${id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a1 1 0 0 1 1-1h10"/></svg>Copy for Excel</button>${inFrame?'':`<button class="btn sm" data-csv="${id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download CSV</button>`}</div>`;}
-function tableRows(id){const t=S.tables[id];if(!t)return[];const cols=t.cols.filter(c=>c.key!=='mix');return[cols.map(c=>c.label),...t.rows.map(r=>cols.map(c=>{const v=c.exp?c.exp(r):c.val(r);return v==null?'':String(v);}))];}
+function tableRows(id){const t=S.tables[id];if(!t)return[];const cols=t.cols.filter(c=>c.key!=='mix'&&c.key!=='_pick');return[cols.map(c=>c.label),...t.rows.map(r=>cols.map(c=>{const v=c.exp?c.exp(r):c.val(r);return v==null?'':String(v);}))];}
 
 const sevCol=f=>({key:'_sev',label:'Priority',val:f,sortVal:f,exp:r=>PRI[Math.max(-1,f(r))][0]});
 const PRI={'3':['Critical','p3','<path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/>'],'2':['Action','p2','<path d="M12 7v6l3 2"/><circle cx="12" cy="12" r="9"/>'],'1':['Review','p1','<circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/>'],'0':['Info','p0','<path d="M12 11v5M12 8v.5"/><circle cx="12" cy="12" r="9"/>'],'-1':['OK','pok','<path d="M5 12l4 4 10-10"/>']};
@@ -1116,16 +1136,58 @@ function vOverview(list,fc){
 }
 
 /* ---------- issues / courses / crew ---------- */
+function issueCrew(rows){const m=new Map();for(const r of rows){if(!m.has(r.login))m.set(r.login,{login:r.login,name:r.name,role:r.role,email:mailEmail(r.login),rows:[]});m.get(r.login).rows.push(r);}return m;}
+function autoTpl(rows){
+  const pr=['overdue','failed','duesoon','incomplete','notstarted'];
+  for(const k of pr)if(rows.length&&rows.every(r=>r.flags.includes(MAILT[k].flag)))return k;
+  let best='notstarted',n=-1;for(const k of pr){const c=rows.filter(r=>r.flags.includes(MAILT[k].flag)).length;if(c>n){n=c;best=k;}}return best;
+}
 function vIssues(list,fc){
   const MAIN=['overdue','failed','notstarted','incomplete','lowscore'];
   const tiles=MAIN.map(f=>`<button type="button" class="itile s${FLAGS[f].sev} ${S.issueFlags.has(f)?'on':''} ${fc[f]?'':'zero'}" aria-pressed="${S.issueFlags.has(f)}" data-flag="${f}"><span class="it-c">${S.issueFlags.has(f)?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>':''}</span><b>${N(fc[f])}</b><span class="it-l">${esc(FLAGS[f].label)}</span></button>`).join('');
   const more=FLAG_ORDER.filter(f=>!MAIN.includes(f)&&(FLAGS[f].sev>0||S.showInfo)).map(f=>`<button class="chip" aria-pressed="${S.issueFlags.has(f)}" data-flag="${f}"><span class="d sev${FLAGS[f].sev}"></span>${esc(FLAGS[f].label)}<b>${N(fc[f])}</b></button>`).join('');
   const rows=list.filter(r=>r.flags.some(f=>S.issueFlags.has(f)));
-  const one=[...S.issueFlags],mailK=one.length===1&&MAILT[one[0]]?one[0]:null;
-  return`<div class="card issues-card"><div class="card-h"><div><h2 class="ih">${N(rows.length)} <span>records to review</span></h2><p>Pick the checks to include · select a row to open the crew member's full record</p></div><div style="display:flex;gap:6px;flex-wrap:wrap">${mailK?`<button class="btn sm primary" data-act="toemail" data-mk="${mailK}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Email these crew</button>`:''}<button class="btn sm" data-act="chase" title="One reminder per crew member, ready to paste into an email">Copy chase list</button>${exportBar('issues')}</div></div>
+  const crew=issueCrew(rows);S.iss=S.iss||{sel:new Set(),tpl:''};
+  for(const l of [...S.iss.sel])if(!crew.has(l))S.iss.sel.delete(l);
+  const nSel=S.iss.sel.size,auto=autoTpl(rows),tpl=S.iss.tpl&&MAILT[S.iss.tpl]?S.iss.tpl:auto;
+  const allOn=crew.size&&nSel===crew.size;
+  const ML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>';
+  const bar=crew.size?`<div class="ibar"><div class="ib-l"><span class="ib-ic">${ML}</span><div><b>Email the crew in this list</b><small>${N(crew.size)} crew · ${nSel?N(nSel)+' selected':'tick rows to choose some'} · opens in Outlook</small></div></div>
+    <label class="ib-t" for="iTpl">Template<select class="sel" id="iTpl">${MAIL_ORDER.map(k=>`<option value="${k}" ${k===tpl?'selected':''}>${MAILT[k].label}${k===auto?' (suggested)':''}</option>`).join('')}</select></label>
+    <div class="ib-b">${nSel?`<button class="btn" data-act="imail" data-which="sel">Email selected (${N(nSel)})</button><button class="btn ghost sm" data-act="iselclear">Clear</button>`:''}<button class="btn primary" data-act="imail" data-which="all">${ML}Email all ${N(crew.size)} crew</button></div></div>`:'';
+  const pick={key:'_pick',label:'',thCls:'ipk',headHtml:`<input type="checkbox" data-ipick="__all" ${allOn?'checked':''} aria-label="Select every crew member in the list">`,val:()=>'',exportOnly:false,html:r=>`<input type="checkbox" data-ipick="${esc(r.login)}" ${S.iss.sel.has(r.login)?'checked':''} aria-label="Select ${esc(r.name)}">`,cls:'ipk'};
+  const cols=[pick,...recCols()];
+  return`<div class="card issues-card"><div class="card-h"><div><h2 class="ih">${N(rows.length)} <span>records to review</span></h2><p>Pick the checks to include · select a row to open the crew member's full record</p></div><div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn sm" data-act="chase" title="One reminder per crew member, ready to paste into an email">Copy chase list</button>${exportBar('issues')}</div></div>
     <div class="itiles">${tiles}</div>
     <div class="chips"><span class="eyebrow" style="align-self:center;margin-right:4px">Also</span>${more}<button class="chip" data-act="allflags">Select all</button><button class="chip" data-act="noflags">Clear</button><button class="chip" aria-pressed="${S.showInfo}" data-act="info">Informational checks</button></div>
-    ${renderTable('issues',recCols(),rows,{defaultSort:{key:'flags',dir:'desc'},exportName:'audit-issues',onRow:r=>openDrawer('crew',r.login),emptyTitle:'Clean result',empty:'No records match the selected checks.'})}</div>`;
+    ${bar}
+    ${renderTable('issues',cols,rows,{defaultSort:{key:'flags',dir:'desc'},exportName:'audit-issues',onRow:r=>openDrawer('crew',r.login),emptyTitle:'Clean result',empty:'No records match the selected checks.'})}</div>`;
+}
+function openIssueMail(which){
+  const rows=filtered().filter(r=>r.flags.some(f=>S.issueFlags.has(f))),crewM=issueCrew(rows);
+  const tpl=S.iss.tpl&&MAILT[S.iss.tpl]?S.iss.tpl:autoTpl(rows);
+  let crew=[...crewM.values()];if(which==='sel')crew=crew.filter(c=>S.iss.sel.has(c.login));
+  crew=crew.map(c=>{const m=c.rows.filter(r=>r.flags.includes(MAILT[tpl].flag));return Object.assign({},c,{recs:m.length?m:c.rows});});
+  S.mx={crew,tpl,subj:null,body:null,cc:null,done:{},which};openDrawer('mail');
+}
+function mxDraft(){return draftFor(S.mx.tpl,S.mx.crew);}
+function renderXActions(){
+  const box=$('#xActions');if(!box||!S.mx)return;const mode=S.settings.mailMode||'app';
+  const emails=[...new Set(S.mx.crew.map(c=>c.email).filter(e=>/@/.test(e)))],subj=$('#xSubj').value,body=$('#xBody').value,cc=($('#xCC').value||'').split(/[;,\s]+/).filter(Boolean).join('; ');
+  if(!emails.length){box.innerHTML='<p class="note">None of these crew have an email address.</p>';return;}
+  const {batches,tooLong}=mailBatches(emails,subj,body,mode),ml=mode==='web'?'Outlook on the web':'Outlook';
+  S._xb={batches,cc};
+  const fmtOn=(S.settings.mailMode||'app')!=='web'&&!inFrame;const btn=(b,i)=>`<button class="btn ${batches.length===1&&!fmtOn?'primary big':'sm'} ${S.mx.done[mode+i]?'mdone':''}" data-xsend="${i}">${batches.length===1?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Open in ${ml}`:`Email ${i+1} of ${batches.length} · ${b.length}`}${S.mx.done[mode+i]?' ✓':''}</button>`;
+  box.innerHTML=fmtBlock(emails.length,'x')+(tooLong?`<p class="note warnt">The message is too long to open automatically. Shorten it, or use the copy buttons.</p>`:(batches.length>1?`<p class="note">${ml} takes about ${batches[0].length} addresses per email, so the ${N(emails.length)} recipients are split into ${batches.length} emails. Open and send each one.</p>`:'')+`<div class="mbtns">${batches.map(btn).join('')}</div>`)
+    +`<div class="mbtns"><button class="btn sm ghost" data-act="xcopybcc">Copy BCC</button><button class="btn sm ghost" data-act="xcopysubj">Copy subject</button><button class="btn sm ghost" data-act="xcopybody">Copy message</button></div>`
+    +`<p class="note">${mode==='web'?'Opens Outlook on the web in a new tab.':'Opens your default email app on this computer: classic Outlook or the new Outlook, whichever is set as default in Windows (Settings › Apps › Default apps).'}${inFrame?' Opening Outlook works in your published version on GitHub.':''}</p>`;
+  wrapPlain(box);
+}
+function xSend(i){
+  const b=(S._xb&&S._xb.batches||[])[i];if(!b)return;const mode=S.settings.mailMode||'app',url=mailURL(b,$('#xSubj').value,$('#xBody').value,mode,S._xb.cc);
+  if(mode==='web'){const w=window.open(url,'_blank','noopener');if(!w){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();}}
+  else{const a=document.createElement('a');a.href=url;document.body.appendChild(a);a.click();a.remove();}
+  S.mx.done[mode+i]=true;renderXActions();toast(`Email ${S._xb.batches.length>1?(i+1)+' of '+S._xb.batches.length+' ':''}opened with ${b.length} address${b.length===1?'':'es'} in BCC. Check it and press Send.`);
 }
 function catalogue(){
   const m=new Map();
@@ -1279,34 +1341,37 @@ function vUpdates(){
 
 /* ---------- email crew ---------- */
 const PELESYS_URL='https://rxi.pelesys.com/GC/Account/Login';
-const SIGN='Kindest Regards,\nCabin Crew Training & Standards';
+const SIGN='Kind regards,\nCabin Crew Training & Standards';
+const DEF_CC='gcabrera@riyadhair.com; gfraj@riyadhair.com';
+const REMIND=c=>'Please be reminded that this training is **mandatory in accordance with GACA regulatory requirements** and Riyadh Air training standards. All Cabin Crew are responsible for ensuring that their training records remain **complete and up to date** to maintain their qualification for duty.';
+const LINK='**'+PELESYS_URL+'**';
+const ERR='If you believe this notification has been sent in error or have already completed the training, please reply to this email so that we can verify your training record.';
+function courseBlock(cs){if(cs.length===1)return'**'+cs[0]+'**';if(cs.length&&cs.length<=6)return cs.map(t=>'• **'+t+'**').join('\n');return'**The mandatory training listed on your Pelesys record**';}
 const MAILT={
   notstarted:{label:'Not attempted',flag:'notstarted',sev:2,
     subj:c=>c?`ACTION REQUIRED: Mandatory training not started – ${c}`:'ACTION REQUIRED: Mandatory training not started',
-    body:c=>[(c?`Our Pelesys records show that you have not yet started the following training: ${c}.`:'Our Pelesys records show that you have not yet started some of your mandatory training. The courses are listed on your Pelesys record.'),
-      'This training is mandatory and required by GACA regulations and the Riyadh Air Operations Manual. Your training record must be complete and current to remain qualified for duty.',
-      `Please log in to Pelesys using your CrewPad or through ${PELESYS_URL} and complete it as soon as possible.`,
-      'If you believe this is an error, please reply to this email.']},
+    body:cs=>[`According to our Pelesys training records, you have not yet commenced ${cs.length===1?'the following mandatory training':'one or more of the following mandatory training courses'}:`,courseBlock(cs),REMIND(),
+      'You are therefore requested to log in to Pelesys and **complete the training as soon as possible** using your CrewPad or through the link below:',LINK,ERR]},
   incomplete:{label:'Incomplete',flag:'incomplete',sev:2,
     subj:c=>c?`ACTION REQUIRED: Finish your ${c}`:'ACTION REQUIRED: Finish your mandatory training',
-    body:c=>[(c?`You have started ${c} in Pelesys, but it is not yet complete.`:'You have started mandatory training in Pelesys that is not yet complete.'),
-      'This training is mandatory and required by GACA regulations and the Riyadh Air Operations Manual. Partially completed training does not count towards your qualification.',
-      `Please log in to Pelesys using your CrewPad or through ${PELESYS_URL} and finish the remaining content as soon as possible.`]},
+    body:cs=>[`According to our Pelesys training records, you have commenced but not yet completed ${cs.length===1?'the following mandatory training':'one or more of the following mandatory training courses'}:`,courseBlock(cs),
+      'Please be reminded that this training is **mandatory in accordance with GACA regulatory requirements** and Riyadh Air training standards. Partially completed training does not count towards your qualification, and all Cabin Crew are responsible for ensuring that their training records remain **complete and up to date** to maintain their qualification for duty.',
+      'You are therefore requested to log in to Pelesys and **complete the remaining content as soon as possible** using your CrewPad or through the link below:',LINK,ERR]},
   failed:{label:'Failed, no pass',flag:'failed',sev:3,
     subj:c=>c?`RESIT REQUIRED: ${c} – a pass is mandatory`:'RESIT REQUIRED: A pass is mandatory',
-    body:c=>[(c?`Your recent attempt at ${c} was not successful.`:'Your recent attempt at a mandatory exam in Pelesys was not successful.'),
-      'A pass is mandatory and required by GACA regulations and the Riyadh Air Operations Manual. Until it is achieved, your training record for this subject remains incomplete.',
-      `Please contact the Training team to arrange your resit. Once it is assigned, log in to Pelesys using your CrewPad or through ${PELESYS_URL}.`]},
+    body:cs=>[`According to our Pelesys training records, your most recent attempt at ${cs.length===1?'the following mandatory assessment':'one or more of the following mandatory assessments'} was not successful:`,courseBlock(cs),
+      'Please be reminded that a pass is **mandatory in accordance with GACA regulatory requirements** and Riyadh Air training standards. Until a pass is achieved, your training record for this subject is not **complete and up to date**, and your qualification for duty may be affected.',
+      'You are therefore requested to **contact the Training team to arrange your resit as soon as possible**. Once the resit has been assigned, please complete it in Pelesys using your CrewPad or through the link below:',LINK,
+      'If you believe this notification has been sent in error, please reply to this email so that we can verify your training record.']},
   duesoon:{label:'Due soon',flag:'duesoon',sev:1,
     subj:c=>c?`FINAL REMINDER: ${c} is about to expire`:'FINAL REMINDER: Your mandatory training is about to expire',
-    body:c=>[(c?`${c} in Pelesys is about to expire and is still open on your record.`:'Some of your mandatory training in Pelesys is about to expire and is still open on your record.'),
-      'This training is mandatory and required by GACA regulations and the Riyadh Air Operations Manual.',
-      `Please log in to Pelesys using your CrewPad or through ${PELESYS_URL} and complete it without delay to keep your qualification current.`]},
+    body:cs=>[`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'one or more of the following mandatory training courses are'} due to expire shortly and still open on your record:`,courseBlock(cs),REMIND(),
+      'You are therefore requested to log in to Pelesys and **complete the training before it expires** using your CrewPad or through the link below:',LINK,ERR]},
   overdue:{label:'Overdue',flag:'overdue',sev:3,
     subj:c=>c?`FINAL NOTICE: Overdue mandatory training – ${c}`:'FINAL NOTICE: Overdue mandatory training',
-    body:c=>[(c?`${c} is now overdue on your Pelesys record.`:'Some of your mandatory training is now overdue on your Pelesys record.'),
-      'This training is mandatory and required by GACA regulations and the Riyadh Air Operations Manual. Overdue mandatory training may affect your qualification and availability for duty.',
-      `Immediate action is required: log in to Pelesys using your CrewPad or through ${PELESYS_URL} and complete it today, or contact the Training team if you are unable to do so.`]}
+    body:cs=>[`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'one or more of the following mandatory training courses are'} now **overdue**:`,courseBlock(cs),
+      'Please be reminded that this training is **mandatory in accordance with GACA regulatory requirements** and Riyadh Air training standards. Overdue mandatory training may affect your qualification for duty, and all Cabin Crew are responsible for ensuring that their training records remain **complete and up to date**.',
+      'You are therefore requested to log in to Pelesys and **complete the training immediately** using your CrewPad or through the link below. If you are unable to do so, please contact the Training team today.',LINK,ERR]}
 };
 const MAIL_ORDER=['notstarted','incomplete','failed','duesoon','overdue'];
 function mailEmail(login){const u=S.dir.get(login);return((u&&u.email)||login||'').trim();}
@@ -1317,10 +1382,42 @@ function mailGroups(list){
 }
 function mailSelected(crew){const sel=S.mail.sel;return crew.filter(c=>!sel||sel.has(c.login));}
 function mailCourse(sel){const t=new Set();sel.forEach(c=>c.recs.forEach(r=>t.add(r.title)));return t.size===1?[...t][0]:null;}
-function mailDraft(sel){const T=MAILT[S.mail.status],c=mailCourse(sel);return{subj:T.subj(c),body:'Dear colleague,\n\n'+T.body(c).join('\n\n')+'\n\n'+SIGN};}
+function mailCourses(sel){const t=new Set();sel.forEach(c=>c.recs.forEach(r=>t.add(r.title)));return[...t].sort();}
+function draftFor(tpl,crew){const T=MAILT[tpl],cs=mailCourses(crew);return{subj:T.subj(cs.length===1?cs[0]:null),body:'Dear Colleague,\n\n'+T.body(cs).join('\n\n')+'\n\n'+SIGN};}
+const plainBody=b=>String(b||'').replace(/\*\*/g,'');
+function bodyHTML(body){
+  return String(body||'').split(/\n{2,}/).map(par=>{
+    const isCourse=/^(• )?\*\*[^*]+\*\*$/.test(par.split('\n')[0].trim())&&!/https?:/.test(par);
+    let h=esc(par).replace(/(https?:\/\/[^\s*<]+)/g,'<a href="$1" style="color:#3B2A8A">$1</a>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
+    return isCourse?`<p style="margin:0 0 14px;padding:10px 14px;background:#F1EEFB;border-left:4px solid #5B47C2;font-size:12pt;color:#2A1C73">${h}</p>`:`<p style="margin:0 0 14px">${h}</p>`;
+  }).join('');
+}
+function fullHTML(body){return`<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:Aptos,Calibri,Arial,sans-serif;font-size:11pt;line-height:1.45;color:#1A1A1A">${bodyHTML(body)}</body></html>`;}
+function b64u(t){return btoa(unescape(encodeURIComponent(t)));}
+function emlText(subj,cc,bcc,body){
+  const fold=a=>a.join(',\r\n '),ccs=String(cc||'').split(/[;,\s]+/).filter(Boolean);
+  const h=['X-Unsent: 1',ccs.length?'Cc: '+fold(ccs):'','Bcc: '+fold(bcc),'Subject: =?UTF-8?B?'+b64u(subj)+'?=','MIME-Version: 1.0','Content-Type: text/html; charset="utf-8"','Content-Transfer-Encoding: base64'].filter(Boolean);
+  return h.join('\r\n')+'\r\n\r\n'+b64u(fullHTML(body)).replace(/.{76}/g,'$&\r\n')+'\r\n';
+}
+function downloadEml(label,subj,cc,bcc,body){
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([emlText(subj,cc,bcc,body)],{type:'message/rfc822'}));a.download=`Pelesys reminder - ${label} - ${todayISO()}.eml`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);
+    toast(`Email file downloaded with ${bcc.length} address${bcc.length===1?'':'es'} in BCC. Open it and Outlook shows it ready to send.`);}catch(e){toast('Download blocked here. Use Copy formatted message.');}
+}
+function copyHTML(body){
+  const html=fullHTML(body),plain=plainBody(body);
+  try{if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]).then(()=>toast('Formatted message copied. Paste it into the body of the email in Outlook.'),()=>copyText(plain,'Copied as plain text.'));return;}}catch(e){}
+  copyText(plain,'Copied as plain text.');
+}
+function fmtBlock(n,prefix){
+  if((S.settings.mailMode||'app')==='web'||inFrame)return'';
+  return`<div class="mfmt"><div class="mf-h"><b>Formatted email</b><span>Bold text, highlighted course and link · all ${N(n)} recipients in one email</span></div><div class="mbtns"><button class="btn primary big" data-act="${prefix}eml"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Formatted email for Outlook</button><button class="btn sm ghost" data-act="${prefix}html">Copy formatted message</button></div><p class="note">Downloads an email file. Open it and Outlook shows the email with subject, CC and BCC filled in, ready to send.</p></div>`;
+}
+function wrapPlain(box){const f=box.querySelector('.mfmt');if(!f)return;const d=document.createElement('details');d.className='mplain';d.innerHTML='<summary>Backup: plain text without bold</summary>';while(f.nextSibling)d.appendChild(f.nextSibling);box.appendChild(d);}
+
+function mailDraft(sel){return draftFor(S.mail.status,sel);}
 function mailCC(){return(S.mail.cc!=null?S.mail.cc:S.settings.mailCC||'').split(/[;,\s]+/).filter(Boolean).join('; ');}
-function mailURL(bcc,subj,body,mode){
-  const cc=mailCC();
+function mailURL(bcc,subj,body,mode,ccIn){
+  const cc=ccIn!=null?ccIn:mailCC();body=plainBody(body);
   if(mode==='web'){const q=[['cc',cc],['bcc',bcc.join(';')],['subject',subj],['body',body]].filter(x=>x[1]).map(([k,v])=>k+'='+encodeURIComponent(v)).join('&');return'https://outlook.office.com/mail/deeplink/compose?'+q;}
   const q=[['cc',cc],['bcc',bcc.join(';')],['subject',subj],['body',body.replace(/\n/g,'\r\n')]].filter(x=>x[1]).map(([k,v])=>k+'='+encodeURIComponent(v).replace(/%3B/g,';').replace(/%40/g,'@')).join('&');
   return'mailto:?'+q;
@@ -1342,7 +1439,7 @@ function vEmail(list){
     <label class="mf" for="mCC">CC<input id="mCC" class="sel" value="${esc(S.mail.cc!=null?S.mail.cc:S.settings.mailCC||'')}" placeholder="Addresses in copy, separated by ;"></label>
     <div class="mf"><span>BCC</span><div class="mbcc">${N(sel.length)} crew email address${sel.length===1?'':'es'}<button class="btn sm ghost" data-act="mcopybcc" ${sel.length?'':'disabled'}>Copy BCC</button></div></div>
     <label class="mf" for="mSubj">Subject<input id="mSubj" class="sel" value="${esc(subj)}"></label>
-    <label class="mf" for="mBody">Message<textarea id="mBody" class="sel" rows="15">${esc(body)}</textarea></label>
+    <label class="mf" for="mBody">Message<textarea id="mBody" class="sel" rows="16">${esc(body)}</textarea><small class="mhint">Text between ** and ** is bold in the formatted email.</small></label>
     ${S.mail.subj!=null||S.mail.body!=null?'<div><button class="btn sm ghost" data-act="mreset">Restore the standard text</button></div>':''}
     <div id="mActions" class="mactions"></div></div>`;
   return`<div class="g"><div class="card s12"><div class="card-h"><div><h2>Remind crew by status</h2><p>Pick a status, check who should receive the email, then open it in Outlook. Nothing is sent until you press Send in Outlook.</p></div></div><div class="mchips">${chips}</div></div>${recips}${compose}</div>`;
@@ -1354,12 +1451,12 @@ function renderMailActions(){
   if(!emails.length){box.innerHTML='<p class="note">Select at least one crew member.</p>';return;}
   const {batches,tooLong}=mailBatches(emails,subj,body,mode),key=mode+'|'+S.mail.status+'|'+emails.length;
   const ml=mode==='web'?'Outlook on the web':'Outlook';
-  const btn=(b,i)=>`<button class="btn ${batches.length===1?'primary big':'sm'} ${S.mail.done[key+'|'+i]?'mdone':''}" data-msend="${i}">${batches.length===1?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Open in ${ml}`:`Email ${i+1} of ${batches.length} · ${b.length}`}${S.mail.done[key+'|'+i]?' ✓':''}</button>`;
-  box.innerHTML=(tooLong?`<p class="note warnt">The message is too long to open in ${ml} automatically. Shorten it, or use Copy BCC and Copy message.</p>`:
+  const fmtOn=(S.settings.mailMode||'app')!=='web'&&!inFrame;const btn=(b,i)=>`<button class="btn ${batches.length===1&&!fmtOn?'primary big':'sm'} ${S.mail.done[key+'|'+i]?'mdone':''}" data-msend="${i}">${batches.length===1?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Open in ${ml}`:`Email ${i+1} of ${batches.length} · ${b.length}`}${S.mail.done[key+'|'+i]?' ✓':''}</button>`;
+  box.innerHTML=fmtBlock(emails.length,'m')+(tooLong?`<p class="note warnt">The message is too long to open in ${ml} automatically. Shorten it, or use Copy BCC and Copy message.</p>`:
     (batches.length>1?`<p class="note">${ml} can take about ${batches[0].length} addresses per email, so the ${N(emails.length)} recipients are split into ${batches.length} emails. Open and send each one.</p>`:'')+`<div class="mbtns">${batches.map(btn).join('')}</div>`)
     +`<div class="mbtns"><button class="btn sm ghost" data-act="mcopysubj">Copy subject</button><button class="btn sm ghost" data-act="mcopybody">Copy message</button><span class="note" style="margin-left:auto">Mode: ${ml} · change in Settings</span></div>`
     +(inFrame?'<p class="note">Opening Outlook works in your published version on GitHub. In this preview, use the copy buttons.</p>':'');
-  S._mailBatches=batches;S._mailKey=key;
+  wrapPlain(box);  S._mailBatches=batches;S._mailKey=key;
 }
 function mailSend(i){
   const b=(S._mailBatches||[])[i];if(!b)return;const subj=$('#mSubj').value,body=$('#mBody').value,mode=S.settings.mailMode||'app',url=mailURL(b,subj,body,mode);
@@ -1464,11 +1561,23 @@ function renderDrawer(){
     const rows=S.noEnroll.map(u=>({name:u.name,login:u.login,role:u.role||'',fleet:u.fleet||'',emp:u.emp||'',active:u.active?'Active':'Inactive'}));
     const table=renderTable('d',[{key:'name',label:'Name',val:u=>u.name},{key:'login',label:'Login',val:u=>u.login,html:u=>`<span class="mono">${esc(u.login)}</span>`},...(S.people.length?[{key:'role',label:'Job role',val:u=>u.role,html:u=>u.role?esc(u.role):DASH},{key:'fleet',label:'Fleet',val:u=>u.fleet,html:u=>u.fleet?esc(u.fleet):DASH},{key:'emp',label:'Employee ID',val:u=>u.emp}]:[]),{key:'active',label:'Status',val:u=>u.active}],rows,{defaultSort:{key:'name'},exportName:'users-no-enrollment'});
     html=dhead('User Report check','Crew with no enrollments',`${rows.length} users are on no course in the Enrollment Report`,'',`<div>${exportBar('d')}</div>`)+`<div class="db">${table}</div>`;
+  }else if(d.type==='mail'){
+    const m=S.mx;if(!m)return;const dr=mxDraft(),subj=m.subj!=null?m.subj:dr.subj,body=m.body!=null?m.body:dr.body,ccv=m.cc!=null?m.cc:(S.settings.mailCC||'');
+    html=dhead('Email crew',`${MAILT[m.tpl].label} reminder`,`${N(m.crew.length)} crew ${m.which==='sel'?'selected':'in the list'} · all in BCC`,'','')
+      +`<div class="db mcompose2">
+        <label class="mf" for="xTpl">Template<select id="xTpl" class="sel">${MAIL_ORDER.map(k=>`<option value="${k}" ${k===m.tpl?'selected':''}>${MAILT[k].label}</option>`).join('')}</select></label>
+        <label class="mf" for="xCC">CC<input id="xCC" class="sel" value="${esc(ccv)}" placeholder="Addresses in copy, separated by ;"></label>
+        <div class="mf"><span>BCC</span><div class="mbcc">${N(m.crew.length)} crew · ${esc(m.crew.slice(0,3).map(c=>c.name.split(',')[0]).join(', '))}${m.crew.length>3?' and '+N(m.crew.length-3)+' more':''}</div></div>
+        <label class="mf" for="xSubj">Subject<input id="xSubj" class="sel" value="${esc(subj)}"></label>
+        <label class="mf" for="xBody">Message<textarea id="xBody" class="sel" rows="16">${esc(body)}</textarea><small class="mhint">Text between ** and ** is bold in the formatted email.</small></label>
+        ${m.subj!=null||m.body!=null?'<div><button class="btn sm ghost" data-act="xreset">Restore the standard text</button></div>':''}
+        <div id="xActions" class="mactions"></div></div>`;
   }else if(d.type==='summary'){
     html=dhead('Current scope','Audit summary','Copy into an email, a report or your audit log','',`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary sm" data-act="copysum">Copy summary</button>${inFrame?'':'<button class="btn sm" data-act="print">Print current view</button>'}</div>`)
       +`<div class="db"><label class="sr" for="sumText">Summary text</label><textarea class="summary" id="sumText" readonly>${esc(summaryText())}</textarea></div>`;
   }
   $('#drawer').innerHTML=html;
+  if(d.type==='mail'){enhanceAll();renderXActions();}
 }
 function summaryText(){
   const list=filtered(),fc=countFlags(list),sc=statusCounts(list),n=list.length,f=S.f;
@@ -1544,7 +1653,7 @@ async function restore(){
   if(await IDB.open())data=await IDB.get('data');
   if(!data){try{data=JSON.parse(localStorage.getItem(STORE+'.data')||'null');}catch(e){}}
   if(!data){try{const old=JSON.parse(localStorage.getItem(STORE)||'null');if(old){Object.assign(S.settings,old.settings||{});data={files:old.files||[],history:[],changes:null};S._migrated=true;}}catch(e){}}
-  S.settings.ov=S.settings.ov||{};S.settings.acc=S.settings.acc||{};
+  S.settings.ov=S.settings.ov||{};S.settings.acc=S.settings.acc||{};if(!S.settings.mailCC)S.settings.mailCC=DEF_CC;
   if(data){S.history=data.history||[];S.changes=data.changes||null;if(data.files&&data.files.length){S.files=data.files.map(f=>Object.assign({iso:fileStampISO(f.name),loaded:''},f));rebuildRaw();return true;}}
   return false;
 }
@@ -1694,7 +1803,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'&&S.drawer){closeDrawer();return;}
   if(e.key==='/'&&!/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'')){e.preventDefault();$('#fq').focus();}
 });
-document.addEventListener('input',e=>{const id=e.target.id;if(id==='mSubj'){S.mail.subj=e.target.value;renderMailActions();return;}if(id==='mBody'){S.mail.body=e.target.value;renderMailActions();return;}if(id==='mCC'){S.mail.cc=e.target.value;renderMailActions();return;}});
+document.addEventListener('input',e=>{const id=e.target.id;if(id==='xSubj'&&S.mx){S.mx.subj=e.target.value;renderXActions();return;}if(id==='xBody'&&S.mx){S.mx.body=e.target.value;renderXActions();return;}if(id==='xCC'&&S.mx){S.mx.cc=e.target.value;renderXActions();return;}if(id==='mSubj'){S.mail.subj=e.target.value;renderMailActions();return;}if(id==='mBody'){S.mail.body=e.target.value;renderMailActions();return;}if(id==='mCC'){S.mail.cc=e.target.value;renderMailActions();return;}});
 document.addEventListener('input',e=>{if(e.target.id==='mxq'){S.mxQ=e.target.value;const pos=e.target.selectionStart;render();const el=$('#mxq');if(el){el.focus();try{el.setSelectionRange(pos,pos);}catch(_){}}}});
 document.addEventListener('click',e=>{
   const rb=e.target.closest('#froleBtn,[data-rolesel]');
@@ -1714,7 +1823,20 @@ document.addEventListener('click',e=>{
     if(a0==='stcontinue'){startApp();return;}
     if(a0==='stopen'){const items=S.staged.slice();S.staged=[];S.started=true;document.body.classList.remove('starting');S.tab='overview';loadBatch(items);window.scrollTo({top:0});return;}
   }
-  const mx=e.target.closest('[data-mstat],[data-msend],[data-act="mall"],[data-act="mnone"],[data-act="mcopybcc"],[data-act="mcopysubj"],[data-act="mcopybody"],[data-act="mreset"]');
+  const xi=e.target.closest('[data-act="imail"],[data-act="iselclear"],[data-xsend],[data-act="xcopybcc"],[data-act="xcopysubj"],[data-act="xcopybody"],[data-act="xreset"],[data-act="xeml"],[data-act="xhtml"]');
+  if(xi){
+    if(xi.dataset.xsend!==undefined){xSend(+xi.dataset.xsend);return;}
+    const a2=xi.dataset.act;
+    if(a2==='imail'){openIssueMail(xi.dataset.which);return;}
+    if(a2==='iselclear'){S.iss.sel.clear();render();return;}
+    if(a2==='xreset'){S.mx.subj=null;S.mx.body=null;renderDrawer();return;}
+    if(a2==='xcopybcc'){const em=[...new Set(S.mx.crew.map(c=>c.email).filter(e=>/@/.test(e)))];copyText(em.join('; '),`Copied ${em.length} address${em.length===1?'':'es'} for BCC.`);return;}
+    if(a2==='xcopysubj'){copyText($('#xSubj').value,'Subject copied.');return;}
+    if(a2==='xcopybody'){copyText(plainBody($('#xBody').value),'Message copied as plain text.');return;}
+    if(a2==='xeml'){const em=[...new Set(S.mx.crew.map(c=>c.email).filter(e=>/@/.test(e)))];downloadEml(MAILT[S.mx.tpl].label,$('#xSubj').value,$('#xCC').value,em,$('#xBody').value);return;}
+    if(a2==='xhtml'){copyHTML($('#xBody').value);return;}
+  }
+  const mx=e.target.closest('[data-mstat],[data-msend],[data-act="mall"],[data-act="mnone"],[data-act="mcopybcc"],[data-act="mcopysubj"],[data-act="mcopybody"],[data-act="mreset"],[data-act="meml"],[data-act="mhtml"]');
   if(mx){
     if(mx.dataset.mstat){S.mail.status=mx.dataset.mstat;S.mail.sel=null;S.mail.subj=null;S.mail.body=null;render();return;}
     if(mx.dataset.msend!==undefined){mailSend(+mx.dataset.msend);return;}
@@ -1724,7 +1846,9 @@ document.addEventListener('click',e=>{
     if(a1==='mreset'){S.mail.subj=null;S.mail.body=null;render();return;}
     if(a1==='mcopybcc'){const em=[...new Set(mailSelected(crew).map(c=>c.email).filter(e=>/@/.test(e)))];copyText(em.join('; '),`Copied ${em.length} address${em.length===1?'':'es'} for BCC.`);return;}
     if(a1==='mcopysubj'){copyText($('#mSubj').value,'Subject copied.');return;}
-    if(a1==='mcopybody'){copyText($('#mBody').value,'Message copied.');return;}
+    if(a1==='mcopybody'){copyText(plainBody($('#mBody').value),'Message copied as plain text.');return;}
+    if(a1==='meml'){const em=[...new Set(mailSelected(crew).map(c=>c.email).filter(e=>/@/.test(e)))];downloadEml(MAILT[S.mail.status].label,$('#mSubj').value,$('#mCC').value,em,$('#mBody').value);return;}
+    if(a1==='mhtml'){copyHTML($('#mBody').value);return;}
   }
   const x=e.target.closest('[data-accept],[data-accsave],[data-acccancel],[data-unaccept],[data-chg],[data-batch]');
   if(x){
@@ -1800,6 +1924,12 @@ document.addEventListener('change',e=>{
   if(t.id==='catGroup'){S.catGroup=t.value;render();return;}
   if(t.id==='catSort'){S.catSort=t.value;render();return;}
   if(t.id==='bOnly'){S.bOnly=t.checked;render();return;}
+  if(t.dataset&&t.dataset.ipick!==undefined){S.iss=S.iss||{sel:new Set(),tpl:''};
+    if(t.dataset.ipick==='__all'){if(t.checked){filtered().filter(r=>r.flags.some(f=>S.issueFlags.has(f))).forEach(r=>S.iss.sel.add(r.login));}else S.iss.sel.clear();}
+    else{t.checked?S.iss.sel.add(t.dataset.ipick):S.iss.sel.delete(t.dataset.ipick);}
+    render();return;}
+  if(t.id==='iTpl'){S.iss.tpl=t.value;render();return;}
+  if(t.id==='xTpl'){S.mx.tpl=t.value;S.mx.subj=null;S.mx.body=null;S.mx.crew=S.mx.crew.map(c=>{const m=c.rows.filter(r=>r.flags.includes(MAILT[t.value].flag));return Object.assign({},c,{recs:m.length?m:c.rows});});renderDrawer();return;}
   if(t.dataset&&t.dataset.mpick!==undefined){const crew=[...mailGroups(filtered())[S.mail.status].values()];
     if(t.dataset.mpick==='__all'){S.mail.sel=t.checked?null:new Set();}
     else{const cur=S.mail.sel||new Set(crew.map(c=>c.login));t.checked?cur.add(t.dataset.mpick):cur.delete(t.dataset.mpick);S.mail.sel=cur.size===crew.length?null:cur;}
