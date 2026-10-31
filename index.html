@@ -868,7 +868,7 @@ const FLAGS={
   fast:{label:'Very short exam',sev:1,desc:'Exam passed faster than the minimum time'},
   dup:{label:'Duplicate enrollment',sev:1,desc:'Same crew member enrolled twice in one course code'},
   inactive:{label:'Inactive user',sev:1,desc:'Open item for a user marked inactive in the Users report'},
-  retake:{label:'Failed, later passed',sev:0,desc:'Failure resolved by a pass: a passed resit within 7 days, or after two fails a similar exam passed within the days set in Settings (30 by default)'},
+  retake:{label:'Failed, later passed',sev:0,desc:'Failure resolved: the same person later passed the same exam (resit, re-test, remedial or a newer version)'},
   resitskip:{label:'Resit not needed',sev:0,desc:'Untouched resit after a passed main exam'},
   nocatalog:{label:'Not in catalogue',sev:0,desc:'Course code missing from the Course Learning Report'},
   superseded:{label:'Replaced',sev:0,desc:'Expired enrollment replaced by a newer enrollment or a completed attempt'}
@@ -982,24 +982,28 @@ function classify(title,code){
   return Object.assign({},a,o||{},{edited:!!(o&&['area','kind','test'].some(k=>k in o)),auto:a});
 }
 const RS_STOP=new Set('resit retake re retest remedial exam set test v version of the and for a b cabin crew january february march april may june july august september october november december jan feb mar apr jun jul aug sep sept oct nov dec new old'.split(' '));
-const rsToks=t=>new Set((String(t).toLowerCase().replace(/&/g,' and ').match(/[a-z]+/g)||[]).filter(w=>w.length>1&&!RS_STOP.has(w)));
+function rsToks(t){
+  const w=new Set((String(t).toLowerCase().replace(/&/g,' and ').match(/[a-z0-9]+/g)||[]).filter(x=>x.length>1&&!RS_STOP.has(x)&&!/^\d+$/.test(x)&&!/^v(er)?\d+$/.test(x)));
+  const swap=(test,drop,add)=>{if(test()){drop.forEach(x=>w.delete(x));w.add(add);}};
+  /* the same exam under different names */
+  swap(()=>w.has('medicine')||w.has('avmed')||(w.has('first')&&w.has('aid')),['aviation','medicine','avmed','first','aid','med'],'medical');
+  swap(()=>w.has('b787')||w.has('787'),['aircraft','type','rating','atr','specific','b787','787','airplane'],'b787');
+  swap(()=>w.has('security')||w.has('avsec'),['aviation','security','avsec'],'avsec');
+  swap(()=>(w.has('dangerous')&&w.has('goods'))||w.has('dg'),['dangerous','goods','dg'],'dg');
+  return w;
+}
 const dayDiff=(a,b)=>Math.round((Date.parse(b)-Date.parse(a))/864e5);
-/* a failed exam is resolved when the same person passed a resit / re-test of the same exam within 7 days,
-   or — after two fails of the same exam — passed a similar exam within 15 days of the last fail */
-const RESIT_DAYS=7;
-const RS_EXTRA_OK=new Set(['initial','recurrent','remedial','cci','ccr','class','cc']);
+/* a failed exam is resolved when the same person later passed the same exam:
+   a resit / re-test / retake / remedial of it, or the same exam under a newer name or version (any date on or after the fail) */
+const RS_EXTRA_OK=new Set(['initial','recurrent','remedial','cci','ccr','class','cc','sep']);
 const rsJ=(a,b)=>{let i=0;a.forEach(w=>{if(b.has(w))i++;});return i/Math.max(1,new Set([...a,...b]).size);};
 const rsSub=(a,b)=>[...a].every(w=>b.has(w))&&[...b].every(w=>a.has(w)||RS_EXTRA_OK.has(w));
 function rsSimilar(x,y){if(!x.subject||x.subject==='Other'||x.subject!==y.subject)return false;const a=rsToks(x.title),b=rsToks(y.title);if(!a.size||!b.size)return false;return rsJ(a,b)===1||rsSub(a,b)||rsSub(b,a);}
+const RS_RESIT=/\b(resit|retake|re-?test|remedial)\b/i;
 function passedResit(f,list){
   if(!list||!f.subject||f.subject==='Other')return false;const fd=f.compl||f.start;if(!fd)return false;const a=rsToks(f.title);
-  const quick=list.some(o=>{if(o===f||o.st!=='done'||o.subject!==f.subject)return false;const od=o.compl||o.start;if(!od)return false;const d=dayDiff(fd,od);if(d<0||d>RESIT_DAYS)return false;
-    const j=rsJ(a,rsToks(o.title));return j===1||(j>=0.6&&/\b(resit|retake|re-?test|remedial)\b/i.test(o.title));});
-  if(quick)return true;
-  const fails=list.filter(x=>x.st==='failed'&&(x===f||rsSimilar(x,f)||/\b(resit|retake|re-?test)\b/i.test(x.title)&&rsJ(a,rsToks(x.title))>=0.6));
-  if(fails.length<2)return false;
-  const last=fails.map(x=>x.compl||x.start).filter(Boolean).sort().pop();
-  return list.some(o=>{if(o.st!=='done'||!rsSimilar(o,f))return false;const od=o.compl||o.start;if(!od)return false;const d=dayDiff(last,od);return d>=0&&d<=(+S.settings.secondFailDays>=0?+S.settings.secondFailDays:30);});
+  return list.some(o=>{if(o===f||o.st!=='done'||o.subject!==f.subject)return false;const od=o.compl||o.start;if(!od||od<fd)return false;
+    return rsSimilar(o,f)||(RS_RESIT.test(o.title)&&rsJ(a,rsToks(o.title))>=0.6);});
 }
 function baseKey(title){
   return title.toLowerCase().replace(/\(\s*resit\s*\)/g,' ').replace(/\bresit\b/g,' ').replace(/\bretake\b/g,' ')
@@ -1637,7 +1641,6 @@ function vSettings(){
   return`<div class="g"><div class="card s12"><div class="card-h"><div><h2>Audit rules</h2><p>Changes re-check every record straight away</p></div></div><div class="set">
     <label for="sPass">Pass mark (%)<input type="number" min="0" max="100" id="sPass" value="${st.passMark}"><small>Exams marked Passed below this score are flagged.</small></label>
     <label for="sDue">Due window (days)<input type="number" min="0" max="90" id="sDue" value="${st.dueDays}"><small>Open items expiring within this many days are flagged as due soon.</small></label>
-    <label for="sFail2">Pass after two fails (days)<input type="number" min="0" max="120" id="sFail2" value="${st.secondFailDays??30}"><small>After two fails of the same exam, a similar exam passed within this many days of the last fail closes them. A passed resit within 7 days always closes a fail.</small></label>
     <label for="sMin">Minimum exam time (minutes)<input type="number" min="0" max="120" id="sMin" value="${st.minExamMin}"><small>Exams passed faster than this are flagged for review. 0 turns the check off.</small></label></div></div>
   <div class="card s6"><h2>Data on this computer</h2><p class="note">Reports are read and checked offline, inside this browser; nothing is sent anywhere. After you load them, they stay saved on this computer only, so the audit opens ready next time. New reports replace the old ones. On a shared computer, remove them when you finish.</p>
     <div><button class="btn" data-act="clear">Remove saved reports from this computer</button></div></div>
@@ -1720,7 +1723,7 @@ function summaryText(){
   return['KEVIN REPORTS READER · PELESYS AUDIT SUMMARY','='.repeat(60),`Generated   ${new Date().toLocaleString('en-GB')}`,
     ...S.files.map((x,i)=>`${i?'           ':'Reports    '} ${x.name}${x.iso?'  (exported '+fmtStamp(x.iso)+')':''}`),
     `Data as of  ${S.demo?'example data':fmtStamp(dataAsOf())}${S.demo?'':'   (uploaded '+fmtStamp(lastUpload())+')'}`,
-    `Scope       ${fl.length?fl.join(', '):'all records'}`,`Rules       pass mark ${S.settings.passMark}%, due window ${S.settings.dueDays} days, min exam time ${S.settings.minExamMin} min, pass after two fails within ${S.settings.secondFailDays??30} days`,'',
+    `Scope       ${fl.length?fl.join(', '):'all records'}`,`Rules       pass mark ${S.settings.passMark}%, due window ${S.settings.dueDays} days, min exam time ${S.settings.minExamMin} min, a fail is closed by a later pass of the same exam (resit, re-test or newer version)`,'',
     'RECORDS','-'.repeat(60),`Enrollments          ${String(n).padStart(6)}`,`Crew members         ${String(new Set(list.map(r=>r.login)).size).padStart(6)}`,`Courses              ${String(new Set(list.map(r=>r.code)).size).padStart(6)}`,
     `Completed / passed   ${String(sc.done).padStart(6)}  (${pct(sc.done,n)}%)`,`Incomplete           ${String(sc.incomplete).padStart(6)}`,`Not attempted        ${String(sc.notstarted).padStart(6)}`,`Failed               ${String(sc.failed).padStart(6)}`,'',
     'AUDIT CHECKS','-'.repeat(60),...FLAG_ORDER.map(k=>`${FLAGS[k].label.padEnd(24)} ${String(fc[k]).padStart(6)}`),...(S.dir.size?[`${'Crew with no enrollments'.padEnd(24)} ${String(S.noEnroll.length).padStart(6)}`]:[]),'',
