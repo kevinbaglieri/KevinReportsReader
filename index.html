@@ -761,6 +761,16 @@ tbody tr.r2 td:first-child{box-shadow:inset 3px 0 0 rgba(149,112,67,.45)}
 .cstat.on *{color:inherit!important}
 .ib-ic{background:linear-gradient(135deg,#ECE7FA,#DCD4F4);color:#3E3088}
 @media (max-width:760px){input,select,textarea,.search input{font-size:16px}}
+.pri.p4{background:#9A4F66;color:#fff;box-shadow:none}
+tbody tr.r4 td{background:rgba(154,79,102,.07)}tbody tr.r4 td:first-child{box-shadow:inset 3px 0 0 #9A4F66}
+.psug{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:40;background:var(--glass-2);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid var(--glass-line);border-radius:16px;box-shadow:0 18px 40px -18px rgba(43,29,102,.35);padding:6px;max-height:360px;overflow:auto}
+.psug .ps-h{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:6px 10px 4px}
+.psug button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;text-align:left;padding:8px 10px;border-radius:11px;color:var(--ink)}
+.psug button:hover,.psug button.on{background:var(--lav-soft)}
+.psug .ps-av{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;color:#3E3088;background:linear-gradient(135deg,#F3F0FC,#E0D8F6);flex:none}
+.psug b{display:block;font-size:13px}.psug small{display:block;font-size:11.5px;color:var(--muted)}
+.psug .ps-n{margin-left:auto;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--glass-3);color:var(--muted);white-space:nowrap}
+.psug .ps-n.x{background:#9A4F66;color:#fff}
 /* buttons & chips */
 .btn.primary{background:linear-gradient(135deg,#3E3088 0%,#5D50A8 100%);color:#fff;border-color:rgba(255,255,255,.25);box-shadow:0 8px 20px -12px rgba(43,29,102,.55)}
 .btn.primary:hover{background:linear-gradient(135deg,#372A7C 0%,#54479D 100%)}
@@ -805,7 +815,7 @@ h1{font-weight:650;letter-spacing:-.025em}h2{font-weight:650}
       <div class="bar-top">
         <div class="ttl"><h1 id="vTitle">Overview</h1><p id="vSub"></p></div>
         <button class="fresh" id="fresh" data-tab="updates" hidden></button>
-        <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><label class="sr" for="fq">Search</label><input type="search" id="fq" placeholder="Search crew, email, employee ID, course or code"><kbd>/</kbd></div>
+        <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><label class="sr" for="fq">Search</label><input type="search" id="fq" placeholder="Search crew, email, employee ID, course or code" autocomplete="off" aria-controls="psug"><kbd>/</kbd><div class="psug" id="psug" role="listbox" hidden></div></div>
         <button type="button" class="btn ftoggle" id="ftoggle" aria-expanded="false" aria-controls="filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filters<span class="ftn" id="ftogN"></span></button>
         <button class="btn primary" id="btnSummary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Weekly summary</button>
         <span class="active-f minonly" id="fcountMin"></span>
@@ -848,7 +858,7 @@ let inFrame=true; try{inFrame=window.self!==window.top;}catch(e){inFrame=true;}
 const STATUS={'Completed':'done','Passed':'done','Not Attempted':'notstarted','Incomplete':'incomplete','Failed':'failed'};
 const STLABEL={done:'Completed / Passed',incomplete:'Incomplete',notstarted:'Not attempted',failed:'Failed',other:'Other'};
 const FLAGS={
-  overdue:{label:'Overdue',sev:3,desc:'Still open after the expiry date'},
+  overdue:{label:'Expired',sev:3,desc:'Expiry date passed (or enrollment expired in Pelesys) without completion'},
   failed:{label:'Failed, no pass',sev:3,desc:'Failed with no passed attempt or resit for the same exam'},
   notstarted:{label:'Not attempted',sev:2,desc:'Enrolled but never opened'},
   incomplete:{label:'Incomplete',sev:2,desc:'Started but not finished'},
@@ -861,7 +871,7 @@ const FLAGS={
   retake:{label:'Failed, later passed',sev:0,desc:'Failure resolved by a pass or resit'},
   resitskip:{label:'Resit not needed',sev:0,desc:'Untouched resit after a passed main exam'},
   nocatalog:{label:'Not in catalogue',sev:0,desc:'Course code missing from the Course Learning Report'},
-  accepted:{label:'Accepted exception',sev:0,desc:'Marked by you as an accepted exception, with a reason'}
+  superseded:{label:'Replaced',sev:0,desc:'Expired enrollment replaced by a newer enrollment or a completed attempt'}
 };
 const FLAG_ORDER=Object.keys(FLAGS);
 const ICON={
@@ -984,22 +994,23 @@ function build(){
   const recs=S.enr.map(r=>{const title=r['Course Title']||'',code=r['Course Code']||'';const sc=(r['Score']||'')===''?null:Number(r['Score']);
     return Object.assign({id:r['ID'],name:r['User Name']||r['Name']||'',login:(r['Login Name']||'').toLowerCase(),org:r['Locations & Organizations']||'',title,code,ckey:code+'||'+title,
       start:normDate(r['Start Date']),expiry:normDate(r['Expiry Date']),score:isNaN(sc)?null:sc,time:r['Total Time']||'',secs:secs(r['Total Time']),
-      status:r['Learning Status']||'',st:STATUS[r['Learning Status']]||'other',compl:normDate(r['Completion Date']),pct:Number(r['%']||0)||0,base:baseKey(title),flags:[]},classify(title,code));});
+      status:r['Learning Status']||'',st:STATUS[r['Learning Status']]||'other',compl:normDate(r['Completion Date']),pct:Number(r['%']||0)||0,enrExp:/expired/i.test(r['Active']||''),base:baseKey(title),flags:[]},classify(title,code));});
   for(const r of recs){const u=S.dir.get(r.login);r.role=u&&u.role||'';r.fleet=u&&u.fleet||'';r.emp=u&&u.emp||'';r.inactive=!!(u&&!u.active);}
   const grp=new Map(),dup=new Map();
-  for(const r of recs){const k=r.login+'|'+r.base;if(!grp.has(k))grp.set(k,[]);grp.get(k).push(r);const d=r.login+'|'+r.code;dup.set(d,(dup.get(d)||0)+1);}
+  for(const r of recs){const k=r.login+'|'+r.base;if(!grp.has(k))grp.set(k,[]);grp.get(k).push(r);if(!r.enrExp){const d=r.login+'|'+r.code;dup.set(d,(dup.get(d)||0)+1);}}
   for(const r of recs){
     const g=grp.get(r.login+'|'+r.base),open=r.st==='notstarted'||r.st==='incomplete';
-    const due=()=>{if(r.expiry&&r.expiry<today)r.flags.push('overdue');else if(r.expiry&&r.expiry<=soon)r.flags.push('duesoon');};
-    if(open){if(r.resit&&g.some(x=>x!==r&&!x.resit&&x.st==='done'))r.flags.push('resitskip');else{r.flags.push(r.st);due();}}
+    const due=()=>{if(r.enrExp||(r.expiry&&r.expiry<today))r.flags.push('overdue');else if(r.expiry&&r.expiry<=soon)r.flags.push('duesoon');};
+    const expd=r.enrExp||(r.expiry&&r.expiry<today);
+    if(expd&&(open||r.st==='failed')&&g.some(x=>x!==r&&(x.st==='done'||(!x.enrExp&&!(x.expiry&&x.expiry<today)&&(x.start||'')>=(r.start||''))))){r.flags.push('superseded');}
+    else if(open){if(r.resit&&g.some(x=>x!==r&&!x.resit&&x.st==='done'))r.flags.push('resitskip');else{r.flags.push(r.st);due();}}
     if(r.st==='failed'){if(g.some(x=>x!==r&&x.st==='done'))r.flags.push('retake');else{r.flags.push('failed');due();}}
     if(r.st==='done'){if(r.kind==='Exam'&&r.score!==null&&pass&&r.score<pass)r.flags.push('lowscore');if(!r.compl)r.flags.push('nodate');if(r.kind==='Exam'&&minSec&&r.secs>0&&r.secs<minSec)r.flags.push('fast');}
-    if(dup.get(r.login+'|'+r.code)>1)r.flags.push('dup');
-    if(catalog.size&&r.code&&!catalog.has(r.code))r.flags.push('nocatalog');
+    if(!r.enrExp&&dup.get(r.login+'|'+r.code)>1)r.flags.push('dup');
+    if(!r.enrExp&&catalog.size&&r.code&&!catalog.has(r.code))r.flags.push('nocatalog');
     if(r.inactive&&r.flags.some(f=>f==='notstarted'||f==='incomplete'||f==='failed'))r.flags.push('inactive');
-    const ac=(S.settings.acc||{})[r.id];if(ac){r.acc=ac;r.accFlags=r.flags.slice();r.flags=['accepted'];}
     r.open=r.flags.some(f=>f==='notstarted'||f==='incomplete'||f==='failed');
-    r.sev=r.flags.reduce((m,f)=>Math.max(m,FLAGS[f].sev),-1);
+    r.sev=r.flags.reduce((m,f)=>Math.max(m,FLAGS[f].sev),-1);if(r.flags.includes('overdue'))r.sev=4;
   }
   S.recs=recs;
   const logins=new Set(recs.map(r=>r.login));
@@ -1072,15 +1083,15 @@ function exportBar(id){return`<div style="display:flex;gap:6px;flex-wrap:wrap"><
 function tableRows(id){const t=S.tables[id];if(!t)return[];const cols=t.cols.filter(c=>c.key!=='mix'&&c.key!=='_pick');return[cols.map(c=>c.label),...t.rows.map(r=>cols.map(c=>{const v=c.exp?c.exp(r):c.val(r);return v==null?'':String(v);}))];}
 
 const sevCol=f=>({key:'_sev',label:'Priority',val:f,sortVal:f,exp:r=>PRI[Math.max(-1,f(r))][0]});
-const PRI={'3':['Critical','p3','<path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/>'],'2':['Action','p2','<path d="M12 7v6l3 2"/><circle cx="12" cy="12" r="9"/>'],'1':['Review','p1','<circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/>'],'0':['Info','p0','<path d="M12 11v5M12 8v.5"/><circle cx="12" cy="12" r="9"/>'],'-1':['OK','pok','<path d="M5 12l4 4 10-10"/>']};
-const priPill=v=>{const p=PRI[Math.max(-1,Math.min(3,v))];return`<span class="pri ${p[1]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${p[2]}</svg>${p[0]}</span>`;};
+const PRI={'4':['Expired','p4','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M4 4l3 3"/>'],'3':['Critical','p3','<path d="M12 8v5M12 16.5v.5"/><circle cx="12" cy="12" r="9"/>'],'2':['Action','p2','<path d="M12 7v6l3 2"/><circle cx="12" cy="12" r="9"/>'],'1':['Review','p1','<circle cx="11" cy="11" r="6"/><path d="M20 20l-4-4"/>'],'0':['Info','p0','<path d="M12 11v5M12 8v.5"/><circle cx="12" cy="12" r="9"/>'],'-1':['OK','pok','<path d="M5 12l4 4 10-10"/>']};
+const priPill=v=>{const p=PRI[Math.max(-1,Math.min(4,v))];return`<span class="pri ${p[1]}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${p[2]}</svg>${p[0]}</span>`;};
 const statusPill=r=>`<span class="pill p-${r.st}">${esc(r.status||'—')}</span>`;
 const flagPills=r=>r.flags.length?`<span class="flags">${r.flags.map(f=>`<span class="pill nodot f${FLAGS[f].sev}" title="${esc(FLAGS[f].desc)}">${esc(FLAGS[f].label)}</span>`).join('')}</span>`:'<span class="muted">—</span>';
 const miniBar=v=>`<span class="mini"><span class="mbar"><span style="width:${v}%"></span></span>${v}%</span>`;
 const DASH='<span class="muted">—</span>';
 const scoreHtml=r=>r.score==null?DASH:`<span class="score ${r.flags.includes('lowscore')||r.st==='failed'?'low':''}">${r.score}</span>`;
 function expiryHtml(r){if(!r.expiry)return DASH;if(!r.open)return fmtDate(r.expiry);const d=daysBetween(todayISO(),r.expiry);
-  return`${fmtDate(r.expiry)}<span class="sub" style="color:${d<0?'var(--bad)':d<=S.settings.dueDays?'var(--warn)':'var(--muted)'}">${d<0?Math.abs(d)+' days overdue':d===0?'expires today':d===1?'tomorrow':'in '+d+' days'}</span>`;}
+  return`${fmtDate(r.expiry)}<span class="sub" style="color:${d<0?'var(--bad)':d<=S.settings.dueDays?'var(--warn)':'var(--muted)'}">${d<0?'expired '+Math.abs(d)+' day'+(Math.abs(d)===1?'':'s')+' ago':d===0?'expires today':d===1?'tomorrow':'in '+d+' days'}</span>`;}
 function recCols(o={}){
   return[sevCol(r=>r.sev),
     ...(o.name!==false?[{key:'name',label:'Crew member',val:r=>r.name,cls:'cname',html:r=>`${esc(r.name)}<span class="sub">${esc(r.login)}</span>`},{key:'login',label:'Login',val:r=>r.login,exportOnly:true}]:[]),
@@ -1148,7 +1159,7 @@ function renderFresh(){
 function ring(p){const r=54,c=2*Math.PI*r;return`<svg class="ring" viewBox="0 0 132 132" role="img" aria-label="${p}% complete"><circle cx="66" cy="66" r="${r}" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="12"/><circle cx="66" cy="66" r="${r}" fill="none" stroke="#D6CCF6" stroke-width="12" stroke-linecap="round" stroke-dasharray="${(c*p/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 66 66)"/><text x="66" y="68" text-anchor="middle" font-family="Sora,sans-serif" font-size="28" font-weight="600" fill="#fff">${p}%</text><text x="66" y="88" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="11" fill="#D3C9F7">complete</text></svg>`;}
 function expiryChart(list){
   const today=todayISO(),open=list.filter(r=>r.open);
-  const B=[{l:'Overdue',test:d=>d<0},{l:'This week',test:d=>d>=0&&d<7},{l:'Next week',test:d=>d>=7&&d<14},{l:'2–4 weeks',test:d=>d>=14&&d<28},{l:'1–2 months',test:d=>d>=28&&d<60},{l:'Later',test:d=>d>=60},{l:'No expiry',test:null}];
+  const B=[{l:'Expired',test:d=>d<0},{l:'This week',test:d=>d>=0&&d<7},{l:'Next week',test:d=>d>=7&&d<14},{l:'2–4 weeks',test:d=>d>=14&&d<28},{l:'1–2 months',test:d=>d>=28&&d<60},{l:'Later',test:d=>d>=60},{l:'No expiry',test:null}];
   const data=B.map(b=>{const o={l:b.l,notstarted:0,incomplete:0,failed:0};open.forEach(r=>{const hit=b.test?(r.expiry&&b.test(daysBetween(today,r.expiry))):!r.expiry;if(hit){const k=r.flags.includes('failed')?'failed':r.st;o[k]=(o[k]||0)+1;}});o.t=o.notstarted+o.incomplete+o.failed;return o;});
   const W=640,H=230,L=40,R=8,T=20,Bt=34,max=niceMax(Math.max(1,...data.map(d=>d.t))),bw=(W-L-R)/data.length,y=v=>T+(H-T-Bt)*(1-v/max);
   let g='';for(let i=0;i<=4;i++){const v=max*i/4,yy=y(v);g+=`<line class="grid" x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}"/><text x="${L-8}" y="${yy+4}" text-anchor="end">${N(Math.round(v))}</text>`;}
@@ -1165,7 +1176,7 @@ function vOverview(list,fc){
   const crewN=new Set(list.map(r=>r.login)).size,crewAction=new Set(list.filter(r=>r.sev>=2).map(r=>r.login)).size;
   const hero=`<div class="card ready s5 ${action?'':'clean'}"><div class="eyebrow">Audit readiness</div><div class="ready-body">${ring(done)}<div>
     <h2>${action?`${N(action)} records need action before sign-off`:'Ready for sign-off'}</h2>
-    <p>${action?`${N(crewAction)} of ${N(crewN)} crew have at least one open, failed or overdue item.`:`All ${N(n)} records in scope are completed, passed or resolved.`}</p>
+    <p>${action?`${N(crewAction)} of ${N(crewN)} crew have at least one expired, open or failed item.`:`All ${N(n)} records in scope are completed, passed or resolved.`}</p>
     <div class="facts"><div><b>${N(n)}</b>enrollments</div><div><b>${N(crewN)}</b>crew</div><div><b>${N(new Set(list.map(r=>r.code)).size)}</b>courses</div></div>
     <div class="row">${action?'<button class="btn light sm" data-tab="issues">Review issues</button>':''}<button class="btn sm" data-act="weekly">Weekly summary</button></div></div></div></div>`;
   const AI={crit:'<path d="M12 8v5M12 16.5v.5"/><path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',fail:'<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',open:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8"/>',ok:'<path d="M5 12l4 4 10-10"/>'};
@@ -1174,7 +1185,7 @@ function vOverview(list,fc){
   const rv=[['lowscore','warn'],['fast',''],['nodate',''],['dup',''],['nocatalog','']].filter(([f])=>fc[f]);
   const attn=`<section class="attn s12"><div class="attn-h"><h2>Needs attention</h2>${critN?`<span class="live"><i></i>${N(critN)} critical</span>`:action?`<span class="live" style="color:var(--warn);background:var(--warn-soft)"><i style="background:var(--warn)"></i>${N(action)} to action</span>`:'<span class="live ok"><i></i>Nothing critical</span>'}</div>
     <div class="alerts">
-      ${al('crit','crit',fc.overdue,'Overdue','Open and past the expiry date. Chase today.','overdue','No open item is past its expiry date.')}
+      ${al('crit','crit',fc.overdue,'Expired','Not completed before the expiry date. Top priority: chase today.','overdue','No course has expired without completion.')}
       ${al('crit','fail',fc.failed,'Failed, no pass',`Failed with no pass or resit on record.${fc.retake?' '+fc.retake+' others were recovered by a resit.':''}`,'failed','Every failed attempt has a later pass.')}
       ${al('warn','clock',fc.duesoon,`Due in ${S.settings.dueDays} days`,'Still open and about to expire.','duesoon','Nothing open expires in the due window.')}
       ${al('act','open',fc.notstarted+fc.incomplete,'Not finished',`${N(fc.notstarted)} not attempted · ${N(fc.incomplete)} incomplete`,'notstarted,incomplete','Every enrollment has been completed.')}
@@ -1191,7 +1202,7 @@ function vOverview(list,fc){
     ${S.people.length?`<div class="eyebrow" style="margin-top:4px">By job role</div><div class="prog">${rowsP([...new Set(list.map(r=>r.role||'No job role'))].map(p=>{const l=list.filter(r=>(r.role||'No job role')===p);return Object.assign({p,n:l.length},statusCounts(l));}).sort((a,b)=>b.n-a.n))}</div>`:''}
     <div class="legend">${['done','incomplete','notstarted','failed'].map(s=>`<span><i class="c-${s}"></i>${STLABEL[s]}</span>`).join('')}</div></div>`;
   const courses=byCourse(list).filter(c=>c.issues).sort((a,b)=>b.overdue-a.overdue||b.issues-a.issues).slice(0,9);
-  const hot=`<div class="card s7"><div class="card-h"><div><h2>Courses needing attention</h2><p>Most open, failed or overdue records first</p></div><button class="btn sm" data-tab="courses">All courses</button></div>
+  const hot=`<div class="card s7"><div class="card-h"><div><h2>Courses needing attention</h2><p>Expired, open or failed records first</p></div><button class="btn sm" data-tab="courses">All courses</button></div>
     ${courses.length?`<div class="hot">${courses.map(c=>`<button data-course="${esc(c.key)}">${priPill(c.overdue?3:2)}<span class="t"><b>${esc(c.title)}</b><small><span class="mono">${esc(c.code)}</span> · ${N(c.issues)} to action${c.overdue?` · <span style="color:var(--bad);font-weight:600">${c.overdue} overdue</span>`:''}${c.next?` · next expiry ${fmtShort(c.next)}`:''}</small></span>${stackHtml(c,true)}<span class="pc">${c.rate}%</span></button>`).join('')}</div>`:`<div class="empty"><b>No open issues</b>Every course in scope is complete.</div>`}</div>`;
   const checks=`<div class="card s12"><div class="card-h"><div><h2>All audit checks</h2><p>Highlighted checks have records to action · select one to see them</p></div></div><div class="checks">
     ${FLAG_ORDER.map(f=>`<button data-goflag="${f}" class="${fc[f]&&FLAGS[f].sev>=2?'hit'+FLAGS[f].sev:''}">${priPill(fc[f]?FLAGS[f].sev:-1)}<span><b>${esc(FLAGS[f].label)}</b><small>${esc(FLAGS[f].desc)}</small></span><span class="n ${fc[f]?'':'z'}">${N(fc[f])}</span></button>`).join('')}
@@ -1321,18 +1332,28 @@ function vCourses(list){
     </div>
     ${table}</div>`;
 }
+function personMatch(u){
+  const f=S.f;if(f.role.length&&!f.role.includes(u.role||'__none'))return false;
+  if(f.fleet){if(f.fleet==='__none'){if(u.fleet)return false;}else if(u.fleet!==f.fleet)return false;}
+  const terms=f.q.toLowerCase().split(/\s+/).filter(Boolean);
+  if(terms.length){const hay=(u.name+' '+u.login+' '+(u.email||'')+' '+(u.emp||'')).toLowerCase();if(!terms.every(t=>hay.includes(t)))return false;}
+  return true;
+}
+const courseFilterOn=()=>{const f=S.f;return!!(f.area||f.subj||f.kind||f.prog||f.status||f.from||f.to||f.batch);};
 function vCrew(list){
   const rows=byCrew(list);
+  if(!courseFilterOn()){const have=new Set(rows.map(c=>c.login));
+    for(const u of S.dir.values()){if(have.has(u.login)||!personMatch(u))continue;rows.push({name:u.name,login:u.login,role:u.role,fleet:u.fleet,emp:u.emp,n:0,done:0,open:0,failed:0,issues:0,overdue:0,sev:-1,next:'',rate:null,nocourse:true});}}
   const cols=[sevCol(c=>c.sev),
     {key:'name',label:'Crew member',cls:'nw',val:c=>c.name,html:c=>`${esc(c.name)}<span class="sub">${esc(c.login)}${c.emp&&/^\d+$/.test(c.emp)?' · '+esc(c.emp):''}</span>`},{key:'login',label:'Login',val:c=>c.login,exportOnly:true},
     ...(S.people.length?[{key:'role',label:'Job role',val:c=>c.role,html:c=>c.role?esc(c.role):DASH},{key:'fleet',label:'Fleet',val:c=>c.fleet,html:c=>c.fleet?esc(c.fleet):DASH},{key:'emp',label:'Employee ID',val:c=>c.emp,exportOnly:true}]:[]),
     {key:'n',label:'Courses',num:true,val:c=>c.n},{key:'done',label:'Done',num:true,val:c=>c.done},
     {key:'open',label:'Open',num:true,val:c=>c.open,html:c=>c.open?`<b style="color:var(--warn)">${c.open}</b>`:'0'},
     {key:'failed',label:'Failed, no pass',num:true,val:c=>c.failed,html:c=>c.failed?`<b style="color:var(--bad)">${c.failed}</b>`:'0'},
-    {key:'overdue',label:'Overdue',num:true,val:c=>c.overdue,html:c=>c.overdue?`<b style="color:var(--bad)">${c.overdue}</b>`:'0'},
+    {key:'overdue',label:'Expired',num:true,val:c=>c.overdue,html:c=>c.overdue?`<b style="color:var(--bad)">${c.overdue}</b>`:'0'},
     {key:'next',label:'Next expiry',val:c=>c.next,cls:'nw',html:c=>c.next?fmtDate(c.next):DASH},
-    {key:'rate',label:'Completion',num:true,val:c=>c.rate,html:c=>miniBar(c.rate)}];
-  return`<div class="card"><div class="card-h"><div><h2>${N(rows.length)} crew members</h2><p>Most urgent first · select a row for the full record</p></div>${exportBar('crew')}</div>
+    {key:'rate',label:'Completion',num:true,val:c=>c.rate==null?-1:c.rate,html:c=>c.nocourse?'<span class="muted">No courses</span>':miniBar(c.rate)}];
+  return`<div class="card"><div class="card-h"><div><h2>${N(rows.length)} user${rows.length===1?'':'s'}</h2><p>Every user in Pelesys, expired first · ${N(rows.filter(c=>c.nocourse).length)} with no courses · select a row for the full profile</p></div>${exportBar('crew')}</div>
     ${renderTable('crew',cols,rows,{defaultSort:{key:'_sev',dir:'desc'},exportName:'audit-crew',onRow:c=>openDrawer('crew',c.login)})}</div>`;
 }
 
@@ -1406,7 +1427,7 @@ function vUpdates(){
   const pts=hist.slice().reverse().map(h=>({h,label:fmtShort((h.iso||h.at).slice(0,10))}));
   const hcols=[{key:'at',label:'Uploaded',cls:'nw',val:h=>h.at,html:h=>esc(fmtStamp(h.at))},{key:'iso',label:'Data as of',cls:'nw',val:h=>h.iso,html:h=>h.iso?esc(fmtStamp(h.iso)):DASH},
     {key:'n',label:'Enrollments',num:true,val:h=>h.n,html:h=>N(h.n)},{key:'crew',label:'Crew',num:true,val:h=>h.crew,html:h=>N(h.crew)},{key:'rate',label:'Complete',num:true,val:h=>h.rate,html:h=>miniBar(h.rate)},
-    {key:'open',label:'Not finished',num:true,val:h=>h.open,html:h=>N(h.open)},{key:'fnp',label:'Failed, no pass',num:true,val:h=>h.fnp,html:h=>h.fnp?`<b style="color:var(--bad)">${h.fnp}</b>`:'0'},{key:'overdue',label:'Overdue',num:true,val:h=>h.overdue,html:h=>h.overdue?`<b style="color:var(--bad)">${h.overdue}</b>`:'0'},
+    {key:'open',label:'Not finished',num:true,val:h=>h.open,html:h=>N(h.open)},{key:'fnp',label:'Failed, no pass',num:true,val:h=>h.fnp,html:h=>h.fnp?`<b style="color:var(--bad)">${h.fnp}</b>`:'0'},{key:'overdue',label:'Expired',num:true,val:h=>h.overdue,html:h=>h.overdue?`<b style="color:var(--bad)">${h.overdue}</b>`:'0'},
     {key:'chg',label:'Changes vs previous',cls:'wt',val:h=>h.chg?Object.entries(h.chg).map(([k,v])=>`${CHK[k][0]} ${v}`).join('; '):'',html:h=>h.chg&&Object.keys(h.chg).length?`<span class="flags">${Object.entries(h.chg).map(([k,v])=>`<span class="pill nodot chg-${CHK[k][2]}">${CHK[k][0]} ${v}</span>`).join('')}</span>`:'<span class="muted">First upload</span>'}];
   const histCard=`<div class="card s12"><div class="card-h"><div><h2>Upload history</h2><p>${hist.length} upload${hist.length===1?'':'s'} kept in this browser${S.demo?' · example values':''}. Test courses are left out of these totals.</p></div>${hist.length?exportBar('history'):''}</div>
     ${pts.length>=2?`<div class="trend">${lineChart(pts.map(p=>({label:p.label,y:p.h.rate})),'Completion',v=>Math.round(v)+'%','var(--ok)',100)}${lineChart(pts.map(p=>({label:p.label,y:p.h.open})),'Not finished',v=>N(Math.round(v)),'var(--warn)')}</div>`:''}
@@ -1446,14 +1467,14 @@ const MAILT={
     subj:c=>c?`FINAL REMINDER: ${c} is about to expire`:'FINAL REMINDER: Your mandatory training is about to expire',
     body:cs=>[HOPE,`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'the following mandatory training courses are'} due to expire shortly and ${cs.length===1?'is':'are'} still open on your record:`,courseBlock(cs),REMIND(),
       'We kindly ask you to log in to Pelesys and complete the training before it expires, '+VIA,LINK,ERR,THANKS]},
-  overdue:{label:'Overdue',flag:'overdue',sev:3,
-    subj:c=>c?`FINAL NOTICE: Overdue mandatory training – ${c}`:'FINAL NOTICE: Overdue mandatory training',
-    body:cs=>[HOPE,`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'the following mandatory training courses are'} now overdue:`,courseBlock(cs),
-      'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards, and overdue mandatory training may affect your qualification for duty. '+RESP,
+  overdue:{label:'Expired',flag:'overdue',sev:3,
+    subj:c=>c?`FINAL NOTICE: Expired mandatory training – ${c}`:'FINAL NOTICE: Expired mandatory training',
+    body:cs=>[HOPE,`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'the following mandatory training courses are'} now expired:`,courseBlock(cs),
+      'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards, and expired mandatory training may affect your qualification for duty. '+RESP,
       'We kindly ask you to log in to Pelesys and complete the training at your earliest opportunity, '+VIA,LINK,
       'Should you need any support, please do not hesitate to contact the Training team.',ERR,THANKS]}
 };
-const MAIL_ORDER=['notstarted','incomplete','failed','duesoon','overdue'];
+const MAIL_ORDER=['overdue','notstarted','incomplete','failed','duesoon'];
 function mailEmail(login){const u=S.dir.get(login);return((u&&u.email)||login||'').trim();}
 function mailGroups(list){
   const g={};MAIL_ORDER.forEach(k=>g[k]=new Map());
@@ -1587,7 +1608,7 @@ function vMatrix(list){
     ${rows.length>lim?`<div class="more"><button class="btn sm" data-more="matrix">Show more · ${N(rows.length-lim)} remaining</button></div>`:''}`
     :`<div class="empty"><b>Choose courses</b>Tick courses in the column list to build the matrix.</div>`;
   return`<div class="mx">${picker}<div class="card"><div class="card-h"><div><h2>${N(rows.length)} crew × ${sel.length} courses</h2><p>To audit one batch, search it in the top bar (for example <b>initial august</b>) or set a start date range</p></div>${exportBar('matrix')}</div>
-    <div class="legend"><span><span class="cell done">96</span> Passed</span><span><span class="cell done">✓</span> Completed</span><span><span class="cell incomplete">40%</span> Incomplete</span><span><span class="cell notstarted">NA</span> Not attempted</span><span><span class="cell failed">F 60</span> Failed</span><span><span class="cell skip">n/a</span> Resit not needed</span><span><span class="cell none">·</span> Not enrolled</span><span><span class="cell notstarted calert">NA</span> Overdue or below pass mark</span></div>${grid}</div></div>`;
+    <div class="legend"><span><span class="cell done">96</span> Passed</span><span><span class="cell done">✓</span> Completed</span><span><span class="cell incomplete">40%</span> Incomplete</span><span><span class="cell notstarted">NA</span> Not attempted</span><span><span class="cell failed">F 60</span> Failed</span><span><span class="cell skip">n/a</span> Resit not needed</span><span><span class="cell none">·</span> Not enrolled</span><span><span class="cell notstarted calert">NA</span> Expired or below pass mark</span></div>${grid}</div></div>`;
 }
 
 /* ---------- settings ---------- */
@@ -1597,15 +1618,14 @@ function vSettings(){
     <label for="sPass">Pass mark (%)<input type="number" min="0" max="100" id="sPass" value="${st.passMark}"><small>Exams marked Passed below this score are flagged.</small></label>
     <label for="sDue">Due window (days)<input type="number" min="0" max="90" id="sDue" value="${st.dueDays}"><small>Open items expiring within this many days are flagged as due soon.</small></label>
     <label for="sMin">Minimum exam time (minutes)<input type="number" min="0" max="120" id="sMin" value="${st.minExamMin}"><small>Exams passed faster than this are flagged for review. 0 turns the check off.</small></label></div></div>
-  <div class="card s6"><h2>Data on this computer</h2><label class="toggle" for="sRemember"><input type="checkbox" id="sRemember" ${st.remember?'checked':''}> Remember loaded reports in this browser</label>
-    <p class="note">Reports are read and checked inside the browser; nothing is sent anywhere. With this on, the last files you loaded stay in this browser so the audit is ready next time. Turn it off on shared computers.</p>
-    <div><button class="btn" data-act="clear">Remove loaded files</button></div></div>
+  <div class="card s6"><h2>Data on this computer</h2><p class="note">Reports are read and checked offline, inside this browser; nothing is sent anywhere. After you load them, they stay saved on this computer only, so the audit opens ready next time. New reports replace the old ones. On a shared computer, remove them when you finish.</p>
+    <div><button class="btn" data-act="clear">Remove saved reports from this computer</button></div></div>
   <div class="card s6"><h2>Email to crew</h2><p class="note">Used by Email crew. Every crew address goes in BCC.</p>
     <label class="mf" for="sCC">Default CC<input id="sCC" class="sel" value="${esc(st.mailCC||'')}" placeholder="name@riyadhair.com; team@riyadhair.com"></label>
     <label class="mf" for="sMode">Open emails in<select id="sMode" class="sel"><option value="app" ${st.mailMode!=='web'?'selected':''}>Outlook app on this computer</option><option value="web" ${st.mailMode==='web'?'selected':''}>Outlook on the web (outlook.office.com)</option></select></label>
     <p class="note">The Outlook app needs to be your default email app. Outlook on the web can take more addresses in one email.</p></div>
   <div class="card s6"><h2>Upload history</h2><p class="note">${S.history.length} upload${S.history.length===1?'':'s'} kept in this browser. Every new Enrollment Report adds a line with its totals and is compared with the previous one.</p><div><button class="btn" data-act="clearhist">Clear upload history</button></div></div>
-  <div class="card s6 backup"><h2>Back up your choices</h2><p class="note">Your rules, ${Object.keys(st.ov||{}).length} edited course${Object.keys(st.ov||{}).length===1?'':'s'} and ${Object.keys(st.acc||{}).length} accepted exception${Object.keys(st.acc||{}).length===1?'':'s'} live in this browser only. Copy a backup to move them to another computer or browser, then paste it there and restore.</p>
+  <div class="card s6 backup"><h2>Back up your choices</h2><p class="note">Your rules and ${Object.keys(st.ov||{}).length} edited course${Object.keys(st.ov||{}).length===1?'':'s'} live in this browser only. Copy a backup to move them to another computer or browser, then paste it there and restore.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-act="backup">Copy backup</button></div><label class="sr" for="restoreText">Backup to restore</label><textarea id="restoreText" class="summary" style="min-height:80px" placeholder="Paste a backup here"></textarea><div><button class="btn" data-act="restore">Restore backup</button></div></div>
   <div class="card s6"><h2>How records are read</h2><p class="note"><b>Status</b> comes from Learning Status: Completed and Passed are done; Not Attempted, Incomplete and Failed stay open. <b>Resits</b> are matched to their main exam by course title without words like Resit, Set 2 or the version number, so a failed exam with a passed resit counts as resolved, and an untouched resit after a pass is not an issue. <b>Area and type</b> are read from the course title and code. Change them in Courses; your choice applies everywhere and is kept in this browser. <b>Expiry</b> is the enrollment expiry date in Pelesys. Courses named Test, Trial or "Do not use" are hidden unless you untick that filter. <b>Uploading</b> a report replaces the previous report of the same kind, so records deleted in Pelesys disappear here too and are listed under Updates. <b>Cohorts</b> group crew by the week of their first Initial-programme enrolment.</p></div></div>`;
 }
@@ -1616,10 +1636,7 @@ function closeDrawer(){S.drawer=null;$('#drawer').classList.remove('open');$('#s
 function dhead(eyebrow,title,meta,stats,extra){return`<div class="dh"><div class="dh-top"><div><div class="eyebrow">${eyebrow}</div><h2>${esc(title)}</h2><div class="meta">${meta}</div></div><button class="btn sm" data-act="close">Close</button></div>${stats?`<div class="dstats">${stats}</div>`:''}${extra||''}</div>`;}
 const dstat=(cls,v,l)=>`<div class="dstat ${cls}"><b>${v}</b>${l}</div>`;
 function accUI(r){
-  if(r.acc)return`<div class="accd"><span class="pill nodot f1">Accepted ${esc(fmtDate(r.acc.at))}</span><span>${esc(r.acc.note)}</span>${r.accFlags&&r.accFlags.length?`<span class="muted">Was: ${esc(r.accFlags.map(f=>FLAGS[f].label).join(', '))}</span>`:''}<button class="btn sm ghost" data-unaccept="${esc(r.id)}">Undo</button></div>`;
-  if(r.sev<1)return'';
-  if(S.accEdit===r.id)return`<div class="accf"><label class="sr" for="accNote">Reason</label><input id="accNote" class="sel" maxlength="200" placeholder="Reason, for example: on sick leave until 15 Nov"><button class="btn sm primary" data-accsave="${esc(r.id)}">Save exception</button><button class="btn sm ghost" data-acccancel="1">Cancel</button></div>`;
-  return`<button class="btn sm ghost accbtn" data-accept="${esc(r.id)}">Accept as exception…</button>`;
+  return'';
 }
 function recCard(r){
   return`<div class="rec r${Math.max(-1,r.sev)}">${priPill(r.sev)}<div><b>${esc(r.title)}</b><div class="meta"><span class="mono">${esc(r.code)}</span><span>${r.kind}</span><span>Start <b>${fmtDate(r.start)}</b></span>${r.expiry?`<span>Expiry <b>${fmtDate(r.expiry)}</b></span>`:''}${r.compl?`<span>Done <b>${fmtDate(r.compl)}</b></span>`:''}${r.time?`<span>Time <b>${esc(r.time)}</b></span>`:''}</div>${r.flags.length?`<div class="flags" style="margin-top:8px">${r.flags.map(f=>`<span class="pill nodot f${FLAGS[f].sev}" title="${esc(FLAGS[f].desc)}">${esc(FLAGS[f].label)}</span>`).join('')}</div>`:''}${accUI(r)}</div>
@@ -1628,17 +1645,19 @@ function recCard(r){
 function renderDrawer(){
   const d=S.drawer;if(!d)return;let html='';
   if(d.type==='crew'){
-    const recs=S.recs.filter(r=>r.login===d.key);if(!recs.length)return;const sc=statusCounts(recs),fc=countFlags(recs);
+    const recs=S.recs.filter(r=>r.login===d.key);const u0=S.dir.get(d.key);if(!recs.length&&!u0)return;
+    if(!recs.length){html=dhead('User profile',u0.name||d.key,`<span class="mono">${esc(u0.email||d.key)}</span>${u0.role?' · '+esc(u0.role):' · No job role'}${u0.fleet?' · '+esc(u0.fleet):''}${u0.emp?' · Employee ID '+esc(u0.emp):''}${!u0.active?' · <span class="tag bad">Inactive</span>':''}`,dstat('',0,'courses'),'')+`<div class="db"><div class="empty" style="padding:24px"><b>No courses assigned</b>This user is in Pelesys but has no enrollment in the loaded Enrollment Report.</div></div>`;$('#drawer').innerHTML=html;return;}
+    const sc=statusCounts(recs),fc=countFlags(recs);
     const act=recs.filter(r=>r.sev>=2).sort((a,b)=>b.sev-a.sev||(a.expiry||'9').localeCompare(b.expiry||'9')),accd=recs.filter(r=>r.acc),rest=recs.filter(r=>r.sev<2&&!r.acc).sort((a,b)=>(b.compl||b.start).localeCompare(a.compl||a.start));
     S.tables.d={name:'crew-'+d.key.split('@')[0],cols:recCols({name:false}),rows:recs};
     const u=S.dir.get(d.key);
-    const cmeta=`<span class="mono">${esc(u&&u.email||d.key)}</span>${u&&u.role?' · '+esc(u.role):''}${u&&u.fleet?' · '+esc(u.fleet):''}${u&&u.emp?' · Employee ID '+esc(u.emp):''}${u&&!u.active?' · <span class="tag bad">Inactive</span>':''}`;
-    html=dhead('Crew record',recs[0].name,cmeta,dstat('',recs.length,'courses')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(fc.notstarted+fc.incomplete?'warn':'',fc.notstarted+fc.incomplete,'open')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'overdue'),`<div style="display:flex;gap:6px;flex-wrap:wrap">${act.some(r=>!r.acc)?`<button class="btn sm primary" data-act="remind" data-login="${esc(d.key)}">Copy reminder email</button>`:''}${exportBar('d')}</div>`)
-      +`<div class="db">${act.length?`<div class="grp bad">Needs action · ${act.length}</div>${act.map(recCard).join('')}`:`<div class="empty" style="padding:20px"><b>Nothing to action</b>Every course is completed, passed or resolved.</div>`}${accd.length?`<div class="grp">Accepted exceptions · ${accd.length}</div>${accd.map(recCard).join('')}`:''}${rest.length?`<div class="grp">Done or informational · ${rest.length}</div>${rest.map(recCard).join('')}`:''}</div>`;
+    const cmeta=`<span class="mono">${esc(u&&u.email||d.key)}</span>${u&&u.role?' · '+esc(u.role):' · No job role'}${u&&u.fleet?' · '+esc(u.fleet):''}${u&&u.emp?' · Employee ID '+esc(u.emp):''}${u&&!u.active?' · <span class="tag bad">Inactive</span>':''}`;
+    html=dhead('User profile',(u0&&u0.name)||recs[0].name,cmeta,dstat('',recs.length,'courses')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(fc.notstarted+fc.incomplete?'warn':'',fc.notstarted+fc.incomplete,'open')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'expired'),`<div style="display:flex;gap:6px;flex-wrap:wrap">${act.some(r=>!r.acc)?`<button class="btn sm primary" data-act="remind" data-login="${esc(d.key)}">Copy reminder email</button>`:''}${exportBar('d')}</div>`)
+      +`<div class="db">${act.length?`<div class="grp bad">Needs action · ${act.length}</div>${act.map(recCard).join('')}`:`<div class="empty" style="padding:20px"><b>Nothing to action</b>Every course is completed, passed or resolved.</div>`}${rest.length?`<div class="grp">Done or informational · ${rest.length}</div>${rest.map(recCard).join('')}`:''}</div>`;
   }else if(d.type==='course'){
     const recs=S.recs.filter(r=>r.ckey===d.key);if(!recs.length)return;const sc=statusCounts(recs),fc=countFlags(recs),r0=recs[0];
     const table=renderTable('d',recCols({course:false}),recs,{defaultSort:{key:'flags',dir:'desc'},exportName:'course-'+r0.code.replace(/[^\w-]+/g,'_'),onRow:r=>openDrawer('crew',r.login)});
-    html=dhead('Course',r0.title,`<span class="mono">${esc(r0.code)}</span> · ${r0.kind}`,dstat('',recs.length,'enrolled')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(sc.notstarted?'warn':'',sc.notstarted,'not attempted')+dstat(sc.incomplete?'warn':'',sc.incomplete,'incomplete')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'overdue'),`<div>${exportBar('d')}</div>`)
+    html=dhead('Course',r0.title,`<span class="mono">${esc(r0.code)}</span> · ${r0.kind}`,dstat('',recs.length,'enrolled')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(sc.notstarted?'warn':'',sc.notstarted,'not attempted')+dstat(sc.incomplete?'warn':'',sc.incomplete,'incomplete')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'expired'),`<div>${exportBar('d')}</div>`)
       +`<div class="db">${table}</div>`;
   }else if(d.type==='cat'){
     const c=catalogue().find(x=>x.code===d.key);if(!c)return;const recs=S.recs.filter(r=>r.code===d.key),sc=statusCounts(recs),fc=countFlags(recs);
@@ -1646,7 +1665,7 @@ function renderDrawer(){
     const tags=`<div class="dstats"><span class="pill nodot p-other">${esc(c.area)}</span><span class="pill nodot p-other">${esc(c.kind)}</span>${!c.inCat?'<span class="pill nodot f3">Not in catalogue</span>':''}${c.edited?'<span class="pill nodot f1">Edited</span>':''}</div>`;
     if(!recs.length){html=dhead('Course',c.title,meta,'',tags)+`<div class="db"><div class="empty"><b>No enrolments</b>Nobody is enrolled in this course in the loaded Enrollment Report.</div></div>`;}
     else{const table=renderTable('d',recCols({course:false}),recs,{defaultSort:{key:'flags',dir:'desc'},exportName:'course-'+c.code.replace(/[^\w-]+/g,'_'),onRow:r=>openDrawer('crew',r.login)});
-      html=dhead('Course',c.title,meta,dstat('',recs.length,'enrolled')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(sc.notstarted?'warn':'',sc.notstarted,'not attempted')+dstat(sc.incomplete?'warn':'',sc.incomplete,'incomplete')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'overdue'),tags+`<div>${exportBar('d')}</div>`)+`<div class="db">${table}</div>`;}
+      html=dhead('Course',c.title,meta,dstat('',recs.length,'enrolled')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(sc.notstarted?'warn':'',sc.notstarted,'not attempted')+dstat(sc.incomplete?'warn':'',sc.incomplete,'incomplete')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'expired'),tags+`<div>${exportBar('d')}</div>`)+`<div class="db">${table}</div>`;}
   }else if(d.type==='noenroll'){
     const rows=S.noEnroll.map(u=>({name:u.name,login:u.login,role:u.role||'',fleet:u.fleet||'',emp:u.emp||'',active:u.active?'Active':'Inactive'}));
     const table=renderTable('d',[{key:'name',label:'Name',val:u=>u.name},{key:'login',label:'Login',val:u=>u.login,html:u=>`<span class="mono">${esc(u.login)}</span>`},...(S.people.length?[{key:'role',label:'Job role',val:u=>u.role,html:u=>u.role?esc(u.role):DASH},{key:'fleet',label:'Fleet',val:u=>u.fleet,html:u=>u.fleet?esc(u.fleet):DASH},{key:'emp',label:'Employee ID',val:u=>u.emp}]:[]),{key:'active',label:'Status',val:u=>u.active}],rows,{defaultSort:{key:'name'},exportName:'users-no-enrollment'});
@@ -1686,10 +1705,34 @@ function summaryText(){
     'AUDIT CHECKS','-'.repeat(60),...FLAG_ORDER.map(k=>`${FLAGS[k].label.padEnd(24)} ${String(fc[k]).padStart(6)}`),...(S.dir.size?[`${'Crew with no enrollments'.padEnd(24)} ${String(S.noEnroll.length).padStart(6)}`]:[]),'',
     ...(CH()?['CHANGES SINCE PREVIOUS UPLOAD','-'.repeat(60),...(()=>{const c={};changeRows().forEach(o=>c[o.kind]=(c[o.kind]||0)+1);return Object.keys(CHK).filter(k=>c[k]).map(k=>`${CHK[k][0].padEnd(24)} ${String(c[k]).padStart(6)}`);})(),'']:[]),
     'COURSES WITH ITEMS TO ACTION','-'.repeat(60),...(byCourse(list).filter(c=>c.issues).sort((a,b)=>b.issues-a.issues).slice(0,20).map(c=>`${c.title} [${c.code}]\n    ${c.issues} to action · ${c.rate}% complete${c.overdue?' · '+c.overdue+' overdue':''}`)),'',
-    action?`RESULT  ${action} records need action before sign-off.`:'RESULT  No open, failed or overdue records in scope.','',
+    action?`RESULT  ${action} records need action before sign-off.`:'RESULT  No expired, open or failed records in scope.','',
     'Audited by ______________________   Date ____________   Signature ____________'].join('\n');
 }
 
+
+/* ---------- user search suggestions ---------- */
+function renderPsug(){
+  const box=$('#psug'),inp=$('#fq');if(!box||!inp)return;const q=inp.value.trim().toLowerCase();
+  if(q.length<2||!S.dir||!S.dir.size||document.activeElement!==inp){box.hidden=true;return;}
+  const terms=q.split(/\s+/).filter(Boolean),cnt=new Map();
+  for(const r of S.recs){if(!cnt.has(r.login))cnt.set(r.login,{n:0,x:0});const c=cnt.get(r.login);c.n++;if(r.flags.includes('overdue'))c.x++;}
+  const hits=[...S.dir.values()].filter(u=>{const h=(u.name+' '+u.login+' '+(u.email||'')+' '+(u.emp||'')).toLowerCase();return terms.every(t=>h.includes(t));})
+    .sort((a,b)=>a.name.localeCompare(b.name)).slice(0,8);
+  if(!hits.length){box.hidden=true;return;}
+  S._psug=hits.map(u=>u.login);S._psugI=-1;
+  box.innerHTML='<div class="ps-h">Users · open profile</div>'+hits.map((u,i)=>{const c=cnt.get(u.login)||{n:0,x:0},ini=(u.name.split(/[ ,]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('')||'?').toUpperCase();
+    return`<button type="button" role="option" data-psug="${esc(u.login)}"><span class="ps-av">${esc(ini)}</span><span><b>${esc(u.name||u.login)}</b><small>${esc(u.role||'No job role')}${u.fleet?' · '+esc(u.fleet):''} · ${esc(u.email||u.login)}</small></span><span class="ps-n ${c.x?'x':''}">${c.x?c.x+' expired':c.n+' course'+(c.n===1?'':'s')}</span></button>`;}).join('');
+  box.hidden=false;
+}
+document.addEventListener('input',e=>{if(e.target.id==='fq')renderPsug();});
+document.addEventListener('focusin',e=>{if(e.target.id==='fq')renderPsug();});
+document.addEventListener('focusout',e=>{if(e.target.id==='fq')setTimeout(()=>{const b=$('#psug');if(b&&!b.contains(document.activeElement))b.hidden=true;},180);});
+document.addEventListener('mousedown',e=>{const b=e.target.closest('[data-psug]');if(b)e.preventDefault();});
+document.addEventListener('click',e=>{const b=e.target.closest('[data-psug]');if(!b)return;$('#psug').hidden=true;openDrawer('crew',b.dataset.psug);});
+document.addEventListener('keydown',e=>{if(e.target.id!=='fq')return;const box=$('#psug');if(!box||box.hidden)return;const bs=[...box.querySelectorAll('[data-psug]')];
+  if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();S._psugI=Math.max(0,Math.min(bs.length-1,(S._psugI??-1)+(e.key==='ArrowDown'?1:-1)));bs.forEach((b,i)=>b.classList.toggle('on',i===S._psugI));}
+  else if(e.key==='Enter'&&S._psugI>=0&&bs[S._psugI]){e.preventDefault();box.hidden=true;openDrawer('crew',bs[S._psugI].dataset.psug);}
+  else if(e.key==='Escape'){box.hidden=true;}});
 /* ---------- weekly summary ---------- */
 function addDays(iso,n){const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function wkGroup(list,keyFn){
@@ -1709,7 +1752,7 @@ function weeklyData(){
   const due=list.filter(r=>r.st!=='done'&&r.expiry&&r.expiry>=today&&r.expiry<=lim).sort((a,b)=>a.expiry.localeCompare(b.expiry)||a.name.localeCompare(b.name));
   return{today,lim,scope,asof:S.demo?'example data':fmtStamp(dataAsOf()),tot,course,role,fleet,crit,due};
 }
-const WK_GH=['Crew','Assigned','Completed','% complete','Not attempted','Incomplete','Failed, no pass','Overdue'];
+const WK_GH=['Crew','Assigned','Completed','% complete','Not attempted','Incomplete','Failed, no pass','Expired'];
 const wkRow=g=>[g.crew,g.n,g.done,g.pct,g.na,g.inc,g.fail,g.od];
 const wkRec=r=>[r.name,r.role||'No job role',r.fleet||'',r.title,STLABEL[r.st]||r.status,r.expiry?fmtDate(r.expiry):'',r.login];
 const WK_RH=['Crew member','Job role','Fleet','Course','Status','Expiry','Email'];
@@ -1723,20 +1766,20 @@ function weeklyHTML(d){
   return`<div style="font-family:Aptos,Calibri,Arial,sans-serif;color:#1A1A1A;font-size:10.5pt">
 <h2 style="font-size:15pt;color:#2B1D66;margin:0 0 4px">Pelesys training – weekly summary</h2>
 <p style="margin:0 0 2px;color:#555;font-size:10pt">Data as of ${esc(d.asof)} · prepared ${fmtDate(d.today)}</p><p style="margin:0 0 12px;color:#555;font-size:10pt">Scope: ${esc(d.scope)}</p>
-<table style="border-collapse:collapse;width:100%"><tr>${kpi(pc(t.pct),'Completed')}${kpi(N(t.crew),'Crew')}${kpi(N(t.na),'Not attempted','#B26A00')}${kpi(N(t.inc),'Incomplete','#B26A00')}${kpi(N(t.fail),'Failed, no pass','#B4232A')}${kpi(N(t.od),'Overdue','#B4232A')}${kpi(N(d.due.length),'Due in 30 days','#3B5BDB')}</tr></table>
+<table style="border-collapse:collapse;width:100%"><tr>${kpi(pc(t.pct),'Completed')}${kpi(N(t.crew),'Crew')}${kpi(N(t.na),'Not attempted','#B26A00')}${kpi(N(t.inc),'Incomplete','#B26A00')}${kpi(N(t.fail),'Failed, no pass','#B4232A')}${kpi(N(t.od),'Expired','#B4232A')}${kpi(N(d.due.length),'Due in 30 days','#3B5BDB')}</tr></table>
 ${gtable('By course – most open first'+(d.course.length>15?' (top 15 of '+d.course.length+')':''),'Course',d.course.slice(0,15))}${gtable('By job role','Job role',d.role)}${gtable('By fleet','Fleet',d.fleet)}
-${rtable('Critical – overdue or failed',d.crit,'No overdue or failed records.')}
+${rtable('Critical – expired or failed',d.crit,'No expired or failed records.')}
 ${rtable('Due in the next 30 days (until '+fmtDate(d.lim)+')',d.due,'Nothing open is due in the next 30 days.')}
 </div>`;
 }
 function weeklyPlain(d){
   const t=d.tot,P=v=>Math.round(v*100)+'%',L=[];
   L.push('PELESYS TRAINING – WEEKLY SUMMARY',`Data as of ${d.asof} · prepared ${fmtDate(d.today)}`,`Scope: ${d.scope}`,'',
-    `Completed ${P(t.pct)} · Crew ${t.crew} · Not attempted ${t.na} · Incomplete ${t.inc} · Failed, no pass ${t.fail} · Overdue ${t.od} · Due in 30 days ${d.due.length}`,'');
+    `Completed ${P(t.pct)} · Crew ${t.crew} · Not attempted ${t.na} · Incomplete ${t.inc} · Failed, no pass ${t.fail} · Expired ${t.od} · Due in 30 days ${d.due.length}`,'');
   const g=(title,rows)=>{L.push(title.toUpperCase());rows.forEach(x=>L.push(`- ${x.k}: ${P(x.pct)} complete (${x.done}/${x.n}) · ${x.na} not attempted · ${x.inc} incomplete · ${x.fail} failed · ${x.od} overdue`));L.push('');};
   g('By course – most open first',d.course.slice(0,15));g('By job role',d.role);g('By fleet',d.fleet);
   const r=(title,rows)=>{L.push(`${title.toUpperCase()} (${rows.length})`);rows.slice(0,WK_MAX).forEach(x=>L.push(`- ${x.name} (${x.role||'No job role'}) · ${x.title} · ${STLABEL[x.st]||x.status}${x.expiry?' · expiry '+fmtDate(x.expiry):''}`));if(rows.length>WK_MAX)L.push(`… and ${rows.length-WK_MAX} more`);L.push('');};
-  r('Critical – overdue or failed',d.crit);r('Due in the next 30 days',d.due);
+  r('Critical – expired or failed',d.crit);r('Due in the next 30 days',d.due);
   return L.join('\n');
 }
 function copyWeekly(){
@@ -1782,7 +1825,7 @@ function downloadWeekly(){
   const gs=(name,first,rows)=>({name,widths:[46,8,10,11,11,13,11,9,9],pctCols:[4],bold:[0],freeze:1,filter:1,rows:[[first,...WK_GH],...rows.map(g=>[g.k,...wkRow(g)])]});
   const rs=(name,rows)=>({name,widths:[30,18,14,58,18,14,34],bold:[0],freeze:1,filter:1,rows:[WK_RH,...rows.map(wkRec)]});
   const sum={name:'Summary',widths:[30,60],bold:[],rows:[['Pelesys training – weekly summary'],['Data as of',d.asof],['Prepared',fmtDate(d.today)],['Scope',d.scope],[],
-    ['Completed',t.pct],['Crew',t.crew],['Assigned courses',t.n],['Completed courses',t.done],['Not attempted',t.na],['Incomplete',t.inc],['Failed, no pass',t.fail],['Overdue',t.od],['Critical (overdue or failed)',d.crit.length],['Due in the next 30 days',d.due.length]],pctCols:[1]};
+    ['Completed',t.pct],['Crew',t.crew],['Assigned courses',t.n],['Completed courses',t.done],['Not attempted',t.na],['Incomplete',t.inc],['Failed, no pass',t.fail],['Expired',t.od],['Critical (expired or failed)',d.crit.length],['Due in the next 30 days',d.due.length]],pctCols:[1]};
   const blob=xlsxBlob([sum,gs('By course','Course',d.course),gs('By job role','Job role',d.role),gs('By fleet','Fleet',d.fleet),rs('Critical',d.crit),rs('Due in 30 days',d.due)]);
   try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Pelesys weekly summary ${d.today}.xlsx`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);toast('Excel file downloaded.');}
   catch(e){toast('Download is blocked here. It works in your published version on GitHub.');}
@@ -1837,7 +1880,7 @@ function persist(data){if(IDB.db)IDB.set('data',data).then(ok=>{if(ok){try{local
 function save(){
   try{localStorage.setItem(STORE+'.settings',JSON.stringify(S.settings));}catch(e){}
   if(S.demo)return;
-  persist({files:S.settings.remember?S.files:[],history:S.history,changes:S.settings.remember?S.changes:null});
+  persist({files:S.files,history:S.history,changes:S.changes});
 }
 async function restore(){
   try{const st=JSON.parse(localStorage.getItem(STORE+'.settings')||'null');if(st)Object.assign(S.settings,st);}catch(e){}
@@ -1846,11 +1889,12 @@ async function restore(){
   if(!data){try{data=JSON.parse(localStorage.getItem(STORE+'.data')||'null');}catch(e){}}
   if(!data){try{const old=JSON.parse(localStorage.getItem(STORE)||'null');if(old){Object.assign(S.settings,old.settings||{});data={files:old.files||[],history:[],changes:null};S._migrated=true;}}catch(e){}}
   S.settings.ov=S.settings.ov||{};S.settings.acc=S.settings.acc||{};if(!S.settings.mailCC)S.settings.mailCC=DEF_CC;
+  S.settings.remember=true;
   if(data){S.history=data.history||[];S.changes=data.changes||null;if(data.files&&data.files.length){S.files=data.files.map(f=>Object.assign({iso:fileStampISO(f.name),loaded:''},f));rebuildRaw();return true;}}
   return false;
 }
 function clearData(){S.files=[];S.changes=null;S.enr=[];S.users=[];S.people=[];S.courses=[];S.recs=[];S.dir=new Map();S.f.batch=null;S.mxSel=null;persist({files:[],history:S.history,changes:null});try{localStorage.removeItem(STORE);}catch(_){}
-  S.hasSaved=false;closeDrawer();showStart();toast('Loaded files removed from this browser. Your upload history is kept.');}
+  S.hasSaved=false;closeDrawer();showStart();toast('Saved reports removed from this computer.');}
 
 /* ---------- example data ---------- */
 function loadDemo(){
@@ -1905,7 +1949,7 @@ function renderStart(){
     return`<div class="st-item ${cls}"><span class="st-dot">${st||sv?OK:''}</span><div><b>${l}</b>${info}</div>${st?`<button class="btn sm ghost" data-unstage="${t}" aria-label="Remove ${l}">Remove</button>`:''}</div>`;}).join('')
     +(S.stBad&&S.stBad.length?`<div class="st-bad">Not recognised: ${S.stBad.map(esc).join(', ')}</div>`:'');
   const enr=S.staged.some(x=>x.type==='enrollment'),can=enr;
-  $('#stActions').innerHTML=`<button class="btn primary big" data-act="stopen" ${can?'':'disabled'}>Open reports${S.staged.length?' · '+S.staged.length+' file'+(S.staged.length>1?'s':''):''}</button>${S.staged.length?'<button class="btn ghost" data-act="stclear">Clear selection</button>':''}<span class="st-hint">${can?'Ready to open.':'Add the Enrollment Report to continue.'}</span>`;
+  $('#stActions').innerHTML=`<button class="btn primary big" data-act="stopen" ${can?'':'disabled'}>Open reports${S.staged.length?' · '+S.staged.length+' file'+(S.staged.length>1?'s':''):''}</button>${S.staged.length?'<button class="btn ghost" data-act="stclear">Clear selection</button>':''}${!S.staged.length&&S.recs&&S.recs.length?'<button class="btn ghost" data-act="stcontinue">Back to the audit</button>':''}<span class="st-hint">${can?'Ready to open.':'Add the Enrollment Report to continue.'}</span>`;
   const iso=S.hasSaved?dataAsOf():'';
   $('#stSaved').innerHTML=false?`<div class="st-saved"><div><span class="eyebrow">Last upload in this browser</span><b>Data as of ${esc(fmtStamp(iso))}</b><small>${esc(ageText(iso))} · uploaded ${esc(fmtStamp(lastUpload()))} · ${N(S.enr.length)} enrollment records</small></div><button class="btn" data-act="stcontinue">Continue with saved data</button></div>`:'';
 }
@@ -2142,7 +2186,7 @@ document.addEventListener('change',e=>{
 
 /* ---------- start ---------- */
 document.body.classList.add('starting');renderStart();
-restore().then(has=>{S.hasSaved=has;if(has)build();renderStart();if(S._migrated){save();try{localStorage.removeItem(STORE);}catch(_){}}}).catch(()=>renderStart());
+restore().then(has=>{S.hasSaved=has;if(has){build();S.started=true;document.body.classList.remove('starting');S.tab='overview';render();}else renderStart();if(S._migrated){save();try{localStorage.removeItem(STORE);}catch(_){}}}).catch(()=>renderStart());
 setInterval(()=>{if(S.started){renderFresh();renderReports();}else renderStart();},60000);
 })();
 </script>
