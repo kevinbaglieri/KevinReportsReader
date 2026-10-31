@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kevin Reports Reader - Pelesys</title>
 <meta name="description" content="Kevin Reports Reader - Pelesys: offline audit of Pelesys exam and e-learning reports.">
-<meta name="theme-color" content="#2A1C73">
+<meta name="theme-color" content="#2B1D66">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="KRR Pelesys">
@@ -13,22 +13,22 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%236A55E8%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232A1C73%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2224%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M33%2025v50%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M63%2025L36%2052%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M43%2054l12%2014%2022-29%22%20fill%3D%22none%22%20stroke%3D%22%23F6A985%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235E52A6%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232B1D66%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2224%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M33%2025v50%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M63%2025L36%2052%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M43%2054l12%2014%2022-29%22%20fill%3D%22none%22%20stroke%3D%22%23D9CFF4%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: frosted-glass workstation floating on an indigo/lavender/peach light field — glass sidebar, glass command bar, attention band first, 12-column canvas below; one column under 980px */
 :root{
-  --bg:#ECE8FA; --blob1:#7B66F0; --blob2:#F6AE8C; --blob3:#B9A6FF; --blob4:#8FD3F4;
-  --glass:rgba(255,255,255,.56); --glass-2:rgba(255,255,255,.72); --glass-3:rgba(255,255,255,.38); --glass-line:rgba(255,255,255,.85); --glass-edge:rgba(60,40,140,.10);
-  --gshadow:0 1px 0 rgba(255,255,255,.9) inset,0 10px 40px -8px rgba(48,30,128,.18),0 2px 6px rgba(48,30,128,.06);
-  --ink:#16112E; --muted:#5E5780; --faint:#9089B0; --line:rgba(60,40,140,.10);
-  --accent:#4B36C4; --accent-2:#6A55E8; --accent-ink:#FFFFFF; --lav-soft:rgba(106,85,232,.12); --peach:#F2A47F; --peach-soft:rgba(242,164,127,.22);
-  --side:rgba(30,20,84,.78); --side-ink:#F1EDFF; --side-muted:#B5AAE6; --side-line:rgba(255,255,255,.10);
-  --ok:#14915C; --ok-soft:rgba(20,145,92,.13); --warn:#C27208; --warn-soft:rgba(232,150,30,.16); --bad:#E0264A; --bad-soft:rgba(224,38,74,.12); --info:#3F63E0; --info-soft:rgba(63,99,224,.12);
-  --bad-grad:linear-gradient(135deg,#F0365A 0%,#C21E5B 100%); --warn-grad:linear-gradient(135deg,#F7A428 0%,#E2701B 100%); --act-grad:linear-gradient(135deg,#F59E7A 0%,#E06A6A 100%); --ok-grad:linear-gradient(135deg,#29B67A 0%,#138A6A 100%);
-  --hero-grad:linear-gradient(140deg,rgba(54,34,150,.92) 0%,rgba(96,70,220,.88) 60%,rgba(170,120,240,.85) 100%);
+  --bg:#F6F4FA; --blob1:#B9AAEA; --blob2:#EAD3E4; --blob3:#CEC4F0; --blob4:#D9E1F4;
+  --glass:rgba(255,255,255,.68); --glass-2:rgba(255,255,255,.82); --glass-3:rgba(255,255,255,.46); --glass-line:rgba(255,255,255,.92); --glass-edge:rgba(45,27,107,.08);
+  --gshadow:0 1px 0 rgba(255,255,255,.95) inset,0 12px 36px -14px rgba(45,27,107,.16),0 1px 3px rgba(45,27,107,.05);
+  --ink:#1D1442; --muted:#6A6390; --faint:#A39DBD; --line:rgba(45,27,107,.09);
+  --accent:#3E3088; --accent-2:#8A7CC8; --accent-ink:#FFFFFF; --lav-soft:rgba(124,106,201,.11); --peach:#C9B3D9; --peach-soft:rgba(201,179,217,.24);
+  --side:linear-gradient(180deg,rgba(43,29,102,.95) 0%,rgba(62,48,130,.93) 100%); --side-ink:#F3F0FF; --side-muted:#B7ACE0; --side-line:rgba(255,255,255,.09);
+  --ok:#4F8C76; --ok-soft:rgba(79,140,118,.11); --warn:#A98352; --warn-soft:rgba(169,131,82,.13); --bad:#9A4F66; --bad-soft:rgba(154,79,102,.10); --info:#5469C2; --info-soft:rgba(84,105,194,.11);
+  --bad-grad:linear-gradient(135deg,#C46479 0%,#94405F 100%); --warn-grad:linear-gradient(135deg,#D4AA6A 0%,#B6824A 100%); --act-grad:linear-gradient(135deg,#D7A595 0%,#B57C8E 100%); --ok-grad:linear-gradient(135deg,#6DB497 0%,#3E8C6F 100%);
+  --hero-grad:linear-gradient(140deg,#2B1D66 0%,#45378F 55%,#9285C9 100%);
   --f-display:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif; --f-body:"Plus Jakarta Sans","Segoe UI",system-ui,sans-serif; --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -36,8 +36,8 @@
   --glass:rgba(32,24,70,.52); --glass-2:rgba(40,30,86,.72); --glass-3:rgba(32,24,70,.32); --glass-line:rgba(255,255,255,.10); --glass-edge:rgba(255,255,255,.06);
   --gshadow:0 1px 0 rgba(255,255,255,.06) inset,0 14px 44px -10px rgba(0,0,0,.6);
   --ink:#F0ECFF; --muted:#ADA5D2; --faint:#7D76A6; --line:rgba(255,255,255,.08);
-  --accent:#A996FF; --accent-2:#BFB0FF; --accent-ink:#140E30; --lav-soft:rgba(169,150,255,.16); --peach:#F4A988; --peach-soft:rgba(244,169,136,.16);
-  --side:rgba(14,10,40,.7); --side-ink:#F1EDFF; --side-muted:#9F95D2; --side-line:rgba(255,255,255,.08);
+  --accent:#B3A4F0; --accent-2:#CBBFF7; --accent-ink:#140E30; --lav-soft:rgba(169,150,255,.16); --peach:#F4A988; --peach-soft:rgba(244,169,136,.16);
+  --side:linear-gradient(180deg,rgba(18,10,48,.86),rgba(30,18,72,.82)); --side-ink:#F1EDFF; --side-muted:#9F95D2; --side-line:rgba(255,255,255,.08);
   --ok:#4FD69A; --ok-soft:rgba(79,214,154,.14); --warn:#F5B451; --warn-soft:rgba(245,180,81,.15); --bad:#FF6F8A; --bad-soft:rgba(255,111,138,.15); --info:#8EA8FF; --info-soft:rgba(142,168,255,.15);
   --hero-grad:linear-gradient(140deg,rgba(60,38,170,.85) 0%,rgba(90,60,200,.75) 60%,rgba(140,90,210,.7) 100%);
   color-scheme:dark}}
@@ -46,8 +46,8 @@
   --glass:rgba(32,24,70,.52); --glass-2:rgba(40,30,86,.72); --glass-3:rgba(32,24,70,.32); --glass-line:rgba(255,255,255,.10); --glass-edge:rgba(255,255,255,.06);
   --gshadow:0 1px 0 rgba(255,255,255,.06) inset,0 14px 44px -10px rgba(0,0,0,.6);
   --ink:#F0ECFF; --muted:#ADA5D2; --faint:#7D76A6; --line:rgba(255,255,255,.08);
-  --accent:#A996FF; --accent-2:#BFB0FF; --accent-ink:#140E30; --lav-soft:rgba(169,150,255,.16); --peach:#F4A988; --peach-soft:rgba(244,169,136,.16);
-  --side:rgba(14,10,40,.7); --side-ink:#F1EDFF; --side-muted:#9F95D2; --side-line:rgba(255,255,255,.08);
+  --accent:#B3A4F0; --accent-2:#CBBFF7; --accent-ink:#140E30; --lav-soft:rgba(169,150,255,.16); --peach:#F4A988; --peach-soft:rgba(244,169,136,.16);
+  --side:linear-gradient(180deg,rgba(18,10,48,.86),rgba(30,18,72,.82)); --side-ink:#F1EDFF; --side-muted:#9F95D2; --side-line:rgba(255,255,255,.08);
   --ok:#4FD69A; --ok-soft:rgba(79,214,154,.14); --warn:#F5B451; --warn-soft:rgba(245,180,81,.15); --bad:#FF6F8A; --bad-soft:rgba(255,111,138,.15); --info:#8EA8FF; --info-soft:rgba(142,168,255,.15);
   --hero-grad:linear-gradient(140deg,rgba(60,38,170,.85) 0%,rgba(90,60,200,.75) 60%,rgba(140,90,210,.7) 100%);
   color-scheme:dark}
@@ -104,7 +104,7 @@ button{cursor:pointer}
 .rep span{font-size:11.5px;color:var(--side-muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sbtn{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:var(--side-ink);border-radius:12px;padding:10px 12px;font-weight:600;display:flex;gap:9px;align-items:center;justify-content:center;width:100%}
 .sbtn:hover{background:rgba(255,255,255,.14)}
-.sbtn.primary{background:linear-gradient(135deg,#FFC3A6,#F08A68);color:#2A1408;border-color:rgba(255,255,255,.35);box-shadow:0 10px 24px -8px rgba(240,138,104,.7)}
+.sbtn.primary{background:linear-gradient(135deg,#FBF9FF,#D8CEF6);color:#22125A;border-color:rgba(255,255,255,.5);box-shadow:0 10px 24px -12px rgba(10,4,40,.6)}
 .sbtn.primary:hover{filter:brightness(1.05)}
 .sbtn svg{width:16px;height:16px}
 .side .privacy{margin-top:auto;font-size:11.5px;color:var(--side-muted);padding:12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;gap:9px;line-height:1.45}
@@ -429,6 +429,9 @@ td.cname{min-width:150px;max-width:220px;overflow-wrap:anywhere}
 .mf-h{display:flex;flex-direction:column;gap:1px}.mf-h b{font-size:13px}.mf-h span{font-size:12px;color:var(--muted)}
 .mplain>summary{cursor:pointer;font-size:12.5px;font-weight:600;color:var(--muted);padding:6px 2px}
 .mplain{display:flex;flex-direction:column;gap:8px}.mplain[open]>summary{margin-bottom:6px}
+.drawer.wide{width:min(1060px,calc(100% - 24px))}
+.wkprev{background:#fff;border-radius:14px;padding:16px;border:1px solid var(--line);overflow-x:auto}
+.wkprev table{min-width:520px}
 .mhint{text-transform:none;letter-spacing:0;font-weight:500;color:var(--faint);font-size:11.5px}
 
 /* issues email bar */
@@ -718,13 +721,61 @@ textarea.summary{width:100%;min-height:460px;font-family:var(--f-mono);font-size
   .tframe{max-height:none;overflow:visible}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== Riyadh Air · delicate refinements ===== */
+:root{--rx-plum:#9A4F66;--rx-plum-bg:linear-gradient(140deg,#FDF6F8 0%,#F6E6EC 100%);--rx-plum-line:rgba(154,79,102,.20);
+  --rx-sand:#957043;--rx-sand-bg:linear-gradient(140deg,#FDF9F2 0%,#F4EADB 100%);--rx-sand-line:rgba(149,112,67,.22);
+  --rx-rose:#8E6075;--rx-rose-bg:linear-gradient(140deg,#FBF7FB 0%,#EFE5EE 100%);--rx-rose-line:rgba(142,96,117,.20)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--rx-plum:#E5A3B6;--rx-plum-bg:linear-gradient(140deg,rgba(154,79,102,.22),rgba(154,79,102,.12));--rx-plum-line:rgba(229,163,182,.25);--rx-sand:#E2C08F;--rx-sand-bg:linear-gradient(140deg,rgba(149,112,67,.24),rgba(149,112,67,.12));--rx-sand-line:rgba(226,192,143,.25);--rx-rose:#D9AFC2;--rx-rose-bg:linear-gradient(140deg,rgba(142,96,117,.24),rgba(142,96,117,.12));--rx-rose-line:rgba(217,175,194,.25)}}
+:root[data-theme="dark"]{--rx-plum:#E5A3B6;--rx-plum-bg:linear-gradient(140deg,rgba(154,79,102,.22),rgba(154,79,102,.12));--rx-plum-line:rgba(229,163,182,.25);--rx-sand:#E2C08F;--rx-sand-bg:linear-gradient(140deg,rgba(149,112,67,.24),rgba(149,112,67,.12));--rx-sand-line:rgba(226,192,143,.25);--rx-rose:#D9AFC2;--rx-rose-bg:linear-gradient(140deg,rgba(142,96,117,.24),rgba(142,96,117,.12));--rx-rose-line:rgba(217,175,194,.25)}
+body::before{filter:blur(48px);opacity:.6}
+.side-in{border-color:rgba(255,255,255,.07);box-shadow:0 20px 50px -26px rgba(34,18,88,.5)}
+.mark{box-shadow:0 6px 16px -8px rgba(43,29,102,.45)}
+/* alert cards: pearl tints, coloured text */
+.alert.crit,.alert.warn,.alert.act{color:var(--ink);box-shadow:var(--gshadow)!important}
+.alert.crit{background:var(--rx-plum-bg);border-color:var(--rx-plum-line)}
+.alert.warn{background:var(--rx-sand-bg);border-color:var(--rx-sand-line)}
+.alert.act{background:var(--rx-rose-bg);border-color:var(--rx-rose-line)}
+.alert::after{background:radial-gradient(circle,rgba(255,255,255,.55),transparent 70%)}
+.alert.crit .lb,.alert.crit .v,.alert.crit .go{color:var(--rx-plum)}.alert.warn .lb,.alert.warn .v,.alert.warn .go{color:var(--rx-sand)}.alert.act .lb,.alert.act .v,.alert.act .go{color:var(--rx-rose)}
+.alert.crit .d,.alert.warn .d,.alert.act .d{color:var(--muted);opacity:1}
+.alert.crit .ic{background:rgba(154,79,102,.10);border-color:transparent;color:var(--rx-plum)}.alert.warn .ic{background:rgba(149,112,67,.11);border-color:transparent;color:var(--rx-sand)}.alert.act .ic{background:rgba(142,96,117,.10);border-color:transparent;color:var(--rx-rose)}
+/* issue tiles */
+.itile.s3 b{color:var(--rx-plum)}.itile.s2 b{color:var(--rx-sand)}
+.itile.on.s3{background:var(--rx-plum-bg);border:1.5px solid var(--rx-plum-line);box-shadow:var(--gshadow)}
+.itile.on.s2{background:var(--rx-sand-bg);border:1.5px solid var(--rx-sand-line);box-shadow:var(--gshadow)}
+.itile.on.s3 b{color:var(--rx-plum)}.itile.on.s2 b{color:var(--rx-sand)}.itile.on .it-l{color:var(--muted)}
+.itile.on.s3 .it-c{background:var(--rx-plum);border-color:var(--rx-plum);color:#fff}.itile.on.s2 .it-c{background:var(--rx-sand);border-color:var(--rx-sand);color:#fff}
+/* priority pills, counters, cells */
+.pri.p3{background:rgba(154,79,102,.12);color:var(--rx-plum);box-shadow:none}
+.pri.p2{background:rgba(149,112,67,.13);color:var(--rx-sand);box-shadow:none}
+.ctile.bad,.dstat.bad{background:var(--rx-plum-bg);border-color:var(--rx-plum-line);color:var(--muted);box-shadow:none}.ctile.bad b,.dstat.bad b{color:var(--rx-plum)}
+.cell.calert{background:rgba(154,79,102,.16)!important;color:var(--rx-plum)!important;box-shadow:none}
+.nav .ct.hot{background:#C98DA0;color:#fff;animation:none;box-shadow:none}
+.bcard::before{opacity:.55}
+.f3{background:rgba(154,79,102,.13);color:var(--rx-plum)}.f2{background:rgba(149,112,67,.12);color:var(--rx-sand)}
+tbody tr.r3 td{background:rgba(154,79,102,.045)}tbody tr.r3 td:first-child{box-shadow:inset 3px 0 0 rgba(154,79,102,.55)}
+tbody tr.r2 td:first-child{box-shadow:inset 3px 0 0 rgba(149,112,67,.45)}
+.mscope-w{background:rgba(149,112,67,.08);border-color:rgba(149,112,67,.22)}
+.cstat.on,.chip[aria-pressed="true"]{background:linear-gradient(135deg,#F3F0FC,#E4DEF7)!important;color:#3E3088!important;border:1.5px solid rgba(62,48,136,.25)!important;box-shadow:none!important}
+.cstat.on *{color:inherit!important}
+.ib-ic{background:linear-gradient(135deg,#ECE7FA,#DCD4F4);color:#3E3088}
+@media (max-width:760px){input,select,textarea,.search input{font-size:16px}}
+/* buttons & chips */
+.btn.primary{background:linear-gradient(135deg,#3E3088 0%,#5D50A8 100%);color:#fff;border-color:rgba(255,255,255,.25);box-shadow:0 8px 20px -12px rgba(43,29,102,.55)}
+.btn.primary:hover{background:linear-gradient(135deg,#372A7C 0%,#54479D 100%)}
+.mchip.on{background:linear-gradient(135deg,#F3F0FC,#E4DEF7);color:var(--muted);border:1.5px solid rgba(62,48,136,.25);box-shadow:none}.mchip.on b{color:#3E3088}
+h1{font-weight:650;letter-spacing:-.025em}h2{font-weight:650}
+.card,.glass{border-radius:22px}
+.ready{box-shadow:0 20px 44px -28px rgba(34,18,88,.6)}
+.ready::after{content:"";position:absolute;inset:auto -10% -55% 35%;height:120%;background:radial-gradient(closest-side,rgba(255,255,255,.14),transparent);pointer-events:none}
 </style>
 
 </head>
 <body>
 <section class="start" id="start" aria-label="Load reports">
   <div class="st-in">
-    <header class="st-brand"><div class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="kbgm1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A55E8"/><stop offset="1" stop-color="#2A1C73"/></linearGradient><linearGradient id="khlm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#kbgm1)"/><rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="url(#khlm1)" stroke="#fff" stroke-opacity=".22"/><path d="M33 25v50" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M63 25L36 52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M43 54l12 14 22-29" fill="none" stroke="#F6A985" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Kevin Reports Reader</b><span>Pelesys</span></div></header>
+    <header class="st-brand"><div class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="kbgm1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5E52A6"/><stop offset="1" stop-color="#2B1D66"/></linearGradient><linearGradient id="khlm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#kbgm1)"/><rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="url(#khlm1)" stroke="#fff" stroke-opacity=".22"/><path d="M33 25v50" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M63 25L36 52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M43 54l12 14 22-29" fill="none" stroke="#D9CFF4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Kevin Reports Reader</b><span>Pelesys</span></div></header>
     <div class="st-hero"><span class="eyebrow">Start an audit</span><h1>Load your Pelesys reports</h1><p>Drop the four CSV exports from Pelesys, all together or one by one.</p></div>
     <div class="st-grid">
       <button class="st-drop" id="stDrop" type="button"><span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 18v-6M9 15l3-3 3 3"/></svg></span><b>Drop CSV files here</b><span>or select to browse your computer</span><small>You can add the files one by one or all at once</small></button>
@@ -738,7 +789,7 @@ textarea.summary{width:100%;min-height:460px;font-family:var(--f-mono);font-size
 <div class="app">
   <aside class="side"><div class="side-in">
     <div class="brand">
-      <div class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="kbgm0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6A55E8"/><stop offset="1" stop-color="#2A1C73"/></linearGradient><linearGradient id="khlm0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#kbgm0)"/><rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="url(#khlm0)" stroke="#fff" stroke-opacity=".22"/><path d="M33 25v50" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M63 25L36 52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M43 54l12 14 22-29" fill="none" stroke="#F6A985" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="kbgm0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5E52A6"/><stop offset="1" stop-color="#2B1D66"/></linearGradient><linearGradient id="khlm0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#kbgm0)"/><rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="url(#khlm0)" stroke="#fff" stroke-opacity=".22"/><path d="M33 25v50" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M63 25L36 52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M43 54l12 14 22-29" fill="none" stroke="#D9CFF4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="btxt"><b>Kevin Reports Reader</b><span>Pelesys</span></div>
       <button type="button" class="sidetog" id="sideTog" aria-label="Collapse the sidebar" title="Collapse the sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
     </div>
@@ -756,7 +807,7 @@ textarea.summary{width:100%;min-height:460px;font-family:var(--f-mono);font-size
         <button class="fresh" id="fresh" data-tab="updates" hidden></button>
         <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><label class="sr" for="fq">Search</label><input type="search" id="fq" placeholder="Search crew, email, employee ID, course or code"><kbd>/</kbd></div>
         <button type="button" class="btn ftoggle" id="ftoggle" aria-expanded="false" aria-controls="filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filters<span class="ftn" id="ftogN"></span></button>
-        <button class="btn primary" id="btnSummary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Audit summary</button>
+        <button class="btn primary" id="btnSummary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Weekly summary</button>
         <span class="active-f minonly" id="fcountMin"></span>
         <button type="button" class="btn barbtn" id="barToggle" aria-expanded="true" aria-controls="filters" title="Hide filters and search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg><span class="sr">Hide filters and search</span></button>
       </div>
@@ -1063,7 +1114,14 @@ function render(){
   const demo=S.demo?`<div class="demo"><b>Example data.</b> Invented crew records so you can try every view. Load your Pelesys exports to audit real records.<button class="btn sm" data-act="load">Load reports</button></div>`:'';
   if(!S.recs.length&&S.tab!=='settings'&&S.tab!=='updates'){$('#view').innerHTML=demo+`<div class="card"><div class="empty"><b>No enrollment records yet</b>Load the Pelesys Enrollment Report to start the audit.</div></div>`;return;}
   const tf0=S._lastTab===S.tab?document.querySelector('#view .tframe'):null,keep=tf0?[tf0.scrollTop,tf0.scrollLeft]:null;S._lastTab=S.tab;
-  $('#view').innerHTML=demo+({overview:vOverview,issues:vIssues,courses:vCourses,crew:vCrew,batches:vBatches,matrix:vMatrix,email:vEmail,updates:vUpdates,settings:vSettings}[S.tab])(list,fc);
+  const vhtml=demo+({overview:vOverview,issues:vIssues,courses:vCourses,crew:vCrew,batches:vBatches,matrix:vMatrix,email:vEmail,updates:vUpdates,settings:vSettings}[S.tab])(list,fc);
+  const oldTools=S._keepTools&&document.querySelector('#view .cattools');S._keepTools=false;
+  if(oldTools){const tmp=document.createElement('div');tmp.innerHTML=vhtml;const nt=tmp.querySelector('.cattools');
+    if(nt&&oldTools.parentNode.parentNode===$('#view')&&tmp.children.length===1){const oc=oldTools.parentNode,nc=nt.parentNode;
+      [...oc.childNodes].forEach(n=>{if(n!==oldTools)n.remove();});const kids=[...nc.childNodes],ix=kids.indexOf(nt);
+      kids.slice(0,ix).forEach(n=>oc.insertBefore(n,oldTools));kids.slice(ix+1).forEach(n=>oc.appendChild(n));}
+    else $('#view').innerHTML=vhtml;}
+  else $('#view').innerHTML=vhtml;
   if(keep){const tf=document.querySelector('#view .tframe');if(tf){tf.scrollTop=keep[0];tf.scrollLeft=keep[1];}}
   enhanceAll();
   if(S.tab==='email')renderMailActions();
@@ -1087,7 +1145,7 @@ function renderFresh(){
 }
 
 /* ---------- overview ---------- */
-function ring(p){const r=54,c=2*Math.PI*r;return`<svg class="ring" viewBox="0 0 132 132" role="img" aria-label="${p}% complete"><circle cx="66" cy="66" r="${r}" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="12"/><circle cx="66" cy="66" r="${r}" fill="none" stroke="#F3B08F" stroke-width="12" stroke-linecap="round" stroke-dasharray="${(c*p/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 66 66)"/><text x="66" y="68" text-anchor="middle" font-family="Sora,sans-serif" font-size="28" font-weight="600" fill="#fff">${p}%</text><text x="66" y="88" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="11" fill="#D3C9F7">complete</text></svg>`;}
+function ring(p){const r=54,c=2*Math.PI*r;return`<svg class="ring" viewBox="0 0 132 132" role="img" aria-label="${p}% complete"><circle cx="66" cy="66" r="${r}" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="12"/><circle cx="66" cy="66" r="${r}" fill="none" stroke="#D6CCF6" stroke-width="12" stroke-linecap="round" stroke-dasharray="${(c*p/100).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 66 66)"/><text x="66" y="68" text-anchor="middle" font-family="Sora,sans-serif" font-size="28" font-weight="600" fill="#fff">${p}%</text><text x="66" y="88" text-anchor="middle" font-family="IBM Plex Sans,sans-serif" font-size="11" fill="#D3C9F7">complete</text></svg>`;}
 function expiryChart(list){
   const today=todayISO(),open=list.filter(r=>r.open);
   const B=[{l:'Overdue',test:d=>d<0},{l:'This week',test:d=>d>=0&&d<7},{l:'Next week',test:d=>d>=7&&d<14},{l:'2–4 weeks',test:d=>d>=14&&d<28},{l:'1–2 months',test:d=>d>=28&&d<60},{l:'Later',test:d=>d>=60},{l:'No expiry',test:null}];
@@ -1109,7 +1167,7 @@ function vOverview(list,fc){
     <h2>${action?`${N(action)} records need action before sign-off`:'Ready for sign-off'}</h2>
     <p>${action?`${N(crewAction)} of ${N(crewN)} crew have at least one open, failed or overdue item.`:`All ${N(n)} records in scope are completed, passed or resolved.`}</p>
     <div class="facts"><div><b>${N(n)}</b>enrollments</div><div><b>${N(crewN)}</b>crew</div><div><b>${N(new Set(list.map(r=>r.code)).size)}</b>courses</div></div>
-    <div class="row">${action?'<button class="btn light sm" data-tab="issues">Review issues</button>':''}<button class="btn sm" data-act="summary">Audit summary</button></div></div></div></div>`;
+    <div class="row">${action?'<button class="btn light sm" data-tab="issues">Review issues</button>':''}<button class="btn sm" data-act="weekly">Weekly summary</button></div></div></div></div>`;
   const AI={crit:'<path d="M12 8v5M12 16.5v.5"/><path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/>',fail:'<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',open:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 12h8"/>',ok:'<path d="M5 12l4 4 10-10"/>'};
   const al=(cls,ic,v,label,desc,flag,okText)=>{const clear=!v;return`<button class="alert ${clear?'clear':cls}" data-goflag="${flag}"><span class="top"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${AI[clear?'ok':ic]}</svg></span><span class="lb">${label}</span></span><span class="v">${N(v)}</span><span class="d">${clear?okText:desc}</span><span class="go">${clear?'All clear':'Review now'}${CHEV}</span></button>`;};
   const critN=fc.overdue+fc.failed;
@@ -1195,7 +1253,7 @@ function renderXActions(){
   const {batches,tooLong}=mailBatches(emails,subj,body,mode),ml=mode==='web'?'Outlook on the web':'Outlook';
   S._xb={batches,cc};
   const fmtOn=false;const btn=(b,i)=>`<button class="btn ${batches.length===1&&!fmtOn?'primary big':'sm'} ${S.mx.done[mode+i]?'mdone':''}" data-xsend="${i}">${batches.length===1?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Open in ${ml}`:`Email ${i+1} of ${batches.length} · ${b.length}`}${S.mx.done[mode+i]?' ✓':''}</button>`;
-  box.innerHTML=fmtBlock(emails.length,'x')+(tooLong?`<p class="note warnt">The message is too long to open automatically. Shorten it, or use the copy buttons.</p>`:(batches.length>1?`<p class="note">${ml} takes about ${batches[0].length} addresses per email, so the ${N(emails.length)} recipients are split into ${batches.length} emails. Open and send each one.</p>`:'')+`<div class="mbtns">${batches.map(btn).join('')}</div>`)
+  box.innerHTML=(batches.length>1&&!tooLong?oneBlock(emails.length,'x',batches.length):'')+(tooLong?`<p class="note warnt">The message is too long to open automatically. Shorten it, or use the copy buttons.</p>`:(batches.length>1?`<p class="note">${ml} takes about ${batches[0].length} addresses per email, so the ${N(emails.length)} recipients are split into ${batches.length} emails. Open and send each one.</p>`:'')+`<div class="mbtns">${batches.map(btn).join('')}</div>`)
     +`<div class="mbtns"><button class="btn sm ghost" data-act="xcopybcc">Copy BCC</button><button class="btn sm ghost" data-act="xcopysubj">Copy subject</button><button class="btn sm ghost" data-act="xcopybody">Copy message</button></div>`
     +`<p class="note">${mode==='web'?'Opens Outlook on the web in a new tab.':'Opens your default email app on this computer: classic Outlook or the new Outlook, whichever is set as default in Windows (Settings › Apps › Default apps).'}${inFrame?' Opening Outlook works in your published version on GitHub.':''}</p>`;
   wrapPlain(box);
@@ -1360,35 +1418,40 @@ function vUpdates(){
 const PELESYS_URL='https://rxi.pelesys.com/GC/Account/Login';
 const SIGN='Kind regards,\nCabin Crew Training & Standards';
 const DEF_CC='gcabrera@riyadhair.com; gfraj@riyadhair.com';
-const REMIND=c=>'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards. All Cabin Crew are responsible for ensuring that their training records remain complete and up to date to maintain their qualification for duty.';
+const RESP='All Crew members are responsible for ensuring that their assigned e-learning courses are completed on time, keeping their training records complete and up to date.';
+const REMIND=c=>'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards. '+RESP;
 const LINK=PELESYS_URL;
-const ERR='If you believe this notification has been sent in error or have already completed the training, please reply to this email so that we can verify your training record.';
+const ERR='Please note: This is an automatically generated email. If you believe this notification has been sent in error or have already completed the training, please reply to this email so that we can verify your training records accordingly.';
+const THANKS='Thank you for your cooperation and understanding. We wish you a wonderful day!';
+const HOPE='I hope you are doing well.';
+const VIA='either through your CrewPad or by using the link below:';
 function courseBlock(cs){if(cs.length===1)return cs[0];if(cs.length&&cs.length<=6)return cs.map(t=>'• '+t).join('\n');return'The mandatory training listed on your Pelesys record';}
 const MAILT={
   notstarted:{label:'Not attempted',flag:'notstarted',sev:2,
     subj:c=>c?`ACTION REQUIRED: Mandatory training not started – ${c}`:'ACTION REQUIRED: Mandatory training not started',
-    body:cs=>[`According to our Pelesys training records, you have not yet commenced ${cs.length===1?'the following mandatory training':'one or more of the following mandatory training courses'}:`,courseBlock(cs),REMIND(),
-      'You are therefore requested to log in to Pelesys and complete the training as soon as possible using your CrewPad or through the link below:',LINK,ERR]},
+    body:cs=>[HOPE,`According to our Pelesys training records, you have not yet commenced ${cs.length===1?'the following mandatory training':'the following mandatory training courses'}:`,courseBlock(cs),REMIND(),
+      'We kindly ask you to log in to Pelesys and complete the training as soon as possible, '+VIA,LINK,ERR,THANKS]},
   incomplete:{label:'Incomplete',flag:'incomplete',sev:2,
     subj:c=>c?`ACTION REQUIRED: Finish your ${c}`:'ACTION REQUIRED: Finish your mandatory training',
-    body:cs=>[`According to our Pelesys training records, you have commenced but not yet completed ${cs.length===1?'the following mandatory training':'one or more of the following mandatory training courses'}:`,courseBlock(cs),
-      'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards. Partially completed training does not count towards your qualification, and all Cabin Crew are responsible for ensuring that their training records remain complete and up to date to maintain their qualification for duty.',
-      'You are therefore requested to log in to Pelesys and complete the remaining content as soon as possible using your CrewPad or through the link below:',LINK,ERR]},
+    body:cs=>[HOPE,`According to our Pelesys training records, you have started but not yet completed ${cs.length===1?'the following mandatory training':'the following mandatory training courses'}:`,courseBlock(cs),
+      'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards, and training that is only partially completed does not yet count towards your qualification. '+RESP,
+      'We kindly ask you to log in to Pelesys and complete the remaining content as soon as possible, '+VIA,LINK,ERR,THANKS]},
   failed:{label:'Failed, no pass',flag:'failed',sev:3,
     subj:c=>c?`RESIT REQUIRED: ${c} – a pass is mandatory`:'RESIT REQUIRED: A pass is mandatory',
-    body:cs=>[`According to our Pelesys training records, your most recent attempt at ${cs.length===1?'the following mandatory assessment':'one or more of the following mandatory assessments'} was not successful:`,courseBlock(cs),
-      'Please be reminded that a pass is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards. Until a pass is achieved, your training record for this subject is not complete and up to date, and your qualification for duty may be affected.',
-      'You are therefore requested to contact the Training team to arrange your resit as soon as possible. Once the resit has been assigned, please complete it in Pelesys using your CrewPad or through the link below:',LINK,
-      'If you believe this notification has been sent in error, please reply to this email so that we can verify your training record.']},
+    body:cs=>[HOPE,`According to our Pelesys training records, your most recent attempt at ${cs.length===1?'the following mandatory assessment':'the following mandatory assessments'} was unfortunately not successful:`,courseBlock(cs),
+      'Please be reminded that a pass is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards. '+RESP,
+      'We kindly ask you to contact the Training team to arrange your resit as soon as possible. Once the resit has been assigned, you can complete it in Pelesys '+VIA,LINK,
+      'Please note: This is an automatically generated email. If you believe this notification has been sent in error, please reply to this email so that we can verify your training records accordingly.',THANKS]},
   duesoon:{label:'Due soon',flag:'duesoon',sev:1,
     subj:c=>c?`FINAL REMINDER: ${c} is about to expire`:'FINAL REMINDER: Your mandatory training is about to expire',
-    body:cs=>[`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'one or more of the following mandatory training courses are'} due to expire shortly and still open on your record:`,courseBlock(cs),REMIND(),
-      'You are therefore requested to log in to Pelesys and complete the training before it expires using your CrewPad or through the link below:',LINK,ERR]},
+    body:cs=>[HOPE,`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'the following mandatory training courses are'} due to expire shortly and ${cs.length===1?'is':'are'} still open on your record:`,courseBlock(cs),REMIND(),
+      'We kindly ask you to log in to Pelesys and complete the training before it expires, '+VIA,LINK,ERR,THANKS]},
   overdue:{label:'Overdue',flag:'overdue',sev:3,
     subj:c=>c?`FINAL NOTICE: Overdue mandatory training – ${c}`:'FINAL NOTICE: Overdue mandatory training',
-    body:cs=>[`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'one or more of the following mandatory training courses are'} now overdue:`,courseBlock(cs),
-      'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards. Overdue mandatory training may affect your qualification for duty, and all Cabin Crew are responsible for ensuring that their training records remain complete and up to date.',
-      'You are therefore requested to log in to Pelesys and complete the training immediately using your CrewPad or through the link below. If you are unable to do so, please contact the Training team today.',LINK,ERR]}
+    body:cs=>[HOPE,`According to our Pelesys training records, ${cs.length===1?'the following mandatory training is':'the following mandatory training courses are'} now overdue:`,courseBlock(cs),
+      'Please be reminded that this training is mandatory in accordance with GACA regulatory requirements and Riyadh Air training standards, and overdue mandatory training may affect your qualification for duty. '+RESP,
+      'We kindly ask you to log in to Pelesys and complete the training at your earliest opportunity, '+VIA,LINK,
+      'Should you need any support, please do not hesitate to contact the Training team.',ERR,THANKS]}
 };
 const MAIL_ORDER=['notstarted','incomplete','failed','duesoon','overdue'];
 function mailEmail(login){const u=S.dir.get(login);return((u&&u.email)||login||'').trim();}
@@ -1406,7 +1469,7 @@ function bodyHTML(body){
   return String(body||'').split(/\n{2,}/).map(par=>{
     const isCourse=/^(• )?\*\*[^*]+\*\*$/.test(par.split('\n')[0].trim())&&!/https?:/.test(par);
     let h=esc(par).replace(/(https?:\/\/[^\s*<]+)/g,'<a href="$1" style="color:#3B2A8A">$1</a>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
-    return isCourse?`<p style="margin:0 0 14px;padding:10px 14px;background:#F1EEFB;border-left:4px solid #5B47C2;font-size:12pt;color:#2A1C73">${h}</p>`:`<p style="margin:0 0 14px">${h}</p>`;
+    return isCourse?`<p style="margin:0 0 14px;padding:10px 14px;background:#F1EEFB;border-left:4px solid #5B47C2;font-size:12pt;color:#2B1D66">${h}</p>`:`<p style="margin:0 0 14px">${h}</p>`;
   }).join('');
 }
 function fullHTML(body){return`<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:Aptos,Calibri,Arial,sans-serif;font-size:11pt;line-height:1.45;color:#1A1A1A">${bodyHTML(body)}</body></html>`;}
@@ -1429,7 +1492,17 @@ function fmtBlock(n,prefix){return'';
   if((S.settings.mailMode||'app')==='web'||inFrame)return'';
   return`<div class="mfmt"><div class="mf-h"><b>Formatted email</b><span>Bold text, highlighted course and link · all ${N(n)} recipients in one email</span></div><div class="mbtns"><button class="btn primary big" data-act="${prefix}eml"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Formatted email for Outlook</button><button class="btn sm ghost" data-act="${prefix}html">Copy formatted message</button></div><p class="note">Downloads an email file. Open it and Outlook shows the email with subject, CC and BCC filled in, ready to send.</p></div>`;
 }
-function wrapPlain(box){const f=box.querySelector('.mfmt');if(!f)return;const d=document.createElement('details');d.className='mplain';d.innerHTML='<summary>Backup: plain text without bold</summary>';while(f.nextSibling)d.appendChild(f.nextSibling);box.appendChild(d);}
+function oneBlock(n,prefix,nb){
+  return`<div class="mfmt" data-n="${nb}"><div class="mf-h"><b>One email for all ${N(n)} crew</b><span>Opens one email with subject, CC and message, and copies all ${N(n)} addresses. In Outlook, click in BCC and paste (Ctrl+V).</span></div><div class="mbtns"><button class="btn primary big" data-act="${prefix}1click"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Open email + copy BCC</button></div></div>`;
+}
+function copySync(text){const ta=document.createElement('textarea');ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}ta.remove();if(!ok){try{navigator.clipboard.writeText(text);ok=true;}catch(e){}}return ok;}
+function oneClick(emails,subj,cc,body){
+  const ok=copySync(emails.join('; ')),mode=S.settings.mailMode||'app',url=mailURL([],subj,body,mode,cc);
+  if(mode==='web'){const w=window.open(url,'_blank','noopener');if(!w){const a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();}}
+  else{const a=document.createElement('a');a.href=url;document.body.appendChild(a);a.click();a.remove();}
+  toast(ok?`Email opened. ${N(emails.length)} addresses copied: in Outlook click BCC and paste (Ctrl+V).`:'Email opened. Copy the addresses with Copy BCC, then paste them in BCC.');
+}
+function wrapPlain(box){const f=box.querySelector('.mfmt');if(!f)return;const d=document.createElement('details');d.className='mplain';d.innerHTML='<summary>Or split into '+(f.dataset.n||'several')+' smaller emails, no pasting needed</summary>';while(f.nextSibling)d.appendChild(f.nextSibling);box.appendChild(d);}
 
 function mailDraft(sel){return draftFor(S.mail.status,sel);}
 function mailCC(){return(S.mail.cc!=null?S.mail.cc:S.settings.mailCC||'').split(/[;,\s]+/).filter(Boolean).join('; ');}
@@ -1469,7 +1542,7 @@ function renderMailActions(){
   const {batches,tooLong}=mailBatches(emails,subj,body,mode),key=mode+'|'+S.mail.status+'|'+emails.length;
   const ml=mode==='web'?'Outlook on the web':'Outlook';
   const fmtOn=false;const btn=(b,i)=>`<button class="btn ${batches.length===1&&!fmtOn?'primary big':'sm'} ${S.mail.done[key+'|'+i]?'mdone':''}" data-msend="${i}">${batches.length===1?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>Open in ${ml}`:`Email ${i+1} of ${batches.length} · ${b.length}`}${S.mail.done[key+'|'+i]?' ✓':''}</button>`;
-  box.innerHTML=fmtBlock(emails.length,'m')+(tooLong?`<p class="note warnt">The message is too long to open in ${ml} automatically. Shorten it, or use Copy BCC and Copy message.</p>`:
+  box.innerHTML=(batches.length>1&&!tooLong?oneBlock(emails.length,'m',batches.length):'')+(tooLong?`<p class="note warnt">The message is too long to open in ${ml} automatically. Shorten it, or use Copy BCC and Copy message.</p>`:
     (batches.length>1?`<p class="note">${ml} can take about ${batches[0].length} addresses per email, so the ${N(emails.length)} recipients are split into ${batches.length} emails. Open and send each one.</p>`:'')+`<div class="mbtns">${batches.map(btn).join('')}</div>`)
     +`<div class="mbtns"><button class="btn sm ghost" data-act="mcopysubj">Copy subject</button><button class="btn sm ghost" data-act="mcopybody">Copy message</button><span class="note" style="margin-left:auto">Mode: ${ml} · change in Settings</span></div>`
     +(inFrame?'<p class="note">Opening Outlook works in your published version on GitHub. In this preview, use the copy buttons.</p>':'');
@@ -1538,7 +1611,7 @@ function vSettings(){
 }
 
 /* ---------- drawer ---------- */
-function openDrawer(type,key){S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
+function openDrawer(type,key){S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.toggle('wide',type==='weekly');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
 function closeDrawer(){S.drawer=null;$('#drawer').classList.remove('open');$('#scrim').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');document.querySelectorAll('tr.sel').forEach(x=>x.classList.remove('sel'));}
 function dhead(eyebrow,title,meta,stats,extra){return`<div class="dh"><div class="dh-top"><div><div class="eyebrow">${eyebrow}</div><h2>${esc(title)}</h2><div class="meta">${meta}</div></div><button class="btn sm" data-act="close">Close</button></div>${stats?`<div class="dstats">${stats}</div>`:''}${extra||''}</div>`;}
 const dstat=(cls,v,l)=>`<div class="dstat ${cls}"><b>${v}</b>${l}</div>`;
@@ -1589,6 +1662,10 @@ function renderDrawer(){
         <label class="mf" for="xBody">Message<textarea id="xBody" class="sel" rows="16">${esc(body)}</textarea></label>
         ${m.subj!=null||m.body!=null?'<div><button class="btn sm ghost" data-act="xreset">Restore the standard text</button></div>':''}
         <div id="xActions" class="mactions"></div></div>`;
+  }else if(d.type==='weekly'){
+    const wd=weeklyData();
+    html=dhead('Current filters apply','Weekly summary',`Data as of ${esc(wd.asof)} · ${esc(wd.scope)}`,'',`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary sm" data-act="wkcopy">Copy for email</button><button class="btn sm" data-act="wkxlsx">Download Excel</button><button class="btn sm ghost" data-act="summary">Audit log (text)</button></div>`)
+      +`<div class="db"><div class="wkprev">${weeklyHTML(wd)}</div></div>`;
   }else if(d.type==='summary'){
     html=dhead('Current scope','Audit summary','Copy into an email, a report or your audit log','',`<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary sm" data-act="copysum">Copy summary</button>${inFrame?'':'<button class="btn sm" data-act="print">Print current view</button>'}</div>`)
       +`<div class="db"><label class="sr" for="sumText">Summary text</label><textarea class="summary" id="sumText" readonly>${esc(summaryText())}</textarea></div>`;
@@ -1611,6 +1688,104 @@ function summaryText(){
     'COURSES WITH ITEMS TO ACTION','-'.repeat(60),...(byCourse(list).filter(c=>c.issues).sort((a,b)=>b.issues-a.issues).slice(0,20).map(c=>`${c.title} [${c.code}]\n    ${c.issues} to action · ${c.rate}% complete${c.overdue?' · '+c.overdue+' overdue':''}`)),'',
     action?`RESULT  ${action} records need action before sign-off.`:'RESULT  No open, failed or overdue records in scope.','',
     'Audited by ______________________   Date ____________   Signature ____________'].join('\n');
+}
+
+/* ---------- weekly summary ---------- */
+function addDays(iso,n){const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function wkGroup(list,keyFn){
+  const m=new Map();
+  for(const r of list){const k=keyFn(r)||'—';if(!m.has(k))m.set(k,{k,crew:new Set(),n:0,done:0,na:0,inc:0,fail:0,od:0});const g=m.get(k);g.crew.add(r.login);g.n++;
+    if(r.st==='done')g.done++;else if(r.st==='notstarted')g.na++;else if(r.st==='incomplete')g.inc++;if(r.flags.includes('failed'))g.fail++;if(r.flags.includes('overdue'))g.od++;}
+  return[...m.values()].map(g=>Object.assign(g,{crew:g.crew.size,pct:g.n?g.done/g.n:0}));
+}
+function weeklyData(){
+  const list=filtered().filter(r=>!r.acc),today=todayISO(),lim=addDays(today,30),f=S.f;
+  const scope=[f.role.length?'Job roles: '+f.role.map(roleLabel).join(', '):'All job roles',f.fleet&&('Fleet: '+(f.fleet==='__none'?'no fleet':f.fleet)),f.q&&`Search: "${f.q}"`,f.area,f.status&&STLABEL[f.status],(f.from||f.to)&&('Start '+(f.from?fmtDate(f.from):'…')+' – '+(f.to?fmtDate(f.to):'…'))].filter(Boolean).join(' · ');
+  const tot=wkGroup(list,()=>'All')[0]||{crew:0,n:0,done:0,na:0,inc:0,fail:0,od:0,pct:0};
+  const course=wkGroup(list,r=>r.title).sort((a,b)=>(b.n-b.done)-(a.n-a.done)||a.pct-b.pct);
+  const role=wkGroup(list,r=>r.role||'No job role').sort((a,b)=>b.crew-a.crew);
+  const fleet=wkGroup(list,r=>r.fleet||'No fleet').sort((a,b)=>b.crew-a.crew);
+  const crit=list.filter(r=>r.flags.includes('overdue')||r.flags.includes('failed')).sort((a,b)=>(a.expiry||'9').localeCompare(b.expiry||'9')||a.name.localeCompare(b.name));
+  const due=list.filter(r=>r.st!=='done'&&r.expiry&&r.expiry>=today&&r.expiry<=lim).sort((a,b)=>a.expiry.localeCompare(b.expiry)||a.name.localeCompare(b.name));
+  return{today,lim,scope,asof:S.demo?'example data':fmtStamp(dataAsOf()),tot,course,role,fleet,crit,due};
+}
+const WK_GH=['Crew','Assigned','Completed','% complete','Not attempted','Incomplete','Failed, no pass','Overdue'];
+const wkRow=g=>[g.crew,g.n,g.done,g.pct,g.na,g.inc,g.fail,g.od];
+const wkRec=r=>[r.name,r.role||'No job role',r.fleet||'',r.title,STLABEL[r.st]||r.status,r.expiry?fmtDate(r.expiry):'',r.login];
+const WK_RH=['Crew member','Job role','Fleet','Course','Status','Expiry','Email'];
+const WK_MAX=40;
+function weeklyHTML(d){
+  const th='padding:6px 9px;background:#2B1D66;color:#fff;font-weight:600;text-align:left;font-size:10pt;border:1px solid #2B1D66',td='padding:5px 9px;border:1px solid #DCD6F2;font-size:10pt;vertical-align:top',tn=td+';text-align:right';
+  const pc=v=>{const p=Math.round(v*100),c=p>=90?'#1E7B4F':p>=70?'#B26A00':'#B4232A';return`<b style="color:${c}">${p}%</b>`;};
+  const gtable=(title,first,rows)=>`<h3 style="font-size:12pt;color:#2B1D66;margin:18px 0 6px">${title}</h3><table style="border-collapse:collapse;width:100%"><tr><th style="${th}">${first}</th>${WK_GH.map(h=>`<th style="${th};text-align:right">${h}</th>`).join('')}</tr>${rows.map(g=>`<tr><td style="${td}">${esc(g.k)}</td>${wkRow(g).map((v,i)=>`<td style="${tn}">${i===3?pc(v):N(v)}</td>`).join('')}</tr>`).join('')}</table>`;
+  const rtable=(title,rows,empty)=>`<h3 style="font-size:12pt;color:#2B1D66;margin:18px 0 6px">${title} (${N(rows.length)})</h3>`+(rows.length?`<table style="border-collapse:collapse;width:100%"><tr>${WK_RH.slice(0,6).map(h=>`<th style="${th}">${h}</th>`).join('')}</tr>${rows.slice(0,WK_MAX).map(r=>`<tr>${wkRec(r).slice(0,6).map(v=>`<td style="${td}">${esc(v)}</td>`).join('')}</tr>`).join('')}</table>${rows.length>WK_MAX?`<p style="font-size:9.5pt;color:#666;margin:4px 0">Showing the first ${WK_MAX}. The full list is in the Excel file.</p>`:''}`:`<p style="font-size:10pt;color:#1E7B4F;margin:4px 0">${empty}</p>`);
+  const t=d.tot,kpi=(v,l,c)=>`<td style="padding:10px 14px;border:1px solid #DCD6F2;background:#F6F4FD;text-align:center"><div style="font-size:16pt;font-weight:700;color:${c||'#2B1D66'}">${v}</div><div style="font-size:9pt;color:#555">${l}</div></td>`;
+  return`<div style="font-family:Aptos,Calibri,Arial,sans-serif;color:#1A1A1A;font-size:10.5pt">
+<h2 style="font-size:15pt;color:#2B1D66;margin:0 0 4px">Pelesys training – weekly summary</h2>
+<p style="margin:0 0 2px;color:#555;font-size:10pt">Data as of ${esc(d.asof)} · prepared ${fmtDate(d.today)}</p><p style="margin:0 0 12px;color:#555;font-size:10pt">Scope: ${esc(d.scope)}</p>
+<table style="border-collapse:collapse;width:100%"><tr>${kpi(pc(t.pct),'Completed')}${kpi(N(t.crew),'Crew')}${kpi(N(t.na),'Not attempted','#B26A00')}${kpi(N(t.inc),'Incomplete','#B26A00')}${kpi(N(t.fail),'Failed, no pass','#B4232A')}${kpi(N(t.od),'Overdue','#B4232A')}${kpi(N(d.due.length),'Due in 30 days','#3B5BDB')}</tr></table>
+${gtable('By course – most open first'+(d.course.length>15?' (top 15 of '+d.course.length+')':''),'Course',d.course.slice(0,15))}${gtable('By job role','Job role',d.role)}${gtable('By fleet','Fleet',d.fleet)}
+${rtable('Critical – overdue or failed',d.crit,'No overdue or failed records.')}
+${rtable('Due in the next 30 days (until '+fmtDate(d.lim)+')',d.due,'Nothing open is due in the next 30 days.')}
+</div>`;
+}
+function weeklyPlain(d){
+  const t=d.tot,P=v=>Math.round(v*100)+'%',L=[];
+  L.push('PELESYS TRAINING – WEEKLY SUMMARY',`Data as of ${d.asof} · prepared ${fmtDate(d.today)}`,`Scope: ${d.scope}`,'',
+    `Completed ${P(t.pct)} · Crew ${t.crew} · Not attempted ${t.na} · Incomplete ${t.inc} · Failed, no pass ${t.fail} · Overdue ${t.od} · Due in 30 days ${d.due.length}`,'');
+  const g=(title,rows)=>{L.push(title.toUpperCase());rows.forEach(x=>L.push(`- ${x.k}: ${P(x.pct)} complete (${x.done}/${x.n}) · ${x.na} not attempted · ${x.inc} incomplete · ${x.fail} failed · ${x.od} overdue`));L.push('');};
+  g('By course – most open first',d.course.slice(0,15));g('By job role',d.role);g('By fleet',d.fleet);
+  const r=(title,rows)=>{L.push(`${title.toUpperCase()} (${rows.length})`);rows.slice(0,WK_MAX).forEach(x=>L.push(`- ${x.name} (${x.role||'No job role'}) · ${x.title} · ${STLABEL[x.st]||x.status}${x.expiry?' · expiry '+fmtDate(x.expiry):''}`));if(rows.length>WK_MAX)L.push(`… and ${rows.length-WK_MAX} more`);L.push('');};
+  r('Critical – overdue or failed',d.crit);r('Due in the next 30 days',d.due);
+  return L.join('\n');
+}
+function copyWeekly(){
+  const d=weeklyData(),html='<html><body>'+weeklyHTML(d)+'</body></html>',plain=weeklyPlain(d);
+  try{if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]).then(()=>toast('Summary copied. Paste it into the body of an email in Outlook.'),()=>copyHtmlSync(html,plain));return;}}catch(e){}
+  copyHtmlSync(html,plain);
+}
+function copyHtmlSync(html,plain){
+  const div=document.createElement('div');div.contentEditable='true';div.style.position='fixed';div.style.left='-9999px';div.innerHTML=html;document.body.appendChild(div);
+  const r=document.createRange();r.selectNodeContents(div);const s=getSelection();s.removeAllRanges();s.addRange(r);let ok=false;try{ok=document.execCommand('copy');}catch(e){}s.removeAllRanges();div.remove();
+  if(ok)toast('Summary copied. Paste it into the body of an email in Outlook.');else copyText(plain,'Summary copied as plain text.');
+}
+/* minimal .xlsx writer (no compression, works offline) */
+const CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC_T[(c^b[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0;}
+function zipStore(files){
+  const enc=new TextEncoder(),parts=[],cd=[];let off=0;
+  for(const f of files){const name=enc.encode(f.name),data=enc.encode(f.data),crc=crc32(data);
+    const h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(8,0,true);h.setUint32(14,crc,true);h.setUint32(18,data.length,true);h.setUint32(22,data.length,true);h.setUint16(26,name.length,true);
+    parts.push(new Uint8Array(h.buffer),name,data);
+    const c=new DataView(new ArrayBuffer(46));c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint32(16,crc,true);c.setUint32(20,data.length,true);c.setUint32(24,data.length,true);c.setUint16(28,name.length,true);c.setUint32(42,off,true);
+    cd.push(new Uint8Array(c.buffer),name);off+=30+name.length+data.length;}
+  const cdLen=cd.reduce((a,x)=>a+x.length,0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cdLen,true);e.setUint32(16,off,true);
+  return new Blob([...parts,...cd,new Uint8Array(e.buffer)],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function xlsxBlob(sheets){
+  const x=v=>String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,'');
+  const col=i=>{let s='';i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26);}return s;};
+  const sheetXml=sh=>{const rows=sh.rows.map((r,ri)=>`<row r="${ri+1}">`+r.map((v,ci)=>{if(v==null||v==='')return'';const ref=col(ci)+(ri+1),st=(sh.bold||[]).includes(ri)?1:(sh.pctCols||[]).includes(ci)&&typeof v==='number'?2:0;
+      return typeof v==='number'?`<c r="${ref}" s="${st}"><v>${v}</v></c>`:`<c r="${ref}" t="inlineStr" s="${st}"><is><t xml:space="preserve">${x(v)}</t></is></c>`;}).join('')+'</row>').join('');
+    return`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">${sh.freeze?`<sheetViews><sheetView workbookViewId="0"><pane ySplit="${sh.freeze}" topLeftCell="A${sh.freeze+1}" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>`:''}<cols>${sh.widths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${rows}</sheetData>${sh.filter?`<autoFilter ref="A${sh.filter}:${col(sh.widths.length-1)}${Math.max(sh.rows.length,sh.filter)}"/>`:''}</worksheet>`;};
+  const files=[
+    {name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((s,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`},
+    {name:'_rels/.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+    {name:'xl/workbook.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s,i)=>`<sheet name="${x(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets>${sheets.map((s,i)=>s.filter?`<definedNames><definedName name="_xlnm._FilterDatabase" localSheetId="${i}" hidden="1">'${x(s.name)}'!$A$${s.filter}:$${col(s.widths.length-1)}$${Math.max(s.rows.length,s.filter)}</definedName></definedNames>`:'').find(Boolean)||''}</workbook>`},
+    {name:'xl/_rels/workbook.xml.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+    {name:'xl/styles.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF2A1C73"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/><xf numFmtId="9" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`},
+    ...sheets.map((s,i)=>({name:`xl/worksheets/sheet${i+1}.xml`,data:sheetXml(s)}))];
+  return zipStore(files);
+}
+function downloadWeekly(){
+  const d=weeklyData(),t=d.tot;
+  const gs=(name,first,rows)=>({name,widths:[46,8,10,11,11,13,11,9,9],pctCols:[4],bold:[0],freeze:1,filter:1,rows:[[first,...WK_GH],...rows.map(g=>[g.k,...wkRow(g)])]});
+  const rs=(name,rows)=>({name,widths:[30,18,14,58,18,14,34],bold:[0],freeze:1,filter:1,rows:[WK_RH,...rows.map(wkRec)]});
+  const sum={name:'Summary',widths:[30,60],bold:[],rows:[['Pelesys training – weekly summary'],['Data as of',d.asof],['Prepared',fmtDate(d.today)],['Scope',d.scope],[],
+    ['Completed',t.pct],['Crew',t.crew],['Assigned courses',t.n],['Completed courses',t.done],['Not attempted',t.na],['Incomplete',t.inc],['Failed, no pass',t.fail],['Overdue',t.od],['Critical (overdue or failed)',d.crit.length],['Due in the next 30 days',d.due.length]],pctCols:[1]};
+  const blob=xlsxBlob([sum,gs('By course','Course',d.course),gs('By job role','Job role',d.role),gs('By fleet','Fleet',d.fleet),rs('Critical',d.crit),rs('Due in 30 days',d.due)]);
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Pelesys weekly summary ${d.today}.xlsx`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);toast('Excel file downloaded.');}
+  catch(e){toast('Download is blocked here. It works in your published version on GitHub.');}
 }
 
 /* ---------- export ---------- */
@@ -1800,7 +1975,7 @@ $('#fhide').addEventListener('change',e=>{S.f.hideTest=e.target.checked;S.limit=
 $('#freset').addEventListener('click',()=>{S.f={q:'',area:'',subj:'',kind:'',prog:'',role:[],fleet:'',status:'',from:'',to:'',hideTest:true,batch:null};['#fq','#farea','#fsubj','#fkind','#fprog','#ffleet','#fstatus','#ffrom','#fto'].forEach(s=>$(s).value='');$('#fhide').checked=true;S.limit={};render();});
 $('#btnLoad').addEventListener('click',()=>{closeDrawer();showStart();});
 $('#fileInput').addEventListener('change',e=>{readFiles(e.target.files);e.target.value='';});
-$('#btnSummary').addEventListener('click',()=>openDrawer('summary'));
+$('#btnSummary').addEventListener('click',()=>openDrawer('weekly'));
 function setSideMin(m,save){document.body.classList.toggle('sidemin',m);const b=$('#sideTog'),t=m?'Expand the sidebar':'Collapse the sidebar';b.setAttribute('aria-label',t);b.title=t;$('#btnLoad').title=m?'Load new reports':'';if(save){try{localStorage.setItem(STORE+'.sideMin',m?'1':'0');}catch(_){}}}
 $('#sideTog').addEventListener('click',()=>setSideMin(!document.body.classList.contains('sidemin'),true));
 (()=>{let v=null;try{v=localStorage.getItem(STORE+'.sideMin');}catch(_){}setSideMin(v===null?window.innerWidth<1500:v==='1',false);})();
@@ -1841,7 +2016,7 @@ document.addEventListener('click',e=>{
     if(a0==='stopen'){const items=S.staged.slice();S.staged=[];S.started=true;document.body.classList.remove('starting');S.tab='overview';loadBatch(items);window.scrollTo({top:0});return;}
   }
   if(e.target.closest('[data-act="inorole"]')){S.f.role=(S.roleOpts||[]).slice();S.limit={};if(S.iss)S.iss.sel.clear();if(S.mail)S.mail.sel=null;render();toast('Crew without a job role removed from the list.');return;}
-  const xi=e.target.closest('[data-act="imail"],[data-act="iselclear"],[data-xsend],[data-act="xcopybcc"],[data-act="xcopysubj"],[data-act="xcopybody"],[data-act="xreset"],[data-act="xeml"],[data-act="xhtml"]');
+  const xi=e.target.closest('[data-act="imail"],[data-act="iselclear"],[data-xsend],[data-act="xcopybcc"],[data-act="xcopysubj"],[data-act="xcopybody"],[data-act="xreset"],[data-act="xeml"],[data-act="xhtml"],[data-act="x1click"]');
   if(xi){
     if(xi.dataset.xsend!==undefined){xSend(+xi.dataset.xsend);return;}
     const a2=xi.dataset.act;
@@ -1851,10 +2026,11 @@ document.addEventListener('click',e=>{
     if(a2==='xcopybcc'){const em=[...new Set(S.mx.crew.map(c=>c.email).filter(e=>/@/.test(e)))];copyText(em.join('; '),`Copied ${em.length} address${em.length===1?'':'es'} for BCC.`);return;}
     if(a2==='xcopysubj'){copyText($('#xSubj').value,'Subject copied.');return;}
     if(a2==='xcopybody'){copyText(plainBody($('#xBody').value),'Message copied as plain text.');return;}
+    if(a2==='x1click'){const em=[...new Set(S.mx.crew.map(c=>c.email).filter(e=>/@/.test(e)))];oneClick(em,$('#xSubj').value,$('#xCC').value,$('#xBody').value);return;}
     if(a2==='xeml'){const em=[...new Set(S.mx.crew.map(c=>c.email).filter(e=>/@/.test(e)))];downloadEml(MAILT[S.mx.tpl].label,$('#xSubj').value,$('#xCC').value,em,$('#xBody').value);return;}
     if(a2==='xhtml'){copyHTML($('#xBody').value);return;}
   }
-  const mx=e.target.closest('[data-mstat],[data-msend],[data-act="mall"],[data-act="mnone"],[data-act="mcopybcc"],[data-act="mcopysubj"],[data-act="mcopybody"],[data-act="mreset"],[data-act="meml"],[data-act="mhtml"]');
+  const mx=e.target.closest('[data-mstat],[data-msend],[data-act="mall"],[data-act="mnone"],[data-act="mcopybcc"],[data-act="mcopysubj"],[data-act="mcopybody"],[data-act="mreset"],[data-act="meml"],[data-act="mhtml"],[data-act="m1click"]');
   if(mx){
     if(mx.dataset.mstat){S.mail.status=mx.dataset.mstat;S.mail.sel=null;S.mail.subj=null;S.mail.body=null;render();return;}
     if(mx.dataset.msend!==undefined){mailSend(+mx.dataset.msend);return;}
@@ -1865,6 +2041,7 @@ document.addEventListener('click',e=>{
     if(a1==='mcopybcc'){const em=[...new Set(mailSelected(crew).map(c=>c.email).filter(e=>/@/.test(e)))];copyText(em.join('; '),`Copied ${em.length} address${em.length===1?'':'es'} for BCC.`);return;}
     if(a1==='mcopysubj'){copyText($('#mSubj').value,'Subject copied.');return;}
     if(a1==='mcopybody'){copyText(plainBody($('#mBody').value),'Message copied as plain text.');return;}
+    if(a1==='m1click'){const em=[...new Set(mailSelected(crew).map(c=>c.email).filter(e=>/@/.test(e)))];oneClick(em,$('#mSubj').value,$('#mCC').value,$('#mBody').value);return;}
     if(a1==='meml'){const em=[...new Set(mailSelected(crew).map(c=>c.email).filter(e=>/@/.test(e)))];downloadEml(MAILT[S.mail.status].label,$('#mSubj').value,$('#mCC').value,em,$('#mBody').value);return;}
     if(a1==='mhtml'){copyHTML($('#mBody').value);return;}
   }
@@ -1903,6 +2080,9 @@ document.addEventListener('click',e=>{
   else if(a==='summary')openDrawer('summary');
   else if(a==='noenroll')openDrawer('noenroll');
   else if(a==='close')closeDrawer();
+  else if(a==='wkcopy')copyWeekly();
+  else if(a==='wkxlsx')downloadWeekly();
+  else if(a==='weekly')openDrawer('weekly');
   else if(a==='copysum')copyText($('#sumText').value,'Summary copied.');
   else if(a==='print'){closeDrawer();setTimeout(()=>window.print(),250);}
   else if(a==='allflags'){FLAG_ORDER.filter(f=>FLAGS[f].sev>0||S.showInfo).forEach(f=>S.issueFlags.add(f));render();}
@@ -1933,7 +2113,7 @@ function setOv(code,field,val){
   build();save();render();toast(`${code}: ${field==='subject'?'category':field==='prog'?'programme':field==='kind'?'type':field==='test'?(val?'marked as test course':'no longer a test course'):field} ${field==='test'?'':'set to '+val}. Applied across the app.`);
 }
 let catT;
-document.addEventListener('input',e=>{if(e.target.id==='catSearch'){clearTimeout(catT);const v=e.target.value;catT=setTimeout(()=>{S.f.q=v;$('#fq').value=v;S.limit={};const pos=v.length;render();const el=$('#catSearch');if(el){el.focus();try{el.setSelectionRange(pos,pos);}catch(_){}}},180);}});
+document.addEventListener('input',e=>{if(e.target.id==='catSearch'){clearTimeout(catT);const v=e.target.value;catT=setTimeout(()=>{S.f.q=v;$('#fq').value=v;S.limit={};S._keepTools=true;const pos=v.length;render();const el=$('#catSearch');if(el&&document.activeElement!==el){el.focus();try{el.setSelectionRange(pos,pos);}catch(_){}}},180);}});
 document.addEventListener('change',e=>{
   const t=e.target;
   if(t.dataset&&t.dataset.role!==undefined){const v=t.dataset.role;S.f.role=t.checked?[...new Set(S.f.role.concat(v))]:S.f.role.filter(x=>x!==v);S.limit={};render();return;}

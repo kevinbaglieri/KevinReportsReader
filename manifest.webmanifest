@@ -1,24 +1,15 @@
 {
-  "name": "TrainerDuties",
-  "short_name": "TrainerDuties",
-  "description": "Trainer Duty Reader \u2014 unofficial app by Kevin Baglieri",
+  "name": "Kevin Reports Reader - Pelesys",
+  "short_name": "KRR Pelesys",
+  "description": "Offline audit of Pelesys exam and e-learning reports.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0B0A1F",
-  "theme_color": "#0B0A1F",
+  "background_color": "#F6F4FA",
+  "theme_color": "#2B1D66",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]
 }
