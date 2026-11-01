@@ -798,6 +798,35 @@ td .cl{display:block;font-size:12.5px;line-height:1.35}
 .ibar{padding:9px 12px;gap:10px}.ibar .ib-ic{width:32px;height:32px}.ibar .ib-l small{font-size:11.5px}
 .ib-s{gap:4px}.mscope{font-size:11.5px}.mscope-w{padding:6px 10px;font-size:12px}
 .issues-card .tframe{max-height:max(520px,calc(100vh - 120px))}
+/* user profile */
+.phead{gap:14px;background:linear-gradient(180deg,rgba(124,106,201,.10),var(--glass))}
+.pid{display:flex;gap:14px;align-items:center;min-width:0}
+.pav{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;flex:none;font-weight:800;font-size:19px;color:#fff;background:linear-gradient(135deg,#5E52A6,#2B1D66);box-shadow:0 10px 24px -12px rgba(43,29,102,.6)}
+.phead h2{font-size:22px;letter-spacing:-.02em;margin-top:2px}
+.pchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pchip{font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--glass-2);border:1px solid var(--line);color:var(--ink)}
+.pchip.role{background:var(--lav-soft);color:var(--accent);border-color:transparent}.pchip.muted{color:var(--muted)}.pchip.bad{background:rgba(154,79,102,.12);color:#9A4F66;border-color:transparent}
+.ptiles{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.ptile{background:var(--glass-2);border:1px solid var(--glass-line);border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.ptile b{font-size:22px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums}.ptile span{font-size:11.5px;color:var(--muted);font-weight:600}
+.ptile small{font-size:10.5px;color:var(--muted)}
+.ptile.ok b{color:var(--ok)}.ptile.x{background:linear-gradient(140deg,#FDF6F8,#F6E6EC);border-color:rgba(154,79,102,.2)}.ptile.x b{color:#9A4F66}
+.ptile.w{background:linear-gradient(140deg,#FDF9F2,#F4EADB);border-color:rgba(149,112,67,.2)}.ptile.w b{color:#957043}.ptile.zero b{color:var(--faint)}
+.pbar{display:block;height:5px;border-radius:5px;background:var(--line);margin-top:4px;overflow:hidden}.pbar i{display:block;height:100%;background:var(--ok);border-radius:5px}
+.pacts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.ptabs .segv{max-width:100%;overflow-x:auto}.ptabs .segv button{white-space:nowrap}
+.ptabs{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+@media (max-width:760px){.ptiles{grid-template-columns:repeat(3,minmax(0,1fr))}.pav{width:46px;height:46px;font-size:16px}}
+/* user search list: solid, wide, readable */
+.psug{background:#FFFFFF!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;width:min(520px,calc(100vw - 32px));left:auto;right:0;overflow-x:hidden;overflow-y:auto;max-height:min(440px,70vh);padding:6px;box-shadow:0 24px 60px -18px rgba(34,18,88,.45),0 0 0 1px rgba(43,29,102,.08)}
+:root[data-theme="dark"] .psug{background:#241A5C!important}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .psug{background:#241A5C!important}}
+.psug button{padding:9px 10px;align-items:center}
+.psug button>span:nth-child(2){min-width:0;flex:1}
+.psug b{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.psug small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.psug .ps-n{flex:none}
+@media (max-width:760px){.psug{left:0;right:0;width:auto}}
 /* buttons & chips */
 .btn.primary{background:linear-gradient(135deg,#3E3088 0%,#5D50A8 100%);color:#fff;border-color:rgba(255,255,255,.25);box-shadow:0 8px 20px -12px rgba(43,29,102,.55)}
 .btn.primary:hover{background:linear-gradient(135deg,#372A7C 0%,#54479D 100%)}
@@ -1696,7 +1725,7 @@ function vSettings(){
 }
 
 /* ---------- drawer ---------- */
-function openDrawer(type,key){S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.toggle('wide',type==='weekly');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
+function openDrawer(type,key){if(type==='crew'&&(!S.drawer||S.drawer.key!==key))S.profTab=null;S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.toggle('wide',type==='weekly'||type==='crew');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
 function closeDrawer(){S.drawer=null;$('#drawer').classList.remove('open');$('#scrim').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');document.querySelectorAll('tr.sel').forEach(x=>x.classList.remove('sel'));}
 function dhead(eyebrow,title,meta,stats,extra){return`<div class="dh"><div class="dh-top"><div><div class="eyebrow">${eyebrow}</div><h2>${esc(title)}</h2><div class="meta">${meta}</div></div><button class="btn sm" data-act="close">Close</button></div>${stats?`<div class="dstats">${stats}</div>`:''}${extra||''}</div>`;}
 const dstat=(cls,v,l)=>`<div class="dstat ${cls}"><b>${v}</b>${l}</div>`;
@@ -1710,15 +1739,28 @@ function recCard(r){
 function renderDrawer(){
   const d=S.drawer;if(!d)return;let html='';
   if(d.type==='crew'){
-    const recs=S.recs.filter(r=>r.login===d.key);const u0=S.dir.get(d.key);if(!recs.length&&!u0)return;
-    if(!recs.length){html=dhead('User profile',u0.name||d.key,`<span class="mono">${esc(u0.email||d.key)}</span>${u0.role?' · '+esc(u0.role):' · No job role'}${u0.fleet?' · '+esc(u0.fleet):''}${u0.emp?' · Employee ID '+esc(u0.emp):''}${!u0.active?' · <span class="tag bad">Inactive</span>':''}`,dstat('',0,'courses'),'')+`<div class="db"><div class="empty" style="padding:24px"><b>No courses assigned</b>This user is in Pelesys but has no enrollment in the loaded Enrollment Report.</div></div>`;$('#drawer').innerHTML=html;return;}
-    const sc=statusCounts(recs),fc=countFlags(recs);
-    const act=recs.filter(r=>r.sev>=2).sort((a,b)=>b.sev-a.sev||(a.expiry||'9').localeCompare(b.expiry||'9')),accd=recs.filter(r=>r.acc),rest=recs.filter(r=>r.sev<2&&!r.acc).sort((a,b)=>(b.compl||b.start).localeCompare(a.compl||a.start));
-    S.tables.d={name:'crew-'+d.key.split('@')[0],cols:recCols({name:false}),rows:recs};
-    const u=S.dir.get(d.key);
-    const cmeta=`<span class="mono">${esc(u&&u.email||d.key)}</span>${u&&u.role?' · '+esc(u.role):' · No job role'}${u&&u.fleet?' · '+esc(u.fleet):''}${u&&u.emp?' · Employee ID '+esc(u.emp):''}${u&&!u.active?' · <span class="tag bad">Inactive</span>':''}`;
-    html=dhead('User profile',(u0&&u0.name)||recs[0].name,cmeta,dstat('',recs.length,'courses')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(fc.notstarted+fc.incomplete?'warn':'',fc.notstarted+fc.incomplete,'open')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'expired'),`<div style="display:flex;gap:6px;flex-wrap:wrap">${act.some(r=>!r.acc)?`<button class="btn sm primary" data-act="remind" data-login="${esc(d.key)}">Copy reminder email</button>`:''}${exportBar('d')}</div>`)
-      +`<div class="db">${act.length?`<div class="grp bad">Needs action · ${act.length}</div>${act.map(recCard).join('')}`:`<div class="empty" style="padding:20px"><b>Nothing to action</b>Every course is completed, passed or resolved.</div>`}${rest.length?`<div class="grp">Done or informational · ${rest.length}</div>${rest.map(recCard).join('')}`:''}</div>`;
+    const recs=S.recs.filter(r=>r.login===d.key);const u0=S.dir.get(d.key)||{};const name=u0.name||(recs[0]&&recs[0].name)||d.key;if(!recs.length&&!S.dir.get(d.key))return;
+    const sc=statusCounts(recs),fc=countFlags(recs),n=recs.length,done=sc.done,rate=pct(done,n);
+    const act=recs.filter(r=>r.sev>=2),doneR=recs.filter(r=>r.st==='done');
+    if(!S.profTab)S.profTab=act.length?'act':'all';
+    const tab=S.profTab,rows=tab==='act'?act:tab==='done'?doneR:recs;
+    const ini=(name.split(/[ ,]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('')||'?').toUpperCase();
+    const chip=(t,cls)=>`<span class="pchip ${cls||''}">${t}</span>`;
+    const chips=[chip(`<span class="mono">${esc(u0.email||d.key)}</span>`),chip(u0.role?esc(u0.role):'No job role',u0.role?'role':'muted'),u0.fleet?chip(esc(u0.fleet)):'',u0.emp?chip('Employee ID '+esc(u0.emp)):'',u0.active===false?chip('Inactive','bad'):''].join('');
+    const due=recs.filter(r=>r.flags.includes('duesoon')).length,open=fc.notstarted+fc.incomplete;
+    const tile=(v,l,cls,sub)=>`<div class="ptile ${cls||''}"><b>${v}</b><span>${l}</span>${sub||''}</div>`;
+    const tiles=tile(N(n),'Courses')+tile(rate+'%','Complete','ok',`<i class="pbar"><i style="width:${rate}%"></i></i>`)+tile(fc.overdue,'Expired',fc.overdue?'x':'zero')+tile(fc.failed,'Failed, no pass',fc.failed?'x':'zero')+tile(open,'Not finished',open?'w':'zero',open?`<small>${fc.notstarted} not attempted · ${fc.incomplete} incomplete</small>`:'')+tile(due,'Due soon',due?'w':'zero');
+    const actions=`<div class="pacts">${act.length?`<button class="btn sm primary" data-act="remind" data-login="${esc(d.key)}">Copy reminder email</button>`:''}${exportBar('d')}</div>`;
+    const seg=`<div class="segv" role="group" aria-label="Show"><button type="button" data-act="ptab" data-v="act" aria-pressed="${tab==='act'}">Needs action · ${act.length}</button><button type="button" data-act="ptab" data-v="all" aria-pressed="${tab==='all'}">All courses · ${n}</button><button type="button" data-act="ptab" data-v="done" aria-pressed="${tab==='done'}">Completed · ${doneR.length}</button></div>`;
+    const cols=recCols({name:false}).filter(c=>c.key!=='flags'||true);
+    const table=!n?`<div class="empty" style="padding:24px"><b>No courses assigned</b>This user is in Pelesys but has no enrollment in the loaded Enrollment Report.</div>`
+      :rows.length&&window.innerWidth<760?(S.tables.d={name:'profile-'+d.key.split('@')[0],cols:recCols({name:false}),rows,shown:[]},rows.slice().sort((a,b)=>tab==='done'?(b.compl||'').localeCompare(a.compl||''):(b.sev-a.sev||(a.expiry||'9').localeCompare(b.expiry||'9'))).map(recCard).join(''))
+      :rows.length?renderTable('d',cols,rows,{defaultSort:tab==='done'?{key:'compl',dir:'desc'}:{key:'_sev',dir:'desc'},exportName:'profile-'+d.key.split('@')[0]})
+      :`<div class="empty" style="padding:24px"><b>${tab==='act'?'Nothing to action':'Nothing here'}</b>${tab==='act'?'Every course is completed, passed or resolved.':'No courses in this group.'}</div>`;
+    if(n&&!rows.length)S.tables.d={name:'profile-'+d.key.split('@')[0],cols:recCols({name:false}),rows:recs,shown:[]};
+    html=`<div class="dh phead"><div class="dh-top"><div class="pid"><span class="pav">${esc(ini)}</span><div><div class="eyebrow">User profile</div><h2>${esc(name)}</h2><div class="pchips">${chips}</div></div></div><button class="btn sm" data-act="close">Close</button></div>
+      <div class="ptiles">${tiles}</div>${actions}</div>
+      <div class="db"><div class="ptabs">${seg}</div>${table}</div>`;
   }else if(d.type==='course'){
     const recs=S.recs.filter(r=>r.ckey===d.key);if(!recs.length)return;const sc=statusCounts(recs),fc=countFlags(recs),r0=recs[0];
     const table=renderTable('d',recCols({course:false}),recs,{defaultSort:{key:'flags',dir:'desc'},exportName:'course-'+r0.code.replace(/[^\w-]+/g,'_'),onRow:r=>openDrawer('crew',r.login)});
@@ -2197,6 +2239,7 @@ document.addEventListener('click',e=>{
   else if(a==='print'){closeDrawer();setTimeout(()=>window.print(),250);}
   else if(a==='allflags'){FLAG_ORDER.filter(f=>FLAGS[f].sev>0||S.showInfo).forEach(f=>S.issueFlags.add(f));render();}
   else if(a==='noflags'){S.issueFlags.clear();render();}
+  else if(a==='ptab'){S.profTab=t.dataset.v;S.sort.d=null;renderDrawer();}
   else if(a==='fv'){S.fv=!S.fv;render();window.scrollTo({top:0});}
   else if(a==='ivrec'||a==='ivcrew'){S.issView=a==='ivcrew'?'crew':'rec';S.limit={};render();}
   else if(a==='info'){S.showInfo=!S.showInfo;if(!S.showInfo)FLAG_ORDER.filter(f=>FLAGS[f].sev===0).forEach(f=>S.issueFlags.delete(f));render();}
