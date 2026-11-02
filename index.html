@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Kevin Reports Reader - Pelesys</title>
-<meta name="description" content="Kevin Reports Reader - Pelesys: offline audit of Pelesys exam and e-learning reports.">
+<title>Pelesys Reading Dashboard</title>
+<meta name="description" content="Pelesys Reading Dashboard: offline audit of Pelesys exam and e-learning reports.">
 <meta name="theme-color" content="#2B1D66">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="KRR Pelesys">
+<meta name="apple-mobile-web-app-title" content="Pelesys Dashboard">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -17,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('krr.theme')==='dark'?'dark':'light');}catch(e){document.documentElement.setAttribute('data-theme','light');}</script>
 <style>
 /* Layout: frosted-glass workstation floating on an indigo/lavender/peach light field — glass sidebar, glass command bar, attention band first, 12-column canvas below; one column under 980px */
 :root{
@@ -827,6 +828,118 @@ td .cl{display:block;font-size:12.5px;line-height:1.35}
 .psug small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .psug .ps-n{flex:none}
 @media (max-width:760px){.psug{left:0;right:0;width:auto}}
+/* tiles: number + label never collide with the tick */
+.itile{padding-right:36px;min-width:0}.itile .it-l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.itile b{flex:none}
+/* profile: one scrolling sheet, header never squeezed */
+.drawer.prof{overflow-y:auto;overscroll-behavior:contain}
+.drawer.prof .dh{flex:none;position:relative}
+.drawer.prof .db{flex:none;overflow:visible;min-height:auto}
+.drawer.prof .tframe{max-height:none;overflow-x:auto;overflow-y:visible}
+.drawer.prof .ptiles{grid-template-columns:repeat(auto-fit,minmax(118px,1fr))}
+.phead .dh-top{align-items:flex-start}
+.pacts{margin-top:2px}
+/* search inside the Issues list */
+.isearch{max-width:none!important;flex:none;margin:2px 0 0}
+.isearch input{padding-right:110px!important}
+.iq-n{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11.5px;font-weight:700;color:var(--muted)}
+.card.fv .isearch{display:block}
+/* daily reminder */
+.daily{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,rgba(124,106,201,.16),rgba(255,255,255,.7));border:1.5px solid rgba(62,48,136,.22);box-shadow:var(--gshadow)}
+.daily>div:nth-child(2){flex:1 1 260px;min-width:0}.daily b{display:block;font-size:14px}.daily small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.dl-ic{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#3E3088;color:#fff;flex:none}.dl-ic svg{width:18px;height:18px}
+.dl-b{display:flex;gap:6px;flex-wrap:wrap}
+/* theme button */
+#themeBtn .th-moon{display:block}#themeBtn .th-sun{display:none}
+:root[data-theme="dark"] #themeBtn .th-moon{display:none}:root[data-theme="dark"] #themeBtn .th-sun{display:block}
+#themeBtn svg{width:18px;height:18px}
+/* dark version: replace the light-only surfaces */
+:root[data-theme="dark"] .ptile.x{background:linear-gradient(140deg,rgba(154,79,102,.24),rgba(154,79,102,.10));border-color:rgba(229,163,182,.25)}
+:root[data-theme="dark"] .ptile.x b{color:#E5A3B6}
+:root[data-theme="dark"] .ptile.w{background:linear-gradient(140deg,rgba(149,112,67,.24),rgba(149,112,67,.10));border-color:rgba(226,192,143,.25)}
+:root[data-theme="dark"] .ptile.w b{color:#E2C08F}
+:root[data-theme="dark"] .card.fv{background:color-mix(in srgb,var(--bg) 94%,#2B1D66)}
+:root[data-theme="dark"] .mchip.on,:root[data-theme="dark"] .cstat.on,:root[data-theme="dark"] .chip[aria-pressed="true"]{background:rgba(179,164,240,.18)!important;color:#E9E4FF!important;border-color:rgba(179,164,240,.35)!important}
+:root[data-theme="dark"] .mchip.on b{color:#fff}
+:root[data-theme="dark"] .ib-ic{background:rgba(179,164,240,.18);color:#E9E4FF}
+:root[data-theme="dark"] .daily{background:linear-gradient(135deg,rgba(179,164,240,.18),rgba(255,255,255,.04));border-color:rgba(179,164,240,.3)}
+:root[data-theme="dark"] .pchip.role{color:#CBBFF7}
+:root[data-theme="dark"] .pav{background:linear-gradient(135deg,#7C6EC0,#3E3088)}
+:root[data-theme="dark"] .pri.p3{color:#E5A3B6}:root[data-theme="dark"] .pri.p2{color:#E2C08F}
+:root[data-theme="dark"] .f3{color:#E5A3B6}:root[data-theme="dark"] .f2{color:#E2C08F}
+:root[data-theme="dark"] .psug .ps-av{background:rgba(179,164,240,.2);color:#fff}
+/* profile: one clean sheet */
+.drawer.prof{bottom:auto;max-height:calc(100% - 24px);height:auto;background:color-mix(in srgb,var(--bg) 88%,#ffffff)}
+:root[data-theme="dark"] .drawer.prof{background:color-mix(in srgb,var(--bg) 92%,#2B1D66)}
+.drawer.prof .dh{background:linear-gradient(180deg,rgba(124,106,201,.10),transparent);border-bottom:0;padding-bottom:8px}
+.drawer.prof .db{padding:8px 22px 22px;gap:0}
+.pcard{background:var(--glass-2);border:1px solid var(--glass-line);border-radius:16px;overflow:hidden;box-shadow:0 1px 2px rgba(43,29,102,.05)}
+:root:not([data-theme="dark"]) .pcard{background:#fff}
+.pcard .ptabs{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 14px;border-bottom:1px solid var(--line);flex-wrap:nowrap}
+.pcard .segv{background:none;border:0;padding:0;gap:4px;border-radius:0;overflow-x:auto}
+.pcard .segv button{border-radius:0;padding:13px 6px 11px;margin-right:12px;border-bottom:2.5px solid transparent;box-shadow:none!important;background:none!important;color:var(--muted)}
+.pcard .segv button[aria-pressed="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.ptabs-n{font-size:12px;color:var(--faint);font-weight:600;white-space:nowrap}
+.pcard .tframe{border:0;border-radius:0;background:transparent;max-height:none}
+.pcard .tframe thead th{background:var(--glass-3)}
+.pcard .empty{margin:0;border:0;background:none}
+.pcard-b>.rec{margin:10px 12px}
+.pcard .more{padding:10px}
+@media (max-width:760px){.pcard .ptabs-n{display:none}.drawer.prof{max-height:none;bottom:8px}}
+/* daily reminder: impossible to miss */
+.daily{background:linear-gradient(120deg,#2B1D66 0%,#45378F 55%,#7C6EC0 100%)!important;border:0!important;color:#fff;padding:18px 20px!important;box-shadow:0 18px 40px -20px rgba(43,29,102,.8)!important;position:relative;overflow:hidden}
+.daily::after{content:"";position:absolute;right:-60px;top:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);pointer-events:none}
+.daily b{font-size:17px!important;color:#fff}.daily small{color:rgba(255,255,255,.82)!important;font-size:13px!important}
+.dl-eye{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#FFD9A8;margin-bottom:4px}
+.dl-eye i{width:8px;height:8px;border-radius:50%;background:#FFB37A;box-shadow:0 0 0 0 rgba(255,179,122,.7);animation:dlPulse 1.6s infinite}
+@keyframes dlPulse{70%{box-shadow:0 0 0 9px rgba(255,179,122,0)}100%{box-shadow:0 0 0 0 rgba(255,179,122,0)}}
+.daily .dl-ic{width:46px!important;height:46px!important;border-radius:14px;background:rgba(255,255,255,.16)!important;color:#fff}
+.daily .dl-ic svg{width:22px;height:22px}
+.daily .btn.primary{background:#fff!important;color:#2B1D66!important;font-size:13.5px;padding:9px 16px;box-shadow:0 8px 18px -10px rgba(0,0,0,.5)}
+.daily .btn.ghost{color:#fff!important;border-color:rgba(255,255,255,.35)!important;background:transparent!important}
+.daily .btn,.daily b,.daily small,.daily .dl-ic{position:relative;z-index:1}
+body.needup #btnLoad{position:relative}
+body.needup #btnLoad::after{content:"";position:absolute;top:6px;right:6px;width:10px;height:10px;border-radius:50%;background:#E0735A;box-shadow:0 0 0 2px #fff;animation:dlPulse 1.6s infinite}
+.dmodal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:rgba(20,10,60,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:dmIn .25s ease both}
+@keyframes dmIn{from{opacity:0}}
+.dm-card{width:min(460px,100%);background:var(--glass-2);background:color-mix(in srgb,var(--bg) 70%,#fff);border-radius:26px;padding:28px 26px 22px;text-align:center;box-shadow:0 40px 90px -30px rgba(20,10,60,.7);animation:dmUp .35s cubic-bezier(.2,1.2,.35,1) both}
+:root[data-theme="dark"] .dm-card{background:#1E1450;color:var(--ink)}
+@keyframes dmUp{from{opacity:0;transform:translateY(16px) scale(.96)}}
+.dm-ic{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 14px;border-radius:20px;color:#fff;background:linear-gradient(135deg,#5E52A6,#2B1D66);box-shadow:0 14px 30px -14px rgba(43,29,102,.8)}
+.dm-ic svg{width:30px;height:30px;animation:dmRing 2.4s ease-in-out infinite;transform-origin:50% 10%}
+@keyframes dmRing{0%,60%,100%{transform:rotate(0)}65%{transform:rotate(14deg)}72%{transform:rotate(-12deg)}79%{transform:rotate(8deg)}86%{transform:rotate(-4deg)}}
+.dm-eye{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.dm-card h2{font-size:22px;margin:6px 0 8px}.dm-t{color:var(--muted);font-size:13.5px;line-height:1.5}
+.dm-b{display:flex;flex-direction:column;gap:8px;margin-top:18px}.dm-b .btn{justify-content:center}
+@media (prefers-reduced-motion:reduce){.dl-eye i,.dm-ic svg,body.needup #btnLoad::after{animation:none}}
+/* progress section */
+.prog-empty{text-align:center;padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.prog-empty p{max-width:620px;color:var(--muted)}.pe-ic{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#5E52A6,#2B1D66)}.pe-ic svg{width:30px;height:30px}
+.prog-head{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;background:linear-gradient(120deg,#2B1D66,#45378F 60%,#7C6EC0);color:#fff;border:0}
+.prog-head .eyebrow{color:#D9CFF4}.prog-head h2{font-size:22px;color:#fff}.prog-head h2 span{font-weight:500;opacity:.75;font-size:15px}.prog-head p{color:rgba(255,255,255,.8);font-size:12.5px;margin-top:3px}
+.prog-head .btn:not(.primary){background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.25)}.prog-head .btn.primary{background:#fff!important;color:#2B1D66!important}
+.ph-b{display:flex;gap:8px;flex-wrap:wrap}.prog-head label.btn{cursor:pointer}
+.pkpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0}
+.pk{background:var(--glass-2);border:1px solid var(--glass-line);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:3px;box-shadow:var(--gshadow)}
+.pk b{font-size:28px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}.pk span{font-size:12.5px;font-weight:700;color:var(--muted)}.pk small{font-size:11.5px;color:var(--faint)}
+.pk.good b{color:#2E7D5B}:root[data-theme="dark"] .pk.good b{color:#7FD1A8}
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;margin-bottom:14px}
+.pnar{font-size:13.5px;line-height:1.55;margin:0 0 10px}
+.dl{font-weight:700}.dl.up{color:#2E7D5B}.dl.down{color:#9A4F66}:root[data-theme="dark"] .dl.up,:root[data-theme="dark"] .gd{color:#7FD1A8}
+.gd{color:#2E7D5B}
+.cmpbar{display:inline-block;position:relative;width:90px;height:7px;border-radius:7px;background:var(--line);margin-right:8px;vertical-align:middle;overflow:hidden}
+.cmpbar i{position:absolute;left:0;top:0;bottom:0;background:rgba(124,106,201,.45);border-radius:7px}.cmpbar i.now{background:#2E7D5B;height:3px;top:auto;bottom:0}
+.card.prog-head{display:grid!important;grid-template-columns:minmax(0,1fr) auto;align-items:center;text-align:left;justify-items:start}
+.prog-head .ph-l{min-width:0}
+@media (max-width:980px){.card.prog-head{grid-template-columns:1fr}}
+.prole{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0;padding:12px 14px;border-radius:18px;background:var(--glass-2);border:1px solid var(--glass-line);box-shadow:var(--gshadow)}
+.pr-l{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.prc{border:1.5px solid var(--line);background:var(--glass-3);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer}
+.prc:hover{border-color:rgba(62,48,136,.35)}
+.prc.on{background:#3E3088;border-color:#3E3088;color:#fff}
+:root[data-theme="dark"] .prc.on{background:#B3A4F0;border-color:#B3A4F0;color:#140E30}
+.pr-h{flex-basis:100%;font-size:11.5px;color:var(--faint)}
+@media (max-width:980px){.pkpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pgrid{grid-template-columns:1fr}}
 /* buttons & chips */
 .btn.primary{background:linear-gradient(135deg,#3E3088 0%,#5D50A8 100%);color:#fff;border-color:rgba(255,255,255,.25);box-shadow:0 8px 20px -12px rgba(43,29,102,.55)}
 .btn.primary:hover{background:linear-gradient(135deg,#372A7C 0%,#54479D 100%)}
@@ -841,7 +954,7 @@ h1{font-weight:650;letter-spacing:-.025em}h2{font-weight:650}
 <body>
 <section class="start" id="start" aria-label="Load reports">
   <div class="st-in">
-    <header class="st-brand"><div class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="kbgm1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5E52A6"/><stop offset="1" stop-color="#2B1D66"/></linearGradient><linearGradient id="khlm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#kbgm1)"/><rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="url(#khlm1)" stroke="#fff" stroke-opacity=".22"/><path d="M33 25v50" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M63 25L36 52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M43 54l12 14 22-29" fill="none" stroke="#D9CFF4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Kevin Reports Reader</b><span>Pelesys</span></div></header>
+    <header class="st-brand"><div class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="kbgm1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5E52A6"/><stop offset="1" stop-color="#2B1D66"/></linearGradient><linearGradient id="khlm1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#kbgm1)"/><rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="url(#khlm1)" stroke="#fff" stroke-opacity=".22"/><path d="M33 25v50" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M63 25L36 52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M43 54l12 14 22-29" fill="none" stroke="#D9CFF4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><b>Pelesys Reading</b><span>Dashboard</span></div></header>
     <div class="st-hero"><span class="eyebrow">Start an audit</span><h1>Load your Pelesys reports</h1><p>Drop the four CSV exports from Pelesys, all together or one by one.</p></div>
     <div class="st-grid">
       <button class="st-drop" id="stDrop" type="button"><span class="st-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M12 18v-6M9 15l3-3 3 3"/></svg></span><b>Drop CSV files here</b><span>or select to browse your computer</span><small>You can add the files one by one or all at once</small></button>
@@ -856,7 +969,7 @@ h1{font-weight:650;letter-spacing:-.025em}h2{font-weight:650}
   <aside class="side"><div class="side-in">
     <div class="brand">
       <div class="mark" aria-hidden="true"><svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="kbgm0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5E52A6"/><stop offset="1" stop-color="#2B1D66"/></linearGradient><linearGradient id="khlm0" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient></defs><rect width="100" height="100" rx="24" fill="url(#kbgm0)"/><rect x="1.5" y="1.5" width="97" height="97" rx="22.5" fill="url(#khlm0)" stroke="#fff" stroke-opacity=".22"/><path d="M33 25v50" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M63 25L36 52" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round"/><path d="M43 54l12 14 22-29" fill="none" stroke="#D9CFF4" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="btxt"><b>Kevin Reports Reader</b><span>Pelesys</span></div>
+      <div class="btxt"><b>Pelesys Reading</b><span>Dashboard</span></div>
       <button type="button" class="sidetog" id="sideTog" aria-label="Collapse the sidebar" title="Collapse the sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
     </div>
     <nav class="nav" id="nav" aria-label="Views"></nav>
@@ -875,6 +988,7 @@ h1{font-weight:650;letter-spacing:-.025em}h2{font-weight:650}
         <button type="button" class="btn ftoggle" id="ftoggle" aria-expanded="false" aria-controls="filters"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filters<span class="ftn" id="ftogN"></span></button>
         <button class="btn primary" id="btnSummary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>Weekly summary</button>
         <span class="active-f minonly" id="fcountMin"></span>
+        <button type="button" class="btn barbtn" id="themeBtn" title="Switch to dark or light version" aria-label="Switch to dark or light version"><svg class="th-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="th-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
         <button type="button" class="btn barbtn" id="barToggle" aria-expanded="true" aria-controls="filters" title="Hide filters and search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></svg><span class="sr">Hide filters and search</span></button>
       </div>
       <div class="filters" id="filters">
@@ -938,13 +1052,14 @@ const ICON={
   matrix:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
   email:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>',
   batches:'<path d="M3 7.5l9-4.5 9 4.5-9 4.5z"/><path d="M3 12l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5"/>',
+  progress:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
   updates:'<path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4v5h-5"/><path d="M12 8v4l2.5 2"/>',
   settings:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'
 };
 const svgI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[k]}</svg>`;
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
-const VIEWS=[['overview','Overview','Audit readiness across every loaded record'],['issues','Issues','Records that fail an audit check'],['courses','Courses','Every course in the catalogue, by area'],['crew','Crew','Every crew member and their open items'],['batches','Cohorts','Initial training cohorts, grouped by start week'],['matrix','Matrix','Crew by course, one cohort at a time'],['email','Email crew','Remind crew by status, with Outlook'],['updates','Updates','Latest upload, what changed and upload history'],['settings','Settings','Audit rules and data on this computer']];
-const NAVG=[['Audit',['overview','issues','courses','crew','batches','matrix','email']],['Data',['updates','settings']]];
+const VIEWS=[['progress','Progress','Compare an older report with today and measure the improvement'],['overview','Overview','Audit readiness across every loaded record'],['issues','Issues','Records that fail an audit check'],['courses','Courses','Every course in the catalogue, by area'],['crew','Crew','Every crew member and their open items'],['batches','Cohorts','Initial training cohorts, grouped by start week'],['matrix','Matrix','Crew by course, one cohort at a time'],['email','Email crew','Remind crew by status, with Outlook'],['updates','Updates','Latest upload, what changed and upload history'],['settings','Settings','Audit rules and data on this computer']];
+const NAVG=[['Audit',['overview','issues','courses','crew','batches','matrix','email','progress']],['Data',['updates','settings']]];
 
 const S={
   started:false,staged:[],hasSaved:false,files:[],enr:[],users:[],people:[],dir:new Map(),courses:[],recs:[],noEnroll:[],demo:false,history:[],changes:null,chgKind:'',bOnly:false,accEdit:null,
@@ -1068,8 +1183,8 @@ function baseKey(title){
 }
 
 /* ---------- model ---------- */
-function build(){
-  const today=todayISO(),soon=addDays(today,+S.settings.dueDays||0),pass=+S.settings.passMark||0,minSec=(+S.settings.minExamMin||0)*60;
+function build(asOf){
+  const today=asOf||todayISO(),soon=addDays(today,+S.settings.dueDays||0),pass=+S.settings.passMark||0,minSec=(+S.settings.minExamMin||0)*60;
   const catalog=new Set(S.courses.map(c=>c['Course Code']));
   const recs=S.enr.map(r=>{const title=r['Course Title']||'',code=r['Course Code']||'';const sc=(r['Score']||'')===''?null:Number(r['Score']);
     return Object.assign({id:r['ID'],name:r['User Name']||r['Name']||'',login:(r['Login Name']||'').toLowerCase(),org:r['Locations & Organizations']||'',title,code,ckey:code+'||'+title,
@@ -1205,7 +1320,13 @@ function render(){
   const demo=S.demo?`<div class="demo"><b>Example data.</b> Invented crew records so you can try every view. Load your Pelesys exports to audit real records.<button class="btn sm" data-act="load">Load reports</button></div>`:'';
   if(!S.recs.length&&S.tab!=='settings'&&S.tab!=='updates'){$('#view').innerHTML=demo+`<div class="card"><div class="empty"><b>No enrollment records yet</b>Load the Pelesys Enrollment Report to start the audit.</div></div>`;return;}
   const tf0=S._lastTab===S.tab?document.querySelector('#view .tframe'):null,keep=tf0?[tf0.scrollTop,tf0.scrollLeft]:null;S._lastTab=S.tab;
-  const vhtml=demo+({overview:vOverview,issues:vIssues,courses:vCourses,crew:vCrew,batches:vBatches,matrix:vMatrix,email:vEmail,updates:vUpdates,settings:vSettings}[S.tab])(list,fc);
+  const lu=lastUpload(),todayD=todayISO(),needUp=S.recs.length&&!S.demo&&(!lu||lu.slice(0,10)<todayD)&&S.dailyHide!==todayD;
+  const daily=needUp?`<div class="daily" role="alert"><span class="dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span><div><span class="dl-eye"><i></i>Action needed today</span><b>Upload today's Pelesys reports</b><small>Last upload ${lu?esc(fmtStamp(lu))+' · '+esc(ageText(lu)):'unknown'}. The data on screen is not up to date: export the four reports from Pelesys and load them.</small></div><div class="dl-b"><button class="btn primary sm" data-act="load">Load today's reports</button><button class="btn ghost sm" data-act="dailyhide">Remind me tomorrow</button></div></div>`:'';
+  if(needUp&&S._dailyPop!==todayD&&!$('#dailyModal')){S._dailyPop=todayD;const m=document.createElement('div');m.id='dailyModal';m.className='dmodal';
+    m.innerHTML=`<div class="dm-card" role="alertdialog" aria-labelledby="dmT"><span class="dm-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><p class="dm-eye">Daily reminder</p><h2 id="dmT">Upload today's Pelesys reports</h2><p class="dm-t">The last upload was ${lu?esc(fmtStamp(lu))+' ('+esc(ageText(lu))+')':'not recorded'}. Export the Enrollment, Users, User Course and Course Learning reports from Pelesys and load them so today's audit is correct.</p><div class="dm-b"><button class="btn primary big" data-act="load">Load today's reports</button><button class="btn ghost" data-act="dailyclose">Not now</button></div></div>`;
+    document.body.appendChild(m);}
+  document.body.classList.toggle('needup',!!needUp);
+  const vhtml=daily+demo+({overview:vOverview,progress:vProgress,issues:vIssues,courses:vCourses,crew:vCrew,batches:vBatches,matrix:vMatrix,email:vEmail,updates:vUpdates,settings:vSettings}[S.tab])(list,fc);
   const oldTools=S._keepTools&&document.querySelector('#view .cattools');S._keepTools=false;
   if(oldTools){const tmp=document.createElement('div');tmp.innerHTML=vhtml;const nt=tmp.querySelector('.cattools');
     if(nt&&oldTools.parentNode.parentNode===$('#view')&&tmp.children.length===1){const oc=oldTools.parentNode,nc=nt.parentNode;
@@ -1214,6 +1335,7 @@ function render(){
     else $('#view').innerHTML=vhtml;}
   else $('#view').innerHTML=vhtml;
   {const fc=document.querySelector('#view [data-fvcard]');if(fc&&S.fv)fc.classList.add('fv');document.body.classList.toggle('fv-open',!!(fc&&S.fv));}
+  {const n=$('#iqN');if(n)n.textContent=S._iqN||'';}
   if(keep){const tf=document.querySelector('#view .tframe');if(tf){tf.scrollTop=keep[0];tf.scrollLeft=keep[1];}}
   enhanceAll();
   if(S.tab==='email')renderMailActions();
@@ -1309,6 +1431,14 @@ function mailScope(crewArr){
   const warn=nr&&(!f.role.length||f.role.includes('__none'))?`<div class="mscope-w"><span><b>${N(nr)} without a job role in Pelesys</b> are included (for example pilots).</span><button class="btn sm" data-act="inorole">Exclude them</button></div>`:'';
   return`<div class="mscope"><span class="ms-l">Sending to</span>${parts.map(x=>`<span class="ms-c">${x}</span>`).join('')}</div>${warn}`;
 }
+function issTable(cols,rows,opts){
+  S._iss={cols,rows,opts};const q=(S.iq||'').trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const r2=q.length?rows.filter(r=>{const h=(r.name+' '+r.login+' '+(r.title||'')+' '+(r.code||'')+' '+((r.titles||[]).join(' '))).toLowerCase();return q.every(t=>h.includes(t));}):rows;
+  S._iqN=q.length?`${N(r2.length)} of ${N(rows.length)}`:'';
+  return renderTable('issues',cols,r2,q.length?Object.assign({},opts,{emptyTitle:'No match',empty:'No name or course in this list matches your search.'}):opts);
+}
+function issRefresh(){const b=$('#itable');if(!b||!S._iss)return;S.limit.issues=0;b.innerHTML=issTable(S._iss.cols,S._iss.rows,S._iss.opts);const n=$('#iqN');if(n)n.textContent=S._iqN;}
+let iqT;document.addEventListener('input',e=>{if(e.target.id==='iq'){clearTimeout(iqT);const v=e.target.value;iqT=setTimeout(()=>{S.iq=v;issRefresh();},150);}});
 function vIssues(list,fc){
   const MAIN=['overdue','failed','notstarted','incomplete','lowscore'];
   const tiles=MAIN.map(f=>`<button type="button" class="itile s${FLAGS[f].sev} ${S.issueFlags.has(f)?'on':''} ${fc[f]?'':'zero'}" aria-pressed="${S.issueFlags.has(f)}" data-flag="${f}"><span class="it-c">${S.issueFlags.has(f)?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l4 4 10-10"/></svg>':''}</span><b>${N(fc[f])}</b><span class="it-l">${esc(FLAGS[f].label)}</span></button>`).join('');
@@ -1341,7 +1471,8 @@ function vIssues(list,fc){
     <div class="itiles">${tiles}</div>
     <div class="chips"><span class="eyebrow" style="align-self:center;margin-right:4px">Also</span>${more}<button class="chip" data-act="allflags">Select all</button><button class="chip" data-act="noflags">Clear</button><button class="chip" aria-pressed="${S.showInfo}" data-act="info">Informational checks</button></div>
     ${bar}
-    ${renderTable('issues',cols,byCrewV?crewRows:rows,{defaultSort:byCrewV?{key:'_sev',dir:'desc'}:{key:'flags',dir:'desc'},exportName:byCrewV?'audit-issues-by-crew':'audit-issues',onRow:r=>openDrawer('crew',r.login),emptyTitle:'Clean result',empty:'No records match the selected checks.'})}</div>`;
+    <div class="isearch search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><label class="sr" for="iq">Search this list by name or course</label><input type="search" id="iq" placeholder="Search this list by name, email or course" value="${esc(S.iq||'')}" autocomplete="off"><span class="iq-n" id="iqN"></span></div>
+    <div id="itable">${issTable(cols,byCrewV?crewRows:rows,{defaultSort:byCrewV?{key:'_sev',dir:'desc'}:{key:'flags',dir:'desc'},exportName:byCrewV?'audit-issues-by-crew':'audit-issues',onRow:r=>openDrawer('crew',r.login),emptyTitle:'Clean result',empty:'No records match the selected checks.'})}</div></div>`;
 }
 function openIssueMail(which){
   const rows=filtered().filter(r=>r.flags.some(f=>S.issueFlags.has(f))),crewM=issueCrew(rows);
@@ -1725,7 +1856,7 @@ function vSettings(){
 }
 
 /* ---------- drawer ---------- */
-function openDrawer(type,key){if(type==='crew'&&(!S.drawer||S.drawer.key!==key))S.profTab=null;S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.toggle('wide',type==='weekly'||type==='crew');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
+function openDrawer(type,key){if(type==='crew'&&(!S.drawer||S.drawer.key!==key))S.profTab=null;S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.toggle('wide',type==='weekly'||type==='crew');d.classList.toggle('prof',type==='crew');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
 function closeDrawer(){S.drawer=null;$('#drawer').classList.remove('open');$('#scrim').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');document.querySelectorAll('tr.sel').forEach(x=>x.classList.remove('sel'));}
 function dhead(eyebrow,title,meta,stats,extra){return`<div class="dh"><div class="dh-top"><div><div class="eyebrow">${eyebrow}</div><h2>${esc(title)}</h2><div class="meta">${meta}</div></div><button class="btn sm" data-act="close">Close</button></div>${stats?`<div class="dstats">${stats}</div>`:''}${extra||''}</div>`;}
 const dstat=(cls,v,l)=>`<div class="dstat ${cls}"><b>${v}</b>${l}</div>`;
@@ -1760,7 +1891,7 @@ function renderDrawer(){
     if(n&&!rows.length)S.tables.d={name:'profile-'+d.key.split('@')[0],cols:recCols({name:false}),rows:recs,shown:[]};
     html=`<div class="dh phead"><div class="dh-top"><div class="pid"><span class="pav">${esc(ini)}</span><div><div class="eyebrow">User profile</div><h2>${esc(name)}</h2><div class="pchips">${chips}</div></div></div><button class="btn sm" data-act="close">Close</button></div>
       <div class="ptiles">${tiles}</div>${actions}</div>
-      <div class="db"><div class="ptabs">${seg}</div>${table}</div>`;
+      <div class="db"><div class="pcard"><div class="ptabs">${seg}<span class="ptabs-n">${N(rows.length)} course${rows.length===1?'':'s'}</span></div><div class="pcard-b">${table}</div></div></div>`;
   }else if(d.type==='course'){
     const recs=S.recs.filter(r=>r.ckey===d.key);if(!recs.length)return;const sc=statusCounts(recs),fc=countFlags(recs),r0=recs[0];
     const table=renderTable('d',recCols({course:false}),recs,{defaultSort:{key:'flags',dir:'desc'},exportName:'course-'+r0.code.replace(/[^\w-]+/g,'_'),onRow:r=>openDrawer('crew',r.login)});
@@ -1803,7 +1934,7 @@ function summaryText(){
   const list=filtered(),fc=countFlags(list),sc=statusCounts(list),n=list.length,f=S.f;
   const fl=[f.batch&&'cohort '+f.batch.label,f.role.length&&'job roles: '+f.role.map(v=>v==='__none'?'no job role':v).join(' + '),f.fleet&&(f.fleet==='__none'?'no fleet':f.fleet),f.q&&`search "${f.q}"`,f.area,f.subj,f.kind,f.prog,f.status&&STLABEL[f.status],f.from&&`start from ${fmtDate(f.from)}`,f.to&&`start to ${fmtDate(f.to)}`,f.hideTest&&'test courses hidden'].filter(Boolean);
   const action=fc.overdue+fc.failed+fc.notstarted+fc.incomplete;
-  return['KEVIN REPORTS READER · PELESYS AUDIT SUMMARY','='.repeat(60),`Generated   ${new Date().toLocaleString('en-GB')}`,
+  return['PELESYS READING DASHBOARD · AUDIT SUMMARY','='.repeat(60),`Generated   ${new Date().toLocaleString('en-GB')}`,
     ...S.files.map((x,i)=>`${i?'           ':'Reports    '} ${x.name}${x.iso?'  (exported '+fmtStamp(x.iso)+')':''}`),
     `Data as of  ${S.demo?'example data':fmtStamp(dataAsOf())}${S.demo?'':'   (uploaded '+fmtStamp(lastUpload())+')'}`,
     `Scope       ${fl.length?fl.join(', '):'all records'}`,`Rules       pass mark ${S.settings.passMark}%, due window ${S.settings.dueDays} days, min exam time ${S.settings.minExamMin} min, a fail is closed by a later pass of the same exam (resit, re-test or newer version)`,'',
@@ -1832,6 +1963,7 @@ function renderPsug(){
   box.hidden=false;
 }
 document.addEventListener('input',e=>{if(e.target.id==='fq')renderPsug();});
+document.addEventListener('change',e=>{if(e.target.id==='cmpInput'&&e.target.files.length)loadBaseline(e.target.files);});
 document.addEventListener('focusin',e=>{if(e.target.id==='fq')renderPsug();});
 document.addEventListener('focusout',e=>{if(e.target.id==='fq')setTimeout(()=>{const b=$('#psug');if(b&&!b.contains(document.activeElement))b.hidden=true;},180);});
 document.addEventListener('mousedown',e=>{const b=e.target.closest('[data-psug]');if(b)e.preventDefault();});
@@ -1840,6 +1972,141 @@ document.addEventListener('keydown',e=>{if(e.target.id!=='fq')return;const box=$
   if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();S._psugI=Math.max(0,Math.min(bs.length-1,(S._psugI??-1)+(e.key==='ArrowDown'?1:-1)));bs.forEach((b,i)=>b.classList.toggle('on',i===S._psugI));}
   else if(e.key==='Enter'&&S._psugI>=0&&bs[S._psugI]){e.preventDefault();box.hidden=true;openDrawer('crew',bs[S._psugI].dataset.psug);}
   else if(e.key==='Escape'){box.hidden=true;}});
+/* ---------- progress: compare an older Enrollment Report with the current one ---------- */
+function filterList(list){
+  const f=S.f,terms=f.q.toLowerCase().split(/\s+/).filter(Boolean);
+  return list.filter(r=>{
+    if(f.role.length&&!f.role.includes(r.role||'__none'))return false;
+    if(f.fleet){if(f.fleet==='__none'){if(r.fleet)return false;}else if(r.fleet!==f.fleet)return false;}
+    if(f.hideTest&&r.test)return false;if(f.area&&r.area!==f.area)return false;if(f.kind&&r.kind!==f.kind)return false;
+    if(terms.length){const hay=(r.name+' '+r.login+' '+r.title+' '+r.code+' '+r.emp).toLowerCase();if(!terms.every(t=>hay.includes(t)))return false;}
+    return true;});
+}
+const isIssue=r=>r.flags.some(f=>f==='overdue'||f==='failed'||f==='notstarted'||f==='incomplete');
+function baseRecs(){
+  const B=S.base;if(!B)return null;
+  if(S._baseRecs&&S._baseRecsKey===B.iso+'|'+S.recs.length+'|'+S.settings.passMark)return S._baseRecs;
+  const keepEnr=S.enr,keepRecs=S.recs,keepNo=S.noEnroll;
+  S.enr=B.rows;build(B.iso.slice(0,10));const br=S.recs;
+  S.enr=keepEnr;S.recs=keepRecs;S.noEnroll=keepNo;
+  S._baseRecs=br;S._baseRecsKey=B.iso+'|'+S.recs.length+'|'+S.settings.passMark;return br;
+}
+function progressData(){
+  const B=S.base;if(!B)return null;
+  const then=filterList(baseRecs()),now=filterList(S.recs),fromD=B.iso.slice(0,10),toD=(dataAsOf()||todayISO()).slice(0,10);
+  const byLogin=new Map();for(const r of now){if(!byLogin.has(r.login))byLogin.set(r.login,[]);byLogin.get(r.login).push(r);}
+  const snap=list=>{const people=new Map();let ex=0,fa=0,na=0,inc=0,iss=0,done=0;
+    for(const r of list){if(r.st==='done')done++;const f=r.flags;if(f.includes('overdue'))ex++;if(f.includes('failed'))fa++;if(f.includes('notstarted'))na++;if(f.includes('incomplete'))inc++;
+      const i=isIssue(r);if(i)iss++;if(!people.has(r.login))people.set(r.login,0);if(i)people.set(r.login,people.get(r.login)+1);}
+    const crew=people.size,clean=[...people.values()].filter(v=>!v).length;
+    return{n:list.length,done,rate:list.length?done/list.length:0,ex,fa,na,inc,iss,crew,clean,cleanRate:crew?clean/crew:0};};
+  // the same obligations, then and now: every person + course in the older report, followed into today's report
+  const seen=new Set(),pairs=[];
+  for(const r of then){const k=r.login+'|'+r.code;if(seen.has(k))continue;seen.add(k);
+    const mine=byLogin.get(r.login)||[];
+    const fix=mine.find(x=>x.st==='done'&&(x.code===r.code||x.base===r.base||rsSimilar(x,r)));
+    const same=fix||mine.filter(x=>x.code===r.code||x.base===r.base).sort((x,y)=>(y.start||'').localeCompare(x.start||''))[0]||null;
+    pairs.push({r,n:same,fixed:!!fix});}
+  const a=snap(pairs.map(p=>p.r)),b=snap(pairs.filter(p=>p.n).map(p=>p.n));
+  const resolved=[],still=[],gone=[];
+  for(const p of pairs){if(!isIssue(p.r))continue;if(p.fixed)resolved.push({r:p.r,fix:p.n});else if(p.n&&isIssue(p.n))still.push({r:p.r,now:p.n});else gone.push({r:p.r});}
+  const thenKeys=seen;
+  const newIss=now.filter(r=>isIssue(r)&&!thenKeys.has(r.login+'|'+r.code)&&!(r.enrExp&&!then.some(x=>x.enrExp)));
+  const completedInPeriod=now.filter(r=>r.st==='done'&&r.compl&&r.compl>fromD&&r.compl<=toD);
+  const group=(keyFn)=>{const m=new Map();const add=(k,f,v)=>{if(!m.has(k))m.set(k,{k,thenIss:0,nowIss:0,res:0,thenN:0,thenDone:0,nowN:0,nowDone:0});m.get(k)[f]+=v;};
+    pairs.forEach(p=>{const k=keyFn(p.r);add(k,'thenN',1);if(p.r.st==='done')add(k,'thenDone',1);if(isIssue(p.r))add(k,'thenIss',1);
+      if(p.n){add(k,'nowN',1);if(p.n.st==='done')add(k,'nowDone',1);if(isIssue(p.n))add(k,'nowIss',1);}});
+    resolved.forEach(x=>add(keyFn(x.r),'res',1));
+    return[...m.values()].map(g=>Object.assign(g,{thenRate:g.thenN?g.thenDone/g.thenN:0,nowRate:g.nowN?g.nowDone/g.nowN:0}));};
+  const byCourse=group(r=>r.title).filter(g=>g.res||g.thenIss||g.nowIss).sort((x,y)=>y.res-x.res||(y.nowRate-y.thenRate)-(x.nowRate-x.thenRate));
+  const byRole=group(r=>r.role||'No job role').sort((x,y)=>y.res-x.res);
+  const resCrew=new Map();resolved.forEach(x=>resCrew.set(x.r.login,(resCrew.get(x.r.login)||0)+1));
+  const nowIssBy=new Map();now.forEach(r=>{if(isIssue(r))nowIssBy.set(r.login,(nowIssBy.get(r.login)||0)+1);});
+  const allClear=[...resCrew.keys()].filter(l=>!nowIssBy.get(l)).length;
+  const scope=[S.f.role.length?'Job roles: '+S.f.role.map(roleLabel).join(', '):'All job roles',S.f.fleet&&('Fleet: '+(S.f.fleet==='__none'?'no fleet':S.f.fleet)),S.f.area,S.f.kind,S.f.q&&`Search "${S.f.q}"`].filter(Boolean).join(' · ');
+  return{fromD,toD,days:daysBetween(fromD,toD),a,b,resolved,still,gone,newIss,completedInPeriod,byCourse,byRole,resCrew:resCrew.size,allClear,scope,baseName:B.name};
+}
+const pctS=v=>Math.round(v*100)+'%';
+const dPts=(a,b)=>{const d=Math.round((b-a)*100);return(d>0?'+':'')+d+' pts';};
+const dNum=(a,b,goodDown)=>{const d=b-a;if(!d)return'no change';const good=goodDown?d<0:d>0;return`<span style="color:${good?'#2E7D5B':'#9A4F66'};font-weight:700">${d>0?'▲ +':'▼ '}${N(d)}</span>`;};
+function progressNarrative(d){
+  const resPct=d.a.iss?Math.round(d.resolved.length/d.a.iss*100):0,L=[];
+  L.push(`Between ${fmtDate(d.fromD)} and ${fmtDate(d.toD)} (${N(d.days)} days), ${N(d.resolved.length)} outstanding training records were resolved — ${resPct}% of the ${N(d.a.iss)} open items recorded at the start of the period.`);
+  L.push(`Overall completion moved from ${pctS(d.a.rate)} to ${pctS(d.b.rate)} (${dPts(d.a.rate,d.b.rate)}), and ${N(d.completedInPeriod.length)} courses and exams were completed during the period.`);
+  if(d.a.ex||d.b.ex)L.push(`Expired training went from ${N(d.a.ex)} to ${N(d.b.ex)} records${d.b.ex<d.a.ex?`, a reduction of ${N(d.a.ex-d.b.ex)}`:''}.`);
+  L.push(`${N(d.resCrew)} crew members closed at least one outstanding item, and ${N(d.allClear)} of them now have nothing outstanding at all. Crew with a fully clean record: ${pctS(d.a.cleanRate)} → ${pctS(d.b.cleanRate)}.`);
+  if(d.newIss.length)L.push(`During the same period ${N(d.newIss.length)} new items were assigned or became due; these are part of the normal training cycle and are being followed up separately.`);
+  return L;
+}
+function progressHTML(d){
+  const th='padding:6px 9px;background:#2A1C73;color:#fff;font-weight:600;text-align:left;font-size:10pt;border:1px solid #2A1C73',td='padding:5px 9px;border:1px solid #DCD6F2;font-size:10pt;vertical-align:top',tn=td+';text-align:right';
+  const kpi=(l,a,b,goodDown,isPct)=>`<tr><td style="${td}"><b>${l}</b></td><td style="${tn}">${isPct?pctS(a):N(a)}</td><td style="${tn}"><b>${isPct?pctS(b):N(b)}</b></td><td style="${tn}">${isPct?`<span style="color:${b>=a?'#2E7D5B':'#9A4F66'};font-weight:700">${dPts(a,b)}</span>`:dNum(a,b,goodDown)}</td></tr>`;
+  const big=(v,l,c)=>`<td style="padding:12px 14px;border:1px solid #DCD6F2;background:#F6F4FD;text-align:center;width:25%"><div style="font-size:18pt;font-weight:800;color:${c||'#2A1C73'}">${v}</div><div style="font-size:9pt;color:#555">${l}</div></td>`;
+  const resPct=d.a.iss?Math.round(d.resolved.length/d.a.iss*100):0;
+  const gt=(title,first,rows)=>`<h3 style="font-size:12pt;color:#2A1C73;margin:18px 0 6px">${title}</h3><table style="border-collapse:collapse;width:100%"><tr><th style="${th}">${first}</th><th style="${th};text-align:right">Open then</th><th style="${th};text-align:right">Resolved</th><th style="${th};text-align:right">Open now</th><th style="${th};text-align:right">Completion then → now</th></tr>${rows.map(g=>`<tr><td style="${td}">${esc(g.k)}</td><td style="${tn}">${N(g.thenIss)}</td><td style="${tn};color:#2E7D5B;font-weight:700">${N(g.res)}</td><td style="${tn}">${N(g.nowIss)}</td><td style="${tn}">${pctS(g.thenRate)} → <b>${pctS(g.nowRate)}</b></td></tr>`).join('')}</table>`;
+  return`<div style="font-family:Aptos,Calibri,Arial,sans-serif;color:#1A1A1A;font-size:10.5pt">
+<h2 style="font-size:16pt;color:#2A1C73;margin:0 0 4px">Pelesys training – progress report${roleTitle()?' – '+esc(roleTitle()):''}</h2>
+<p style="margin:0 0 2px;color:#555;font-size:10pt">${fmtDate(d.fromD)} → ${fmtDate(d.toD)} · ${N(d.days)} days · Scope: ${esc(d.scope)}</p>
+<table style="border-collapse:collapse;width:100%;margin:12px 0"><tr>${big(N(d.resolved.length),'Open items resolved','#2E7D5B')}${big(resPct+'%','of the items open at the start','#2E7D5B')}${big(pctS(d.a.rate)+' → '+pctS(d.b.rate),'Overall completion')}${big(N(d.allClear),'Crew now fully up to date','#2E7D5B')}</tr></table>
+<h3 style="font-size:12pt;color:#2A1C73;margin:16px 0 6px">Summary</h3>
+${progressNarrative(d).map(x=>`<p style="margin:0 0 6px">${esc(x)}</p>`).join('')}
+<h3 style="font-size:12pt;color:#2A1C73;margin:18px 0 6px">Before and after</h3>
+<table style="border-collapse:collapse;width:100%"><tr><th style="${th}">Measure</th><th style="${th};text-align:right">${fmtDate(d.fromD)}</th><th style="${th};text-align:right">${fmtDate(d.toD)}</th><th style="${th};text-align:right">Change</th></tr>
+${kpi('Completion rate',d.a.rate,d.b.rate,false,true)}${kpi('Crew with a clean record',d.a.cleanRate,d.b.cleanRate,false,true)}${kpi('Open items',d.a.iss,d.b.iss,true)}${kpi('Expired',d.a.ex,d.b.ex,true)}${kpi('Failed, no pass',d.a.fa,d.b.fa,true)}${kpi('Not attempted',d.a.na,d.b.na,true)}${kpi('Incomplete',d.a.inc,d.b.inc,true)}${kpi('Courses completed',d.a.done,d.b.done,false)}</table>
+${gt('Most improved courses','Course',d.byCourse.slice(0,15))}
+${gt('By job role','Job role',d.byRole)}
+<p style="font-size:9pt;color:#777;margin-top:14px">Compared: ${esc(d.baseName)} with the current Pelesys Enrollment Report. The comparison follows every person and course listed in the older report into the current one. A record counts as resolved when the same person has since completed or passed the same course (including a resit or a newer version).</p>
+</div>`;
+}
+function progressPlain(d){const L=['PELESYS TRAINING – PROGRESS REPORT'+(roleTitle()?' – '+roleTitle().toUpperCase():''),`${fmtDate(d.fromD)} → ${fmtDate(d.toD)} · ${d.days} days · ${d.scope}`,'',...progressNarrative(d),'','BEFORE AND AFTER',
+  `Completion ${pctS(d.a.rate)} → ${pctS(d.b.rate)} · Open items ${d.a.iss} → ${d.b.iss} · Expired ${d.a.ex} → ${d.b.ex} · Failed ${d.a.fa} → ${d.b.fa} · Not attempted ${d.a.na} → ${d.b.na} · Incomplete ${d.a.inc} → ${d.b.inc}`,'','MOST IMPROVED COURSES',...d.byCourse.slice(0,15).map(g=>`- ${g.k}: ${g.res} resolved · ${pctS(g.thenRate)} → ${pctS(g.nowRate)}`)];return L.join('\n');}
+function copyProgress(){const d=progressData();if(!d)return;const html='<html><body>'+progressHTML(d)+'</body></html>',plain=progressPlain(d);
+  try{if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]).then(()=>toast('Progress report copied. Paste it into the body of an email in Outlook.'),()=>copyHtmlSync(html,plain));return;}}catch(e){}
+  copyHtmlSync(html,plain);}
+function downloadProgress(){const d=progressData();if(!d)return;
+  const g=(name,first,rows)=>({name,widths:[50,12,12,12,14,14],pctCols:[4,5],bold:[0],freeze:1,filter:1,rows:[[first,'Open then','Resolved','Open now','Completion then','Completion now'],...rows.map(x=>[x.k,x.thenIss,x.res,x.nowIss,x.thenRate,x.nowRate])]});
+  const rec=(name,list,f)=>({name,widths:[30,18,56,20,20,14],bold:[0],freeze:1,filter:1,rows:[['Crew member','Job role','Course','Status then','Status now','Date'],...list.map(f)]});
+  const sum={name:'Summary',widths:[34,18,18,14],pctCols:[1,2],bold:[0],rows:[['Measure',fmtDate(d.fromD),fmtDate(d.toD),'Change'],['Completion rate',d.a.rate,d.b.rate,''],['Crew with a clean record',d.a.cleanRate,d.b.cleanRate,''],['Open items',d.a.iss,d.b.iss,d.b.iss-d.a.iss],['Expired',d.a.ex,d.b.ex,d.b.ex-d.a.ex],['Failed, no pass',d.a.fa,d.b.fa,d.b.fa-d.a.fa],['Not attempted',d.a.na,d.b.na,d.b.na-d.a.na],['Incomplete',d.a.inc,d.b.inc,d.b.inc-d.a.inc],[],['Open items resolved',d.resolved.length],['Crew who closed at least one item',d.resCrew],['Crew now fully up to date',d.allClear],['Courses completed in the period',d.completedInPeriod.length],['New items in the period',d.newIss.length],[],...progressNarrative(d).map(x=>[x])]};
+  const blob=xlsxBlob([sum,g('By course','Course',d.byCourse),g('By job role','Job role',d.byRole),
+    rec('Resolved',d.resolved,x=>[x.r.name,x.r.role||'No job role',x.r.title,x.r.status,x.fix.status,x.fix.compl?fmtDate(x.fix.compl):'']),
+    rec('Still open',d.still,x=>[x.r.name,x.r.role||'No job role',x.r.title,x.r.status,x.now.status,x.now.expiry?fmtDate(x.now.expiry):'']),
+    rec('New items',d.newIss.map(r=>({r})),x=>[x.r.name,x.r.role||'No job role',x.r.title,'—',x.r.status,x.r.expiry?fmtDate(x.r.expiry):''])]);
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Pelesys progress ${roleTitle()?roleTitle().replace(/[^\w ,+-]/g,'')+' ':''}${d.fromD} to ${d.toD}.xlsx`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);toast('Excel file downloaded.');}catch(e){toast('Download is blocked here.');}
+}
+function loadBaseline(fl){
+  const file=[...fl].find(f=>/\.csv$/i.test(f.name));if(!file){toast('Choose an Enrollment Report CSV.');return;}
+  const fr=new FileReader();fr.onload=()=>{const p=parseCSV(String(fr.result));if(detectType(p.headers)!=='enrollment'){toast('That file is not an Enrollment Report. Choose the older _Files_ReportEnrollmentReports CSV.');return;}
+    const iso=fileStampISO(file.name)||(file.lastModified?new Date(file.lastModified).toISOString().slice(0,19):todayISO()+'T00:00:00');
+    if(iso.slice(0,10)>=(dataAsOf()||todayISO()).slice(0,10)){toast('This report is not older than the current one. Choose an earlier export.');return;}
+    S.base={name:file.name,iso,rows:p.data};S._baseRecs=null;if(IDB.db)IDB.set('baseline',{name:file.name,iso,text:String(fr.result)});render();toast(`Compared with the report of ${fmtDate(iso.slice(0,10))}.`);};
+  fr.readAsText(file,'utf-8');
+}
+async function restoreBaseline(){try{if(!IDB.db)await IDB.open();const b=IDB.db&&await IDB.get('baseline');if(b&&b.text){S.base={name:b.name,iso:b.iso,rows:parseCSV(b.text).data};S._baseRecs=null;if(S.tab==='progress')render();}}catch(e){}}
+function progRoles(){
+  const opts=(S.roleOpts||[]).concat(S.roleOpts&&S.roleOpts.length?['__none']:[]),sel=S.f.role;if(!opts.length)return'';
+  const all=!sel.length||sel.length===opts.length;
+  return`<div class="prole"><span class="pr-l">Show progress for</span><button type="button" class="prc ${all?'on':''}" data-act="prole" data-v="__all" aria-pressed="${all}">All job roles</button>${opts.map(v=>`<button type="button" class="prc ${!all&&sel.includes(v)?'on':''}" data-act="prole" data-v="${esc(v)}" aria-pressed="${!all&&sel.includes(v)}">${!all&&sel.includes(v)?'✓ ':''}${esc(roleLabel(v))}</button>`).join('')}<span class="pr-h">Pick one or more · the report, the email and the Excel file follow this choice</span></div>`;
+}
+const roleTitle=()=>{const r=S.f.role;return r.length&&r.length<((S.roleOpts||[]).length+1)?r.map(roleLabel).join(', '):'';};
+function vProgress(){
+  const pick=`<label class="btn ${S.base?'sm':'primary big'}" for="cmpInput"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg>${S.base?'Change older report':'Choose an older Enrollment Report'}</label><input type="file" id="cmpInput" accept=".csv,text/csv" hidden>`;
+  if(!S.base)return`<div class="card prog-empty"><span class="pe-ic">${svgI('progress')}</span><h2>Compare with an older report</h2><p>Load an Enrollment Report exported weeks or months ago. The app compares it with today's data and calculates everything that improved: items resolved, completion rate, expired and failed records, crew now up to date, by course and by job role. Then it prepares a detailed report to send by email.</p>${pick}<p class="note">The older file stays on this computer only. The filters at the top (job roles, fleet, area) apply to both reports.</p></div>`;
+  const d=progressData(),resPct=d.a.iss?Math.round(d.resolved.length/d.a.iss*100):0;
+  const kp=(v,l,sub,cls)=>`<div class="pk ${cls||''}"><b>${v}</b><span>${l}</span>${sub?`<small>${sub}</small>`:''}</div>`;
+  const row=(l,a,b,goodDown,isPct)=>{const dd=b-a,good=goodDown?dd<0:dd>0;return`<tr><td>${l}</td><td class="n">${isPct?pctS(a):N(a)}</td><td class="n"><b>${isPct?pctS(b):N(b)}</b></td><td class="n"><span class="dl ${dd===0?'':good?'up':'down'}">${dd===0?'—':isPct?dPts(a,b):(dd>0?'+':'')+N(dd)}</span></td></tr>`;};
+  const gt=(rows,first)=>`<div class="tframe"><table><thead><tr><th class="nosort">${first}</th><th class="nosort n">Open then</th><th class="nosort n">Resolved</th><th class="nosort n">Open now</th><th class="nosort">Completion</th></tr></thead><tbody>${rows.map(g=>`<tr><td class="wt">${esc(g.k)}</td><td class="n">${N(g.thenIss)}</td><td class="n"><b class="gd">${N(g.res)}</b></td><td class="n">${N(g.nowIss)}</td><td class="nw"><span class="cmpbar"><i style="width:${Math.round(g.thenRate*100)}%"></i><i class="now" style="width:${Math.round(g.nowRate*100)}%"></i></span>${pctS(g.thenRate)} → <b>${pctS(g.nowRate)}</b></td></tr>`).join('')}</tbody></table></div>`;
+  return`<div class="card prog-head"><div class="ph-l"><div class="eyebrow">Progress report${roleTitle()?' · '+esc(roleTitle()):''}</div><h2>${fmtDate(d.fromD)} → ${fmtDate(d.toD)} <span>· ${N(d.days)} days</span></h2><p>${esc(d.scope)} · older report: <span class="mono">${esc(d.baseName)}</span></p></div>
+      <div class="ph-b"><button class="btn primary" data-act="pcopy">Copy report for email</button><button class="btn" data-act="pxlsx">Download Excel</button>${pick}</div></div>
+    ${progRoles()}
+    <div class="pkpis">${kp(N(d.resolved.length),'Open items resolved',`${resPct}% of the ${N(d.a.iss)} open at the start`,'good')}${kp(pctS(d.a.rate)+' → '+pctS(d.b.rate),'Overall completion',dPts(d.a.rate,d.b.rate),d.b.rate>=d.a.rate?'good':'')}${kp(N(d.allClear),'Crew now fully up to date',`${N(d.resCrew)} crew closed at least one item`,'good')}${kp(N(d.completedInPeriod.length),'Courses completed in the period','completion dates in the period')}</div>
+    <div class="pgrid"><div class="card"><div class="card-h"><div><h2>What the numbers say</h2></div></div>${progressNarrative(d).map(x=>`<p class="pnar">${esc(x)}</p>`).join('')}</div>
+      <div class="card"><div class="card-h"><div><h2>Before and after</h2></div></div><div class="tframe"><table class="ptbl"><thead><tr><th class="nosort">Measure</th><th class="nosort n">${fmtDate(d.fromD)}</th><th class="nosort n">${fmtDate(d.toD)}</th><th class="nosort n">Change</th></tr></thead><tbody>
+      ${row('Completion rate',d.a.rate,d.b.rate,false,true)}${row('Crew with a clean record',d.a.cleanRate,d.b.cleanRate,false,true)}${row('Open items',d.a.iss,d.b.iss,true)}${row('Expired',d.a.ex,d.b.ex,true)}${row('Failed, no pass',d.a.fa,d.b.fa,true)}${row('Not attempted',d.a.na,d.b.na,true)}${row('Incomplete',d.a.inc,d.b.inc,true)}${row('Courses completed',d.a.done,d.b.done,false)}</tbody></table></div></div></div>
+    <div class="card"><div class="card-h"><div><h2>Most improved courses</h2><p>Open items at the start, how many were resolved, and completion then and now</p></div></div>${gt(d.byCourse.slice(0,25),'Course')}</div>
+    <div class="card"><div class="card-h"><div><h2>By job role</h2></div></div>${gt(d.byRole,'Job role')}</div>
+    <p class="note" style="margin-top:4px">A record counts as resolved when the same person has since completed or passed the same course, including a resit or a newer version. ${N(d.still.length)} items are still open and ${N(d.newIss.length)} new items appeared in the period (details in the Excel file).</p>`;
+}
+
 /* ---------- weekly summary ---------- */
 function addDays(iso,n){const d=new Date(iso+'T00:00:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function wkGroup(list,keyFn){
@@ -2126,11 +2393,14 @@ $('#fhide').addEventListener('change',e=>{S.f.hideTest=e.target.checked;S.limit=
 $('#freset').addEventListener('click',()=>{S.f={q:'',area:'',subj:'',kind:'',prog:'',role:[],fleet:'',status:'',from:'',to:'',hideTest:true,batch:null};['#fq','#farea','#fsubj','#fkind','#fprog','#ffleet','#fstatus','#ffrom','#fto'].forEach(s=>$(s).value='');$('#fhide').checked=true;S.limit={};render();});
 $('#btnLoad').addEventListener('click',()=>{closeDrawer();showStart();});
 $('#fileInput').addEventListener('change',e=>{readFiles(e.target.files);e.target.value='';});
+setInterval(()=>{if(S.started&&S.recs.length&&S._dayChk!==todayISO()){S._dayChk=todayISO();render();}},10*60*1000);
 $('#btnSummary').addEventListener('click',()=>openDrawer('weekly'));
 function setSideMin(m,save){document.body.classList.toggle('sidemin',m);const b=$('#sideTog'),t=m?'Expand the sidebar':'Collapse the sidebar';b.setAttribute('aria-label',t);b.title=t;$('#btnLoad').title=m?'Load new reports':'';if(save){try{localStorage.setItem(STORE+'.sideMin',m?'1':'0');}catch(_){}}}
 $('#sideTog').addEventListener('click',()=>setSideMin(!document.body.classList.contains('sidemin'),true));
 (()=>{let v=null;try{v=localStorage.getItem(STORE+'.sideMin');}catch(_){}setSideMin(v===null?window.innerWidth<1500:v==='1',false);})();
 function setBarMin(m,save){const bar=document.querySelector('.bar'),b=$('#barToggle');bar.classList.toggle('min',m);b.setAttribute('aria-expanded',String(!m));const t=m?'Show filters and search':'Hide filters and search';b.title=t;b.querySelector('.sr').textContent=t;if(m)setRolePop(false);if(save){try{localStorage.setItem(STORE+'.barMin',m?'1':'0');}catch(_){}}}
+function setTheme(t){document.documentElement.setAttribute('data-theme',t);try{localStorage.setItem('krr.theme',t);}catch(e){}const m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#0A0720':'#2B1D66');}
+$('#themeBtn').addEventListener('click',()=>{const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';setTheme(t);toast(t==='dark'?'Dark version on.':'Light version on.');});
 $('#barToggle').addEventListener('click',()=>setBarMin(!document.querySelector('.bar').classList.contains('min'),true));
 try{if(localStorage.getItem(STORE+'.barMin')==='1')setBarMin(true,false);}catch(_){}
 $('#ftoggle').addEventListener('click',()=>{const b=document.querySelector('.bar'),o=!b.classList.contains('fopen');b.classList.toggle('fopen',o);$('#ftoggle').setAttribute('aria-expanded',String(o));});
@@ -2217,7 +2487,7 @@ document.addEventListener('click',e=>{
   }
   const t=e.target.closest('[data-tab],[data-sort],[data-more],[data-goflag],[data-flag],[data-act],[data-course],[data-crew],[data-copy],[data-csv],tr.click');
   if(!t)return;
-  if(t.dataset.tab){S.tab=t.dataset.tab;S.fv=false;closeDrawer();render();window.scrollTo({top:0});return;}
+  if(t.dataset.tab){S.tab=t.dataset.tab;S.fv=false;S.iq='';closeDrawer();render();window.scrollTo({top:0});return;}
   if(t.dataset.sort){const id=t.dataset.table,k=t.dataset.sort,c=S.sort[id]||{};S.sort[id]={key:k,dir:c.key===k?(c.dir==='asc'?'desc':'asc'):(DESC_FIRST.includes(k)?'desc':'asc')};rerender(id);return;}
   if(t.dataset.more){S.limit[t.dataset.more]=(S.limit[t.dataset.more]||(t.dataset.more==='matrix'?150:200))+200;rerender(t.dataset.more);return;}
   if(t.dataset.goflag){const fs=t.dataset.goflag.split(',');S.issueFlags=new Set(fs);if(fs.some(f=>FLAGS[f].sev===0))S.showInfo=true;S.tab='issues';S.limit={};render();window.scrollTo({top:0});return;}
@@ -2228,7 +2498,9 @@ document.addEventListener('click',e=>{
   if(t.dataset.csv){doCSV(t.dataset.csv);return;}
   if(t.tagName==='TR'){const tb=S.tables[t.dataset.table];if(tb&&tb.onRow){document.querySelectorAll('tr.sel').forEach(x=>x.classList.remove('sel'));t.classList.add('sel');tb.onRow(tb.shown[+t.dataset.i]);}return;}
   const a=t.dataset.act;
-  if(a==='load'){closeDrawer();showStart();}
+  if(a==='load'){closeDrawer();const m=$('#dailyModal');if(m)m.remove();showStart();}
+  else if(a==='dailyclose'){const m=$('#dailyModal');if(m)m.remove();}
+  else if(a==='dailyhide'){S.dailyHide=todayISO();const m=$('#dailyModal');if(m)m.remove();render();}
   else if(a==='summary')openDrawer('summary');
   else if(a==='noenroll')openDrawer('noenroll');
   else if(a==='close')closeDrawer();
@@ -2240,6 +2512,9 @@ document.addEventListener('click',e=>{
   else if(a==='allflags'){FLAG_ORDER.filter(f=>FLAGS[f].sev>0||S.showInfo).forEach(f=>S.issueFlags.add(f));render();}
   else if(a==='noflags'){S.issueFlags.clear();render();}
   else if(a==='ptab'){S.profTab=t.dataset.v;S.sort.d=null;renderDrawer();}
+  else if(a==='prole'){const v=t.dataset.v,all=(S.roleOpts||[]).concat(['__none']);if(v==='__all')S.f.role=[];else{let r=S.f.role.length&&S.f.role.length<all.length?S.f.role.slice():[];r=r.includes(v)?r.filter(x=>x!==v):r.concat(v);S.f.role=r.length===all.length?[]:r;}S.limit={};render();}
+  else if(a==='pcopy'){copyProgress();}
+  else if(a==='pxlsx'){downloadProgress();}
   else if(a==='fv'){S.fv=!S.fv;render();window.scrollTo({top:0});}
   else if(a==='ivrec'||a==='ivcrew'){S.issView=a==='ivcrew'?'crew':'rec';S.limit={};render();}
   else if(a==='info'){S.showInfo=!S.showInfo;if(!S.showInfo)FLAG_ORDER.filter(f=>FLAGS[f].sev===0).forEach(f=>S.issueFlags.delete(f));render();}
@@ -2297,7 +2572,7 @@ document.addEventListener('change',e=>{
 
 /* ---------- start ---------- */
 document.body.classList.add('starting');renderStart();
-restore().then(has=>{S.hasSaved=has;if(has){build();S.started=true;document.body.classList.remove('starting');S.tab='overview';render();}else renderStart();if(S._migrated){save();try{localStorage.removeItem(STORE);}catch(_){}}}).catch(()=>renderStart());
+restore().then(has=>{restoreBaseline();S.hasSaved=has;if(has){build();S.started=true;document.body.classList.remove('starting');S.tab='overview';render();}else renderStart();if(S._migrated){save();try{localStorage.removeItem(STORE);}catch(_){}}}).catch(()=>renderStart());
 setInterval(()=>{if(S.started){renderFresh();renderReports();}else renderStart();},60000);
 })();
 </script>
