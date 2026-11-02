@@ -775,6 +775,9 @@ tbody tr.r4 td{background:rgba(154,79,102,.07)}tbody tr.r4 td:first-child{box-sh
 /* full-page table view */
 .card.fv{position:fixed;inset:12px;z-index:19;margin:0;display:flex;flex-direction:column;gap:12px;overflow:hidden;background:color-mix(in srgb,var(--bg) 92%,white);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);box-shadow:0 30px 80px -30px rgba(34,18,88,.45)}
 .card.fv .tframe{flex:1 1 auto;min-height:0;max-height:none!important}
+.card.fv #itable{flex:1 1 auto;min-height:0;display:flex;flex-direction:column}
+.card.fv #itable>.tframe{flex:1 1 auto;min-height:0;overflow:auto}
+.card.fv #itable>.more,.card.fv #itable>.empty{flex:none}
 .card.fv .card-h{flex:none}.card.fv .itiles,.card.fv .chips,.card.fv .ibar,.card.fv .cstats,.card.fv .cattools,.card.fv .more{flex:none}
 .card.fv td{font-size:13.5px}.card.fv td.wt{max-width:none}
 body.fv-open{overflow:hidden}
@@ -1082,7 +1085,7 @@ function fmtShort(iso){if(!iso)return'';const[,m,d]=iso.split('-');return`${+d} 
 function secs(t){const m=(t||'').match(/^(\d+):(\d{2}):(\d{2})$/);return m?(+m[1])*3600+(+m[2])*60+(+m[3]):0;}
 function pct(a,b){return b?Math.round(a/b*100):0;}
 function localISO(dt){dt=dt||new Date();const p=n=>String(n).padStart(2,'0');return`${dt.getFullYear()}-${p(dt.getMonth()+1)}-${p(dt.getDate())}T${p(dt.getHours())}:${p(dt.getMinutes())}:${p(dt.getSeconds())}`;}
-function fileStampISO(name){const m=String(name||'').match(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})\.csv$/i);return m?`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6]}`:'';}
+function fileStampISO(name){const m=String(name||'').match(/(20\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})(?!\d)/);return m?`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6]}`:'';}
 function fmtStamp(iso){if(!iso)return'';const[d,t]=iso.split('T');return fmtDate(d)+(t?', '+t.slice(0,5):'');}
 function ageDays(iso){return iso?(Date.now()-new Date(iso).getTime())/864e5:99;}
 function ageText(iso){if(!iso)return'';const h=(Date.now()-new Date(iso).getTime())/36e5;if(h<1)return'less than an hour ago';if(h<24)return Math.round(h)+' h ago';const d=Math.floor(h/24);return d===1?'1 day ago':d+' days ago';}
@@ -2076,8 +2079,11 @@ function downloadProgress(){const d=progressData();if(!d)return;
 function loadBaseline(fl){
   const file=[...fl].find(f=>/\.csv$/i.test(f.name));if(!file){toast('Choose an Enrollment Report CSV.');return;}
   const fr=new FileReader();fr.onload=()=>{const p=parseCSV(String(fr.result));if(detectType(p.headers)!=='enrollment'){toast('That file is not an Enrollment Report. Choose the older _Files_ReportEnrollmentReports CSV.');return;}
-    const iso=fileStampISO(file.name)||(file.lastModified?new Date(file.lastModified).toISOString().slice(0,19):todayISO()+'T00:00:00');
-    if(iso.slice(0,10)>=(dataAsOf()||todayISO()).slice(0,10)){toast('This report is not older than the current one. Choose an earlier export.');return;}
+    let iso=fileStampISO(file.name);
+    if(!iso){let mx='';for(const r of p.data){for(const k of ['Completion Date','Start Date']){const d=normDate(r[k]);if(d&&d>mx&&d<=todayISO())mx=d;}}iso=(mx||todayISO())+'T23:59:00';}
+    const cur=(dataAsOf()||todayISO()).slice(0,10);
+    if(iso.slice(0,10)>cur){toast(`This report (${fmtDate(iso.slice(0,10))}) is newer than the current data (${fmtDate(cur)}). Load it as the main reports instead.`);return;}
+    if(iso.slice(0,10)===cur)toast('This report has the same date as the current data, so there will be little or no change to show.');
     S.base={name:file.name,iso,rows:p.data};S._baseRecs=null;if(IDB.db)IDB.set('baseline',{name:file.name,iso,text:String(fr.result)});render();toast(`Compared with the report of ${fmtDate(iso.slice(0,10))}.`);};
   fr.readAsText(file,'utf-8');
 }
