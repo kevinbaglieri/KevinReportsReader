@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-
+<!--PELESYS_DATA-->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%221%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%235E52A6%22/%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%232B1D66%22/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2224%22%20fill%3D%22url%28%23g%29%22/%3E%3Cpath%20d%3D%22M33%2025v50%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M63%2025L36%2052%22%20fill%3D%22none%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M43%2054l12%2014%2022-29%22%20fill%3D%22none%22%20stroke%3D%22%23D9CFF4%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -943,6 +943,62 @@ body.needup #btnLoad::after{content:"";position:absolute;top:6px;right:6px;width
 :root[data-theme="dark"] .prc.on{background:#B3A4F0;border-color:#B3A4F0;color:#140E30}
 .pr-h{flex-basis:100%;font-size:11.5px;color:var(--faint)}
 @media (max-width:980px){.pkpis{grid-template-columns:repeat(2,minmax(0,1fr))}.pgrid{grid-template-columns:1fr}}
+.daily small strong{color:#fff;font-weight:800}
+/* statistics */
+.pkpis.st6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.pk.warn b{color:#9A4F66}:root[data-theme="dark"] .pk.warn b{color:#E3A3B8}
+.sbars{display:flex;flex-direction:column;gap:9px}
+.sbar{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:10px;align-items:center;font-size:12.5px}
+.sb-l{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-t{height:9px;border-radius:9px;background:var(--line);overflow:hidden}.sb-t i{display:block;height:100%;border-radius:9px;background:#B07A90}
+:root[data-theme="dark"] .sb-t i{background:#D69AB0}
+.sb-v{white-space:nowrap;text-align:right;min-width:110px}.sb-v small{color:var(--faint)}
+.shist{display:flex;align-items:flex-end;gap:8px;height:190px;padding:6px 2px 0}
+.sh-c{flex:1;min-width:0;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px}
+.sh-b{width:100%;max-width:46px;border-radius:7px 7px 3px 3px;background:#CFC6EE}.sh-b.ok{background:#5D50A8}
+:root[data-theme="dark"] .sh-b{background:#4A4175}:root[data-theme="dark"] .sh-b.ok{background:#B3A4F0}
+.sh-n{font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums}.sh-l{font-size:10.5px;color:var(--muted);white-space:nowrap}
+.tframe.stfree{max-height:none}
+button.stc{background:none;border:0;padding:0 1px;font:inherit;color:inherit;cursor:pointer;border-bottom:1.5px dotted currentColor;border-radius:0;line-height:1.2}
+button.stc:hover{color:var(--accent);border-bottom-style:solid}
+button.pk.pkb{font:inherit;text-align:left;cursor:pointer;color:inherit;transition:transform .15s,box-shadow .15s}
+button.pk.pkb:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(43,29,102,.45)}
+.pk em{font-style:normal;font-size:11.5px;font-weight:700;color:var(--accent);margin-top:4px;opacity:.75}.pk.pkb:hover em{opacity:1}.stfree td:first-child{white-space:nowrap}
+.sttbl td.wt{min-width:300px}
+.sttbl th.stsort{cursor:pointer;user-select:none;white-space:nowrap}.sttbl th.stsort.on{color:var(--accent)}
+td.bd,b.bd{color:#9A4F66;font-weight:700}:root[data-theme="dark"] td.bd,:root[data-theme="dark"] b.bd{color:#E3A3B8}
+td.wt small{display:block;color:var(--faint);font-size:11px;font-weight:500}
+.att{display:inline-block;padding:1px 6px;border-radius:6px;font-size:11px;margin:1px 0}.att.ok{background:rgba(46,125,91,.12);color:#2E7D5B}.att.ko{background:rgba(154,79,102,.12);color:#9A4F66}
+:root[data-theme="dark"] .att.ok{color:#7FD1A8}:root[data-theme="dark"] .att.ko{color:#E3A3B8}
+button.lnk{background:none;border:0;padding:0;font:inherit;font-weight:650;color:var(--accent);cursor:pointer;text-align:left}button.lnk:hover{text-decoration:underline}
+@media (max-width:1280px){.pkpis.st6{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.pkpis.st6{grid-template-columns:repeat(2,minmax(0,1fr))}.sbar{grid-template-columns:1fr auto}.sb-t{grid-column:1/-1;grid-row:2}}
+/* Laura360 */
+.bar-top .ttl:has(.lau){flex:0 0 auto;min-width:max-content}
+@media (min-width:981px){.bar-top:has(.lau) .fresh{flex:0 1 auto;min-width:0;overflow:hidden}.bar-top:has(.lau) .fresh *{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.lau{display:inline-flex;align-items:center;gap:12px;vertical-align:middle}
+.lau-mark{width:42px;height:42px;flex:none;border-radius:13px;display:grid;place-items:center;color:#fff;background:linear-gradient(140deg,#EFA3C2 0%,#B88BD8 55%,#6E5FBE 100%);box-shadow:0 8px 18px -10px rgba(185,95,150,.75),inset 0 1px 0 rgba(255,255,255,.35)}
+.lau-mark svg{width:21px;height:21px}
+.lau-t{display:flex;flex-direction:column;line-height:1}
+.lau-t .laura{font-size:25px;font-weight:750;letter-spacing:-.025em}
+.lau-t small{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px;white-space:nowrap}
+
+.laura i{font-style:normal;color:#C95A8A}:root[data-theme="dark"] .laura i{color:#F4A9C8}
+.lsep{color:var(--faint);font-weight:400}
+.lsub{display:inline-block;white-space:nowrap;font-size:.62em;font-weight:600;color:var(--muted);letter-spacing:0;vertical-align:.12em}
+.prog-head .laura i{color:#F7B6D2}
+.laura-btn{display:flex;align-items:center;gap:11px;width:100%;padding:11px 12px;border-radius:16px;cursor:pointer;text-align:left;color:#fff;
+  border:1px solid rgba(247,182,210,.35);background:linear-gradient(135deg,rgba(247,182,210,.20),rgba(255,255,255,.06) 60%);box-shadow:inset 0 1px 0 rgba(255,255,255,.12);transition:background .15s,transform .15s,border-color .15s}
+.laura-btn:hover{background:linear-gradient(135deg,rgba(247,182,210,.30),rgba(255,255,255,.10) 60%);transform:translateY(-1px)}
+.laura-btn[aria-current="page"]{background:linear-gradient(135deg,#FBF4F8,#E9DFF8);color:#22125A;border-color:rgba(255,255,255,.6)}
+.lb-ic{width:34px;height:34px;flex:none;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#F2A7C6,#B98BD6);color:#fff;box-shadow:0 6px 14px -8px rgba(201,90,138,.7)}
+.lb-ic svg{width:18px;height:18px}
+.lb-t{display:flex;flex-direction:column;min-width:0;line-height:1.15}
+.lb-t b{font-size:15px;font-weight:750;letter-spacing:-.01em}.lb-t b i{font-style:normal;color:#F7B6D2}
+.laura-btn[aria-current="page"] .lb-t b i{color:#C95A8A}
+.lb-t small{font-size:11px;font-weight:600;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:981px){body.sidemin .laura-btn{width:52px;height:46px;padding:0;justify-content:center;border-radius:14px}body.sidemin .lb-ic{width:32px;height:32px}}
+@media (max-width:980px){.laura-btn{padding:9px 11px}}
 /* buttons & chips */
 .btn.primary{background:linear-gradient(135deg,#3E3088 0%,#5D50A8 100%);color:#fff;border-color:rgba(255,255,255,.25);box-shadow:0 8px 20px -12px rgba(43,29,102,.55)}
 .btn.primary:hover{background:linear-gradient(135deg,#372A7C 0%,#54479D 100%)}
@@ -975,6 +1031,7 @@ h1{font-weight:650;letter-spacing:-.025em}h2{font-weight:650}
       <div class="btxt"><b>Pelesys Reading</b><span>Dashboard</span></div>
       <button type="button" class="sidetog" id="sideTog" aria-label="Collapse the sidebar" title="Collapse the sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
     </div>
+    <button type="button" class="laura-btn" id="btnLaura" data-tab="stats" title="Laura360 – Pelesys Learning Analytics"><span class="lb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19V12M10 19V7M15 19v-5M20 19V9"/></svg></span><span class="nl lb-t"><b><i>Laura</i>360</b><small>Pelesys Learning Analytics</small></span></button>
     <nav class="nav" id="nav" aria-label="Views"></nav>
     <div class="reports" id="reports"></div>
     <button class="sbtn primary" id="btnLoad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg><span class="nl">Load new reports</span></button>
@@ -1056,12 +1113,13 @@ const ICON={
   email:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/>',
   batches:'<path d="M3 7.5l9-4.5 9 4.5-9 4.5z"/><path d="M3 12l9 4.5 9-4.5M3 16.5l9 4.5 9-4.5"/>',
   progress:'<path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/>',
+  stats:'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
   updates:'<path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 4v5h-5"/><path d="M12 8v4l2.5 2"/>',
   settings:'<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>'
 };
 const svgI=k=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[k]}</svg>`;
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg>';
-const VIEWS=[['progress','Progress','Compare an older report with today and measure the improvement'],['overview','Overview','Audit readiness across every loaded record'],['issues','Issues','Records that fail an audit check'],['courses','Courses','Every course in the catalogue, by area'],['crew','Crew','Every crew member and their open items'],['batches','Cohorts','Initial training cohorts, grouped by start week'],['matrix','Matrix','Crew by course, one cohort at a time'],['email','Email crew','Remind crew by status, with Outlook'],['updates','Updates','Latest upload, what changed and upload history'],['settings','Settings','Audit rules and data on this computer']];
+const VIEWS=[['stats','Laura360 – Pelesys Learning Analytics','Exam results in numbers: pass and fail, by exam and by job role'],['progress','Progress','Compare an older report with today and measure the improvement'],['overview','Overview','Audit readiness across every loaded record'],['issues','Issues','Records that fail an audit check'],['courses','Courses','Every course in the catalogue, by area'],['crew','Crew','Every crew member and their open items'],['batches','Cohorts','Initial training cohorts, grouped by start week'],['matrix','Matrix','Crew by course, one cohort at a time'],['email','Email crew','Remind crew by status, with Outlook'],['updates','Updates','Latest upload, what changed and upload history'],['settings','Settings','Audit rules and data on this computer']];
 const NAVG=[['Audit',['overview','issues','courses','crew','batches','matrix','email','progress']],['Data',['updates','settings']]];
 
 const S={
@@ -1314,7 +1372,9 @@ function render(){
   $('#fbatch').innerHTML=S.f.batch?`<button class="bchip" data-act="clearbatch" title="Remove the cohort filter">Cohort: ${esc(S.f.batch.label)} <span aria-hidden="true">✕</span></button>`:'';
   renderReports();
   const v=VIEWS.find(x=>x[0]===S.tab);
-  $('#vTitle').textContent=v[1];
+  if(S.tab==='stats')$('#vTitle').innerHTML='<span class="lau"><span class="lau-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V12M10 19V7M15 19v-5M20 19V9"/></svg></span><span class="lau-t"><span class="laura"><i>Laura</i>360</span><small>Pelesys Learning Analytics</small></span></span>';else $('#vTitle').textContent=v[1];
+  {const lb=$('#btnLaura');if(lb){if(S.tab==='stats')lb.setAttribute('aria-current','page');else lb.removeAttribute('aria-current');}}
+  $('#vSub').hidden=S.tab==='stats';
   $('#vSub').textContent=S.recs.length&&S.tab!=='settings'&&S.tab!=='updates'?`${v[2]} · ${N(list.length)} of ${N(S.recs.length)} records in scope`:v[2];
   $('#filters').hidden=S.tab==='settings'||S.tab==='updates';$('#ftoggle').hidden=$('#filters').hidden;
   const act=['area','subj','kind','prog','fleet','status','from','to','batch'].filter(k=>S.f[k]).length+(S.f.role.length?1:0)+(S.f.q?1:0);
@@ -1323,13 +1383,13 @@ function render(){
   const demo=S.demo?`<div class="demo"><b>Example data.</b> Invented crew records so you can try every view. Load your Pelesys exports to audit real records.<button class="btn sm" data-act="load">Load reports</button></div>`:'';
   if(!S.recs.length&&S.tab!=='settings'&&S.tab!=='updates'){$('#view').innerHTML=demo+`<div class="card"><div class="empty"><b>No enrollment records yet</b>Load the Pelesys Enrollment Report to start the audit.</div></div>`;return;}
   const tf0=S._lastTab===S.tab?document.querySelector('#view .tframe'):null,keep=tf0?[tf0.scrollTop,tf0.scrollLeft]:null;S._lastTab=S.tab;
-  const lu=lastUpload(),todayD=todayISO(),needUp=S.recs.length&&!S.demo&&(!lu||lu.slice(0,10)<todayD)&&S.dailyHide!==todayD;
-  const daily=needUp?`<div class="daily" role="alert"><span class="dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span><div><span class="dl-eye"><i></i>Action needed today</span><b>Upload today's Pelesys reports</b><small>Last upload ${lu?esc(fmtStamp(lu))+' · '+esc(ageText(lu)):'unknown'}. The data on screen is not up to date: export the four reports from Pelesys and load them.</small></div><div class="dl-b"><button class="btn primary sm" data-act="load">Load today's reports</button><button class="btn ghost sm" data-act="dailyhide">Remind me tomorrow</button></div></div>`:'';
+  const lu=S.folderMode?dataAsOf():lastUpload(),todayD=todayISO(),needUp=S.recs.length&&!S.demo&&(!lu||lu.slice(0,10)<todayD)&&S.dailyHide!==todayD;
+  const daily=needUp?`<div class="daily" role="alert"><span class="dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span><div><span class="dl-eye"><i></i>Action needed today</span><b>Upload today's Pelesys reports</b><small>Last upload ${lu?esc(fmtStamp(lu))+' · '+esc(ageText(lu)):'unknown'}. ${S.folderMode?'Export the four reports from Pelesys, save them in the shared <strong>Reports</strong> folder and double-click <strong>Update dashboard</strong>.':'The data on screen is not up to date: export the four reports from Pelesys and load them.'}</small></div><div class="dl-b"><button class="btn primary sm" data-act="load">Load today's reports</button><button class="btn ghost sm" data-act="dailyhide">Remind me tomorrow</button></div></div>`:'';
   if(needUp&&S._dailyPop!==todayD&&!$('#dailyModal')){S._dailyPop=todayD;const m=document.createElement('div');m.id='dailyModal';m.className='dmodal';
-    m.innerHTML=`<div class="dm-card" role="alertdialog" aria-labelledby="dmT"><span class="dm-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><p class="dm-eye">Daily reminder</p><h2 id="dmT">Upload today's Pelesys reports</h2><p class="dm-t">The last upload was ${lu?esc(fmtStamp(lu))+' ('+esc(ageText(lu))+')':'not recorded'}. Export the Enrollment, Users, User Course and Course Learning reports from Pelesys and load them so today's audit is correct.</p><div class="dm-b"><button class="btn primary big" data-act="load">Load today's reports</button><button class="btn ghost" data-act="dailyclose">Not now</button></div></div>`;
+    m.innerHTML=`<div class="dm-card" role="alertdialog" aria-labelledby="dmT"><span class="dm-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><p class="dm-eye">Daily reminder</p><h2 id="dmT">Upload today's Pelesys reports</h2><p class="dm-t">The last upload was ${lu?esc(fmtStamp(lu))+' ('+esc(ageText(lu))+')':'not recorded'}. ${S.folderMode?'Export the Enrollment, Users, User Course and Course Learning reports from Pelesys, save them in the Reports folder (Admin) and double-click Update dashboard. Everyone who opens the dashboard will then see today\'s data.':'Export the Enrollment, Users, User Course and Course Learning reports from Pelesys and load them so today\'s audit is correct.'}</p><div class="dm-b">${S.folderMode?'<button class="btn primary big" data-act="dailyclose">OK, I will update the folder</button>':'<button class="btn primary big" data-act="load">Load today\'s reports</button>'}<button class="btn ghost" data-act="dailyclose">Not now</button></div></div>`;
     document.body.appendChild(m);}
   document.body.classList.toggle('needup',!!needUp);
-  const vhtml=daily+demo+({overview:vOverview,progress:vProgress,issues:vIssues,courses:vCourses,crew:vCrew,batches:vBatches,matrix:vMatrix,email:vEmail,updates:vUpdates,settings:vSettings}[S.tab])(list,fc);
+  const vhtml=daily+demo+({overview:vOverview,progress:vProgress,stats:vStats,issues:vIssues,courses:vCourses,crew:vCrew,batches:vBatches,matrix:vMatrix,email:vEmail,updates:vUpdates,settings:vSettings}[S.tab])(list,fc);
   const oldTools=S._keepTools&&document.querySelector('#view .cattools');S._keepTools=false;
   if(oldTools){const tmp=document.createElement('div');tmp.innerHTML=vhtml;const nt=tmp.querySelector('.cattools');
     if(nt&&oldTools.parentNode.parentNode===$('#view')&&tmp.children.length===1){const oc=oldTools.parentNode,nc=nt.parentNode;
@@ -1357,7 +1417,7 @@ function renderFresh(){
   const iso=dataAsOf();if(!iso){el.hidden=true;return;}
   const a=ageDays(iso),cls=a<=1.5?'ok':a<=3?'warn':'bad',lu=lastUpload();
   el.hidden=false;el.className='fresh '+cls;
-  el.innerHTML=`<span class="fd"></span><span><b>Data as of ${esc(fmtStamp(iso))}</b><small>${a>3?'Old data · load a fresh export':esc(ageText(iso))}${lu?' · uploaded '+esc(fmtStamp(lu)):''}</small></span>`;
+  el.innerHTML=`<span class="fd"></span><span><b>Data as of ${esc(fmtStamp(iso))}</b><small>${a>3?'Old data · load a fresh export':esc(ageText(iso))}${lu?' · uploaded '+esc(fmtStamp(lu)):''}${S.folderMode?' · shared folder':''}</small></span>`;
   el.title='Export time of the Enrollment Report. Select to see the upload history.';
 }
 
@@ -1859,7 +1919,7 @@ function vSettings(){
 }
 
 /* ---------- drawer ---------- */
-function openDrawer(type,key){if(type==='crew'&&(!S.drawer||S.drawer.key!==key))S.profTab=null;S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.toggle('wide',type==='weekly'||type==='crew');d.classList.toggle('prof',type==='crew');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
+function openDrawer(type,key){if(type==='crew'&&(!S.drawer||S.drawer.key!==key))S.profTab=null;S.drawer={type,key};S.limit.d=0;S.sort.d=null;renderDrawer();const d=$('#drawer');d.classList.toggle('wide',type==='weekly'||type==='crew'||type==='stlist');d.classList.toggle('prof',type==='crew');d.classList.add('open');d.setAttribute('aria-hidden','false');$('#scrim').classList.add('open');const db=d.querySelector('.db');if(db)db.scrollTop=0;}
 function closeDrawer(){S.drawer=null;$('#drawer').classList.remove('open');$('#scrim').classList.remove('open');$('#drawer').setAttribute('aria-hidden','true');document.querySelectorAll('tr.sel').forEach(x=>x.classList.remove('sel'));}
 function dhead(eyebrow,title,meta,stats,extra){return`<div class="dh"><div class="dh-top"><div><div class="eyebrow">${eyebrow}</div><h2>${esc(title)}</h2><div class="meta">${meta}</div></div><button class="btn sm" data-act="close">Close</button></div>${stats?`<div class="dstats">${stats}</div>`:''}${extra||''}</div>`;}
 const dstat=(cls,v,l)=>`<div class="dstat ${cls}"><b>${v}</b>${l}</div>`;
@@ -1907,6 +1967,7 @@ function renderDrawer(){
     if(!recs.length){html=dhead('Course',c.title,meta,'',tags)+`<div class="db"><div class="empty"><b>No enrolments</b>Nobody is enrolled in this course in the loaded Enrollment Report.</div></div>`;}
     else{const table=renderTable('d',recCols({course:false}),recs,{defaultSort:{key:'flags',dir:'desc'},exportName:'course-'+c.code.replace(/[^\w-]+/g,'_'),onRow:r=>openDrawer('crew',r.login)});
       html=dhead('Course',c.title,meta,dstat('',recs.length,'enrolled')+dstat('ok',pct(sc.done,recs.length)+'%','complete')+dstat(sc.notstarted?'warn':'',sc.notstarted,'not attempted')+dstat(sc.incomplete?'warn':'',sc.incomplete,'incomplete')+dstat(fc.failed?'bad':'',fc.failed,'failed, no pass')+dstat(fc.overdue?'bad':'',fc.overdue,'expired'),tags+`<div>${exportBar('d')}</div>`)+`<div class="db">${table}</div>`;}
+  }else if(d.type==='stlist'){html=stListDrawer();
   }else if(d.type==='noenroll'){
     const rows=S.noEnroll.map(u=>({name:u.name,login:u.login,role:u.role||'',fleet:u.fleet||'',emp:u.emp||'',active:u.active?'Active':'Inactive'}));
     const table=renderTable('d',[{key:'name',label:'Name',val:u=>u.name},{key:'login',label:'Login',val:u=>u.login,html:u=>`<span class="mono">${esc(u.login)}</span>`},...(S.people.length?[{key:'role',label:'Job role',val:u=>u.role,html:u=>u.role?esc(u.role):DASH},{key:'fleet',label:'Fleet',val:u=>u.fleet,html:u=>u.fleet?esc(u.fleet):DASH},{key:'emp',label:'Employee ID',val:u=>u.emp}]:[]),{key:'active',label:'Status',val:u=>u.active}],rows,{defaultSort:{key:'name'},exportName:'users-no-enrollment'});
@@ -2088,10 +2149,10 @@ function loadBaseline(fl){
   fr.readAsText(file,'utf-8');
 }
 async function restoreBaseline(){try{if(!IDB.db)await IDB.open();const b=IDB.db&&await IDB.get('baseline');if(b&&b.text){S.base={name:b.name,iso:b.iso,rows:parseCSV(b.text).data};S._baseRecs=null;if(S.tab==='progress')render();}}catch(e){}}
-function progRoles(){
+function progRoles(lbl,hint){
   const opts=(S.roleOpts||[]).concat(S.roleOpts&&S.roleOpts.length?['__none']:[]),sel=S.f.role;if(!opts.length)return'';
   const all=!sel.length||sel.length===opts.length;
-  return`<div class="prole"><span class="pr-l">Show progress for</span><button type="button" class="prc ${all?'on':''}" data-act="prole" data-v="__all" aria-pressed="${all}">All job roles</button>${opts.map(v=>`<button type="button" class="prc ${!all&&sel.includes(v)?'on':''}" data-act="prole" data-v="${esc(v)}" aria-pressed="${!all&&sel.includes(v)}">${!all&&sel.includes(v)?'✓ ':''}${esc(roleLabel(v))}</button>`).join('')}<span class="pr-h">Pick one or more · the report, the email and the Excel file follow this choice</span></div>`;
+  return`<div class="prole"><span class="pr-l">${lbl||'Show progress for'}</span><button type="button" class="prc ${all?'on':''}" data-act="prole" data-v="__all" aria-pressed="${all}">All job roles</button>${opts.map(v=>`<button type="button" class="prc ${!all&&sel.includes(v)?'on':''}" data-act="prole" data-v="${esc(v)}" aria-pressed="${!all&&sel.includes(v)}">${!all&&sel.includes(v)?'✓ ':''}${esc(roleLabel(v))}</button>`).join('')}<span class="pr-h">${hint||'Pick one or more · the report, the email and the Excel file follow this choice'}</span></div>`;
 }
 const roleTitle=()=>{const r=S.f.role;return r.length&&r.length<((S.roleOpts||[]).length+1)?r.map(roleLabel).join(', '):'';};
 function vProgress(){
@@ -2166,6 +2227,184 @@ function copyWeekly(){
   const d=weeklyData(),html='<html><body>'+weeklyHTML(d)+'</body></html>',plain=weeklyPlain(d);
   try{if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]).then(()=>toast('Summary copied. Paste it into the body of an email in Outlook.'),()=>copyHtmlSync(html,plain));return;}}catch(e){}
   copyHtmlSync(html,plain);
+}
+/* ---------- statistics: exam results in numbers ---------- */
+const RS_RW=new Set(['resit','retake','retest','re','remedial','test','exam','initial','cci','cc','class','sep','ab']);
+const famKey=r=>r.subject+'|'+([...rsToks(r.title)].filter(w=>!RS_RW.has(w)).sort().join(' ')||r.base);
+const attD=r=>r.compl||r.start||'';
+const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+function statsData(){
+  const f=S.f;
+  const ex=filterList(S.recs).filter(r=>r.kind==='Exam'&&(!f.subj||r.subject===f.subj)&&(!f.prog||r.prog===f.prog)&&(!f.from||attD(r)>=f.from)&&(!f.to||attD(r)<=f.to));
+  const isAtt=r=>r.st==='done'||r.st==='failed';
+  const att=ex.filter(isAtt),pass=att.filter(r=>r.st==='done'),fail=att.filter(r=>r.st==='failed');
+  const scores=att.map(r=>r.score).filter(v=>v!==null&&!isNaN(v));
+  /* one chain per person and exam (the exam, its resits and newer versions together), in date order */
+  const chains=new Map();
+  for(const r of ex){const k=r.login+'#'+famKey(r);let c=chains.get(k);if(!c)chains.set(k,c={login:r.login,name:r.name,role:r.role||'',fam:famKey(r),recs:[]});c.recs.push(r);}
+  for(const c of chains.values()){
+    c.att=c.recs.filter(isAtt).sort((a,b)=>attD(a).localeCompare(attD(b))||(+a.id||0)-(+b.id||0));
+    let run=0;c.maxRun=0;c.fails=0;c.firstPassAfter=null;
+    for(const r of c.att){if(r.st==='failed'){run++;c.fails++;c.maxRun=Math.max(c.maxRun,run);}else{if(c.firstPassAfter===null)c.firstPassAfter=c.fails;run=0;}}
+    c.first=c.att[0]||null;c.last=c.att[c.att.length-1]||null;c.passed=c.att.some(r=>r.st==='done');
+    c.na=!c.att.length&&c.recs.some(r=>r.st==='notstarted'||r.st==='incomplete');
+    c.lastFail=[...c.att].reverse().find(r=>r.st==='failed')||null;
+  }
+  /* by exam */
+  const fams=new Map();
+  for(const c of chains.values()){let g=fams.get(c.fam);if(!g)fams.set(c.fam,g={fam:c.fam,titles:new Map(),subject:'',chains:[],att:0,pass:0,fail:0,sc:[]});g.chains.push(c);
+    c.recs.forEach(r=>{g.subject=r.subject;if(!r.resit)g.titles.set(r.title,(g.titles.get(r.title)||0)+1);});
+    c.att.forEach(r=>{g.att++;if(r.st==='done')g.pass++;else g.fail++;if(r.score!==null&&!isNaN(r.score))g.sc.push(r.score);});}
+  const byExam=[...fams.values()].map(g=>{const ch=g.chains,tried=ch.filter(c=>c.att.length);
+    const name=[...g.titles.entries()].sort((a,b)=>b[1]-a[1])[0];
+    const toPass=tried.filter(c=>c.passed).map(c=>c.firstPassAfter+1);
+    return{fam:g.fam,k:name?name[0]:(ch[0].recs[0].title),subject:g.subject,versions:new Set(ch.flatMap(c=>c.recs.map(r=>r.title))).size,
+      crew:ch.length,tried:tried.length,na:ch.filter(c=>c.na).length,att:g.att,pass:g.pass,fail:g.fail,rate:g.att?g.pass/g.att:null,
+      ftp:tried.length?tried.filter(c=>c.first.st==='done').length/tried.length:null,
+      eventual:tried.length?tried.filter(c=>c.passed).length/tried.length:null,
+      avg:avg(g.sc),min:g.sc.length?Math.min(...g.sc):null,toPass:avg(toPass),
+      failCrew:tried.filter(c=>c.fails).length,repeat:tried.filter(c=>c.maxRun>=2).length,notPassed:tried.filter(c=>!c.passed).length};})
+    .filter(g=>g.att||g.na);
+  /* consecutive fails */
+  const consec=[...chains.values()].filter(c=>c.maxRun>=2).map(c=>{const ex0=byExam.find(g=>g.fam===c.fam);
+    const after=c.passed?c.att.find((r,i)=>r.st==='done'&&i>0&&c.att.slice(0,i).some(x=>x.st==='failed')):null;
+    return{login:c.login,name:c.name,role:c.role,exam:ex0?ex0.k:c.recs[0].title,fails:c.fails,run:c.maxRun,attempts:c.att.length,
+      scores:c.att.map(r=>r.st==='done'?'✓'+(r.score!==null?r.score:''):'✗'+(r.score!==null?r.score:'')),
+      lastFail:c.lastFail?attD(c.lastFail):'',passed:c.passed&&c.last.st==='done',passD:c.passed&&c.last.st==='done'?attD(c.last):''};})
+    .sort((a,b)=>(a.passed-b.passed)||b.run-a.run||b.fails-a.fails||a.name.localeCompare(b.name));
+  /* by job role */
+  const roles=new Map();
+  for(const c of chains.values()){if(!c.att.length&&!c.na)continue;const k=c.role||'No job role';let g=roles.get(k);if(!g)roles.set(k,g={k,crew:new Set(),att:0,pass:0,fail:0,sc:[],tried:0,ftp:0,failCrew:new Set(),repeatCrew:new Set(),na:0});
+    g.crew.add(c.login);if(c.na)g.na++;if(c.att.length){g.tried++;if(c.first.st==='done')g.ftp++;}
+    c.att.forEach(r=>{g.att++;if(r.st==='done')g.pass++;else{g.fail++;g.failCrew.add(c.login);}if(r.score!==null&&!isNaN(r.score))g.sc.push(r.score);});
+    if(c.maxRun>=2)g.repeatCrew.add(c.login);}
+  const byRole=[...roles.values()].map(g=>({k:g.k,crew:g.crew.size,att:g.att,pass:g.pass,fail:g.fail,rate:g.att?g.pass/g.att:null,ftp:g.tried?g.ftp/g.tried:null,avg:avg(g.sc),failCrew:g.failCrew.size,repeat:g.repeatCrew.size,na:g.na})).sort((a,b)=>b.att-a.att);
+  /* crew with most fails */
+  const people=new Map();
+  for(const c of chains.values()){if(!c.fails)continue;let p=people.get(c.login);if(!p)people.set(c.login,p={login:c.login,name:c.name,role:c.role,fails:0,exams:0,run:0,open:0});
+    p.fails+=c.fails;p.exams++;p.run=Math.max(p.run,c.maxRun);if(!c.passed)p.open++;}
+  const topCrew=[...people.values()].sort((a,b)=>b.fails-a.fails||b.run-a.run||a.name.localeCompare(b.name));
+  /* score distribution and months */
+  const pm=+S.settings.passMark||75;
+  const bins=[['Below 50',0,50],['50–59',50,60],['60–69',60,70],[`70–${pm-1}`,70,pm],[`${pm}–79`,pm,80],['80–89',80,90],['90–99',90,100],['100',100,101]].filter(b=>b[2]>b[1]);
+  const dist=bins.map(([l,a,b])=>({l,a,b,n:scores.filter(s=>s>=a&&s<b).length,pass:a>=pm}));
+  const mon=new Map();att.forEach(r=>{const m=attD(r).slice(0,7);if(!m)return;let g=mon.get(m);if(!g)mon.set(m,g={m,att:0,pass:0,fail:0});g.att++;if(r.st==='done')g.pass++;else g.fail++;});
+  const months=[...mon.values()].sort((a,b)=>a.m.localeCompare(b.m)).slice(-12).map(g=>Object.assign(g,{rate:g.att?g.pass/g.att:0}));
+  const tried=[...chains.values()].filter(c=>c.att.length);
+  const scope=[S.f.role.length?'Job roles: '+S.f.role.map(roleLabel).join(', '):'All job roles',S.f.fleet&&('Fleet: '+(S.f.fleet==='__none'?'no fleet':S.f.fleet)),S.f.area,S.f.subj,S.f.prog,(S.f.from||S.f.to)&&`Dates ${S.f.from?fmtDate(S.f.from):'…'} – ${S.f.to?fmtDate(S.f.to):'…'}`,S.f.q&&`Search "${S.f.q}"`].filter(Boolean).join(' · ');
+  return{n:ex.length,att:att.length,pass:pass.length,fail:fail.length,rate:att.length?pass.length/att.length:null,
+    ftp:tried.length?tried.filter(c=>c.first.st==='done').length/tried.length:null,avg:avg(scores),scoresN:scores.length,
+    crew:new Set(att.map(r=>r.login)).size,failCrew:new Set(fail.map(r=>r.login)).size,repeatCrew:new Set(consec.map(c=>c.login)).size,
+    notPassed:consec.filter(c=>!c.passed).length,chains:[...chains.values()],famName:new Map(byExam.map(g=>[g.fam,g.k])),byExam,consec,byRole,topCrew,dist,months,pm,scope,asOf:(dataAsOf()||todayISO()).slice(0,10)};
+}
+const pctN=v=>v===null||v===undefined?'—':Math.round(v*100)+'%';
+const sc1=v=>v===null||v===undefined?'—':(Math.round(v*10)/10).toLocaleString('en-GB');
+const ST_COLS=[['k','Exam','t'],['crew','Crew','n'],['att','Attempts','n'],['pass','Passed','n'],['fail','Failed','n'],['rate','Pass rate','p'],['ftp','First-time pass','p'],['avg','Avg score','s'],['toPass','Attempts to pass','s'],['repeat','Failed 2+ in a row','n'],['notPassed','Not passed yet','n'],['na','Not attempted','n']];
+const ST_CLICK={crew:'crew',att:'att',pass:'pass',fail:'fail',rate:'fail',ftp:'ftpno',avg:'scored',toPass:'toPass',repeat:'repeat',notPassed:'notPassed',na:'na'};
+function stSorted(rows){const s=S.stSort||{k:'fail',dir:'desc'},m=s.dir==='asc'?1:-1;
+  return rows.slice().sort((a,b)=>{const x=a[s.k],y=b[s.k];if(s.k==='k')return m*String(x).localeCompare(String(y));const xn=x===null||x===undefined?-1:x,yn=y===null||y===undefined?-1:y;return m*(xn-yn)||b.att-a.att;});}
+function vStats(){
+  const d=statsData();S._stats=d;
+  const kp=(v,l,sub,cls,w)=>w?`<button type="button" class="pk pkb ${cls||''}" data-act="stlist" data-w="${w}" title="See who"><b>${v}</b><span>${l}</span>${sub?`<small>${sub}</small>`:''}<em>See who →</em></button>`:`<div class="pk ${cls||''}"><b>${v}</b><span>${l}</span>${sub?`<small>${sub}</small>`:''}</div>`;
+  const head=`<div class="card prog-head"><div class="ph-l"><div class="eyebrow">Exam results · data as of ${fmtDate(d.asOf)}</div><h2>${N(d.att)} attempts <span>by ${N(d.crew)} crew</span></h2><p>${esc(d.scope)}</p></div>
+    <div class="ph-b"><button class="btn primary" data-act="stcopy">Copy report for email</button><button class="btn" data-act="stxlsx">Download Excel</button></div></div>${progRoles('Show statistics for','Pick one or more · the numbers, the email and the Excel file follow this choice')}`;
+  if(!d.att&&!d.n)return head+`<div class="card"><div class="empty"><b>No exam records in this selection</b>Change the job roles or the filters at the top. Statistics count exams only (not e-learning).</div></div>`;
+  const kpis=`<div class="pkpis st6">${kp(N(d.att),'Exam attempts',`${N(d.pass)} passed · ${N(d.fail)} failed`,'','att')}${kp(pctN(d.rate),'Pass rate',`${N(d.fail)} failed attempts`,d.rate>=.9?'good':'','fail')}${kp(pctN(d.ftp),'First-time pass rate','crew who passed at the first attempt',d.ftp>=.9?'good':'','ftpno')}${kp(sc1(d.avg),'Average score',`pass mark ${d.pm} · ${N(d.scoresN)} scores`,'','low')}${kp(N(d.failCrew),'Crew with a fail','failed at least one attempt','','failCrew')}${kp(N(d.repeatCrew),'Failed 2+ in a row',`${N(d.notPassed)} with no pass on record`,d.repeatCrew?'warn':'good','repeat')}</div>`;
+  /* most failed exams: bars */
+  const mf=d.byExam.filter(g=>g.fail).sort((a,b)=>b.fail-a.fail).slice(0,10),mx=Math.max(1,...mf.map(g=>g.fail));
+  const bars=mf.length?mf.map(g=>`<div class="sbar"><div class="sb-l" title="${esc(g.k)}">${esc(g.k)}</div><div class="sb-t"><i style="width:${Math.max(2,g.fail/mx*100)}%"></i></div><div class="sb-v">${stBtn('<b>'+N(g.fail)+'</b>','fail',{f:g.fam,t:'Failed attempts'})} <small>${pctN(g.att?g.fail/g.att:0)} of attempts</small></div></div>`).join(''):'<p class="note">No failed attempts in this selection.</p>';
+  const dmx=Math.max(1,...d.dist.map(b=>b.n));
+  const hist=`<div class="shist">${d.dist.map(b=>`<div class="sh-c"><span class="sh-n">${b.n?stBtn(N(b.n),'bin',{a:b.a,b:b.b,t:'Scores '+b.l}):'0'}</span><div class="sh-b ${b.pass?'ok':''}" style="height:${b.n?Math.max(3,b.n/dmx*100):0}%"></div><span class="sh-l">${esc(b.l)}</span></div>`).join('')}</div><p class="note">Scores of every exam attempt. Darker bars are at or above the pass mark (${d.pm}).</p>`;
+  const months=d.months.length?`<div class="tframe stfree"><table><thead><tr><th class="nosort">Month</th><th class="nosort n">Attempts</th><th class="nosort n">Passed</th><th class="nosort n">Failed</th><th class="nosort">Pass rate</th></tr></thead><tbody>${d.months.map(g=>`<tr><td>${MON[+g.m.slice(5)-1]} ${g.m.slice(0,4)}</td><td class="n">${stBtn(N(g.att),'month',{m:g.m,t:'Attempts in '+MON[+g.m.slice(5)-1]+' '+g.m.slice(0,4)})}</td><td class="n">${N(g.pass)}</td><td class="n">${g.fail?stBtn(N(g.fail),'month',{m:g.m,t:'Attempts in '+MON[+g.m.slice(5)-1]+' '+g.m.slice(0,4)}):'0'}</td><td class="nw"><span class="cmpbar"><i class="now" style="height:7px;width:${Math.round(g.rate*100)}%"></i></span>${pctN(g.rate)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="note">No dated attempts.</p>';
+  /* by exam */
+  const s=S.stSort||{k:'fail',dir:'desc'},rows=stSorted(d.byExam),shown=S.stAll?rows:rows.slice(0,30);
+  const fmt=(t,v)=>t==='p'?pctN(v):t==='s'?sc1(v):t==='n'?N(v):esc(v);
+  const examT=`<div class="tframe"><table class="sttbl"><thead><tr>${ST_COLS.map(([k,l,t])=>`<th class="${t==='t'?'':'n'} stsort ${s.k===k?'on':''}" data-act="stsort" data-k="${k}" title="Sort by ${esc(l)}">${esc(l)}${s.k===k?(s.dir==='asc'?' ▲':' ▼'):''}</th>`).join('')}</tr></thead><tbody>${shown.map(g=>`<tr>${ST_COLS.map(([k,,t])=>k==='k'?`<td class="wt"><b>${esc(g.k)}</b><small>${esc(g.subject)}${g.versions>1?' · '+g.versions+' versions / resits':''}</small></td>`:`<td class="n ${k==='fail'&&g.fail?'bd':''}${k==='repeat'&&g.repeat?' bd':''}${k==='rate'&&g.rate!==null&&g.rate<.8?' bd':''}">${ST_CLICK[k]&&g[k]?stBtn(fmt(t,g[k]),ST_CLICK[k],{f:g.fam}):fmt(t,g[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${rows.length>30?`<div class="more"><button class="btn sm ghost" data-act="stall">${S.stAll?'Show the first 30':'Show all '+N(rows.length)+' exams'}</button></div>`:''}`;
+  /* consecutive */
+  const cs=S.stConsAll?d.consec:d.consec.slice(0,40);
+  const consT=d.consec.length?`<div class="tframe"><table><thead><tr><th class="nosort">Crew member</th><th class="nosort">Job role</th><th class="nosort">Exam</th><th class="nosort n">Fails in a row</th><th class="nosort n">Fails</th><th class="nosort">Attempts (score)</th><th class="nosort">Status</th></tr></thead><tbody>${cs.map(c=>`<tr><td><button class="lnk" data-crew="${esc(c.login)}">${esc(c.name)}</button></td><td>${esc(c.role||'No job role')}</td><td class="wt">${esc(c.exam)}</td><td class="n"><b class="bd">${N(c.run)}</b></td><td class="n">${N(c.fails)}</td><td class="nw mono sm">${c.scores.map(x=>`<span class="att ${x[0]==='✓'?'ok':'ko'}">${esc(x)}</span>`).join(' ')}</td><td>${c.passed?`<span class="pill chg-ok">Passed ${esc(fmtShort(c.passD))}</span>`:`<span class="pill chg-bad">No pass on record</span>`}</td></tr>`).join('')}</tbody></table></div>${d.consec.length>40?`<div class="more"><button class="btn sm ghost" data-act="stconsall">${S.stConsAll?'Show the first 40':'Show all '+N(d.consec.length)}</button></div>`:''}`:'<p class="note" style="padding:4px 2px">Nobody failed the same exam twice in a row in this selection.</p>';
+  const roleT=`<div class="tframe"><table><thead><tr><th class="nosort">Job role</th><th class="nosort n">Crew</th><th class="nosort n">Attempts</th><th class="nosort n">Passed</th><th class="nosort n">Failed</th><th class="nosort">Pass rate</th><th class="nosort n">First-time pass</th><th class="nosort n">Avg score</th><th class="nosort n">Crew with a fail</th><th class="nosort n">Failed 2+ in a row</th><th class="nosort n">Not attempted</th></tr></thead><tbody>${d.byRole.map(g=>`<tr><td><b>${esc(g.k)}</b></td><td class="n">${N(g.crew)}</td><td class="n">${stBtn(N(g.att),'att',{r:g.k})}</td><td class="n">${stBtn(N(g.pass),'pass',{r:g.k})}</td><td class="n">${g.fail?stBtn(N(g.fail),'fail',{r:g.k}):'0'}</td><td class="nw"><span class="cmpbar"><i class="now" style="height:7px;width:${Math.round((g.rate||0)*100)}%"></i></span>${pctN(g.rate)}</td><td class="n">${stBtn(pctN(g.ftp),'ftpno',{r:g.k})}</td><td class="n">${sc1(g.avg)}</td><td class="n">${g.failCrew?stBtn(N(g.failCrew),'failCrew',{r:g.k}):'0'}</td><td class="n ${g.repeat?'bd':''}">${g.repeat?stBtn(N(g.repeat),'repeat',{r:g.k}):'0'}</td><td class="n">${g.na?stBtn(N(g.na),'na',{r:g.k}):'0'}</td></tr>`).join('')}</tbody></table></div>`;
+  const tc=d.topCrew.slice(0,12);
+  const crewT=tc.length?`<div class="tframe stfree"><table><thead><tr><th class="nosort">Crew member</th><th class="nosort">Job role</th><th class="nosort n">Failed attempts</th><th class="nosort n">Exams failed</th><th class="nosort n">Most in a row</th><th class="nosort n">Not passed yet</th></tr></thead><tbody>${tc.map(p=>`<tr><td><button class="lnk" data-crew="${esc(p.login)}">${esc(p.name)}</button></td><td>${esc(p.role||'No job role')}</td><td class="n"><b>${N(p.fails)}</b></td><td class="n">${N(p.exams)}</td><td class="n ${p.run>=2?'bd':''}">${N(p.run)}</td><td class="n ${p.open?'bd':''}">${N(p.open)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="note">No failed attempts.</p>';
+  return head+kpis+`
+    <div class="pgrid"><div class="card"><div class="card-h"><div><h2>Most failed exams</h2><p>Failed attempts, including resits</p></div></div><div class="sbars">${bars}</div></div>
+      <div class="card"><div class="card-h"><div><h2>Score distribution</h2></div></div>${hist}</div></div>
+    <div class="card"><div class="card-h"><div><h2>Every exam</h2><p>An exam, its resits and its newer versions are counted together · select a column to sort, select a number to see who</p></div></div>${examT}</div>
+    <div class="card"><div class="card-h"><div><h2>Failed two or more times in a row</h2><p>Same person, same exam (resits and newer versions included), with no pass in between · ${N(d.consec.length)} cases · not passed yet first</p></div></div>${consT}</div>
+    <div class="pgrid"><div class="card"><div class="card-h"><div><h2>Crew with the most failed attempts</h2></div></div>${crewT}</div>
+      <div class="card"><div class="card-h"><div><h2>Month by month</h2><p>Last 12 months with attempts</p></div></div>${months}</div></div>
+    <div class="card"><div class="card-h"><div><h2>By job role</h2></div></div>${roleT}</div>
+    <p class="note" style="margin-top:4px">Select any underlined number to see the crew behind it. Statistics count exams only. An attempt is a record with the status Passed or Failed. The first-time pass rate looks at each person's first attempt at each exam. The filters at the top apply here too.</p>`;
+}
+const ST_W={att:'Exam attempts',pass:'Passed attempts',fail:'Failed attempts',crew:'Crew on this exam',ftp:'Passed at the first attempt',ftpno:'Did not pass at the first attempt',failCrew:'Crew with a failed attempt',repeat:'Failed 2 or more times in a row',notPassed:'No pass on record',na:'Not attempted',toPass:'Needed more than one attempt',low:'Attempts below the pass mark',bin:'Scores',month:'Attempts in the month',scored:'Every scored attempt'};
+function stItems(spec){
+  const d=S._stats||statsData();
+  const ch=d.chains.filter(c=>(!spec.f||c.fam===spec.f)&&(!spec.r||(c.role||'No job role')===spec.r));
+  const fn=c=>d.famName.get(c.fam)||c.recs[0].title;
+  const seq=c=>c.att.map(r=>(r.st==='done'?'✓':'✗')+(r.score!==null?r.score:'')).join(' ');
+  const stOf=c=>c.passed?(c.fails?`Passed after ${c.fails} fail${c.fails>1?'s':''}`:'Passed first time'):c.att.length?'No pass on record':'Not attempted';
+  const rec=(c,r)=>({login:c.login,name:c.name,role:c.role||'No job role',exam:r.title,res:(r.st==='done'?'✓':'✗')+(r.score!==null?r.score:''),score:r.score,date:attD(r),status:r.st==='done'?'Passed':'Failed'});
+  const chn=c=>({login:c.login,name:c.name,role:c.role||'No job role',exam:fn(c),res:seq(c)||'—',score:c.last?c.last.score:null,date:c.last?attD(c.last):'',status:stOf(c)});
+  const atts=()=>ch.flatMap(c=>c.att.map(r=>[c,r]));
+  const A=f=>atts().filter(([c,r])=>f(r)).map(([c,r])=>rec(c,r)),C=f=>ch.filter(f).map(chn);
+  switch(spec.w){
+    case 'att':return A(()=>true);case 'pass':return A(r=>r.st==='done');case 'fail':return A(r=>r.st==='failed');
+    case 'low':return A(r=>r.score!==null&&r.score<d.pm).sort((a,b)=>a.score-b.score);
+    case 'scored':return A(r=>r.score!==null).sort((a,b)=>a.score-b.score);
+    case 'bin':return A(r=>r.score!==null&&r.score>=spec.a&&r.score<spec.b).sort((a,b)=>a.score-b.score);
+    case 'month':return A(r=>attD(r).slice(0,7)===spec.m);
+    case 'crew':return C(()=>true);case 'ftp':return C(c=>c.first&&c.first.st==='done');case 'ftpno':return C(c=>c.first&&c.first.st==='failed');
+    case 'failCrew':return C(c=>c.fails);case 'repeat':return C(c=>c.maxRun>=2);case 'notPassed':return C(c=>c.att.length&&!c.passed);
+    case 'na':return C(c=>c.na);case 'toPass':return C(c=>c.passed&&c.fails);
+  }return[];
+}
+function stListDrawer(){
+  const sp=S.stl||{},rows=stItems(sp),crew=new Set(rows.map(r=>r.login)).size;
+  const cols=[{key:'name',label:'Crew member',val:r=>r.name,html:r=>`<b>${esc(r.name)}</b><small class="mono" style="display:block;color:var(--faint)">${esc(r.login)}</small>`},{key:'role',label:'Job role',val:r=>r.role},{key:'exam',label:'Exam',val:r=>r.exam,cls:'wt'},
+    {key:'res',label:'Results (score)',val:r=>r.res,html:r=>r.res.split(' ').map(x=>x==='—'?DASH:`<span class="att ${x[0]==='✓'?'ok':'ko'}">${esc(x)}</span>`).join(' '),cls:'nw'},
+    {key:'date',label:'Date',val:r=>r.date,html:r=>r.date?esc(fmtDate(r.date)):DASH,cls:'nw'},{key:'status',label:'Status',val:r=>r.status,html:r=>`<span class="pill ${/^Passed/.test(r.status)?'chg-ok':/No pass|Failed/.test(r.status)?'chg-bad':'chg-info'}">${esc(r.status)}</span>`,cls:'nw'},
+    {key:'score',label:'Score',val:r=>r.score,exportOnly:true}];
+  const where=[sp.f&&((S._stats&&S._stats.famName.get(sp.f))||''),sp.r,roleTitle()&&!sp.r?roleTitle():''].filter(Boolean).join(' · ')||'All exams';
+  const table=renderTable('d',cols,rows,{defaultSort:sp.w==='low'||sp.w==='bin'||sp.w==='scored'?{key:'score'}:{key:'name'},exportName:'exam-statistics-'+(sp.w||'list'),onRow:r=>openDrawer('crew',r.login),emptyTitle:'Nobody here',empty:'No crew match this number.'});
+  return dhead('Laura360 · Learning analytics',sp.t||ST_W[sp.w]||'Crew',`${esc(where)} · ${N(crew)} crew · ${N(rows.length)} row${rows.length===1?'':'s'} · select a name to open the profile`,'',`<div>${exportBar('d')}</div>`)+`<div class="db">${table}</div>`;
+}
+function stBtn(v,w,o){o=o||{};const at=Object.entries(o).map(([k,x])=>` data-${k}="${esc(x)}"`).join('');return`<button type="button" class="stc" data-act="stlist" data-w="${w}"${at} title="See who">${v}</button>`;}
+function statsNarr(d){const L=[];
+  L.push(`${N(d.att)} exam attempts were recorded by ${N(d.crew)} crew members: ${N(d.pass)} passed and ${N(d.fail)} failed, a pass rate of ${pctN(d.rate)}. ${pctN(d.ftp)} of crew passed at the first attempt, and the average score was ${sc1(d.avg)} (pass mark ${d.pm}).`);
+  const mf=d.byExam.filter(g=>g.fail).sort((a,b)=>b.fail-a.fail).slice(0,3);
+  if(mf.length)L.push(`The exams with the most failed attempts were ${mf.map(g=>`${g.k} (${N(g.fail)})`).join(', ')}.`);
+  L.push(d.repeatCrew?`${N(d.repeatCrew)} crew members failed the same exam two or more times in a row; ${N(d.notPassed)} of these cases have no pass on record yet.`:'Nobody failed the same exam two or more times in a row.');
+  return L;}
+function statsHTML(d){
+  const th='padding:6px 9px;background:#2A1C73;color:#fff;font-weight:600;text-align:left;font-size:10pt;border:1px solid #2A1C73',td='padding:5px 9px;border:1px solid #DCD6F2;font-size:10pt;vertical-align:top',tn=td+';text-align:right';
+  const big=(v,l)=>`<td style="padding:12px 14px;border:1px solid #DCD6F2;background:#F6F4FD;text-align:center;width:25%"><div style="font-size:18pt;font-weight:800;color:#2A1C73">${v}</div><div style="font-size:9pt;color:#555">${l}</div></td>`;
+  const tbl=(hd,rows)=>`<table style="border-collapse:collapse;width:100%"><tr>${hd.map((h,i)=>`<th style="${th}${i?';text-align:right':''}">${h}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map((c,i)=>`<td style="${i?tn:td}">${c}</td>`).join('')}</tr>`).join('')}</table>`;
+  const h3=t=>`<h3 style="font-size:12pt;color:#2A1C73;margin:18px 0 6px">${t}</h3>`;
+  const top=d.byExam.slice().sort((a,b)=>b.fail-a.fail||b.att-a.att).slice(0,15);
+  return`<div style="font-family:Aptos,Calibri,Arial,sans-serif;color:#1A1A1A;font-size:10.5pt">
+<h2 style="font-size:16pt;color:#2A1C73;margin:0 0 4px"><span style="color:#D0598C">Laura</span>360 – Pelesys Learning Analytics${roleTitle()?' – '+esc(roleTitle()):''}</h2>
+<p style="margin:0 0 2px;color:#555;font-size:10pt">As of ${fmtDate(d.asOf)} · Scope: ${esc(d.scope)}</p>
+<table style="border-collapse:collapse;width:100%;margin:12px 0"><tr>${big(N(d.att),'Exam attempts')}${big(pctN(d.rate),'Pass rate')}${big(pctN(d.ftp),'First-time pass rate')}${big(sc1(d.avg),'Average score')}</tr></table>
+${h3('Summary')}${statsNarr(d).map(x=>`<p style="margin:0 0 6px">${esc(x)}</p>`).join('')}
+${h3('Exams with the most failed attempts')}${tbl(['Exam','Attempts','Passed','Failed','Pass rate','First-time pass','Avg score','Failed 2+ in a row'],top.map(g=>[esc(g.k),N(g.att),N(g.pass),N(g.fail),pctN(g.rate),pctN(g.ftp),sc1(g.avg),N(g.repeat)]))}
+${h3('By job role')}${tbl(['Job role','Crew','Attempts','Failed','Pass rate','First-time pass','Avg score','Failed 2+ in a row'],d.byRole.map(g=>[esc(g.k),N(g.crew),N(g.att),N(g.fail),pctN(g.rate),pctN(g.ftp),sc1(g.avg),N(g.repeat)]))}
+${d.consec.length?h3('Failed two or more times in a row')+tbl(['Crew member','Job role','Exam','In a row','Status'],d.consec.slice(0,25).map(c=>[esc(c.name),esc(c.role||'No job role'),esc(c.exam),N(c.run),c.passed?'Passed '+fmtDate(c.passD):'No pass on record'])):''}
+<p style="font-size:9pt;color:#777;margin-top:14px">Source: Pelesys Enrollment Report. Exams only. An exam, its resits and its newer versions are counted together.</p></div>`;}
+function statsPlain(d){return['LAURA360 – PELESYS LEARNING ANALYTICS'+(roleTitle()?' – '+roleTitle().toUpperCase():''),`As of ${fmtDate(d.asOf)} · ${d.scope}`,'',...statsNarr(d),'','BY JOB ROLE',...d.byRole.map(g=>`- ${g.k}: ${g.att} attempts · pass rate ${pctN(g.rate)} · first time ${pctN(g.ftp)} · avg ${sc1(g.avg)}`)].join('\n');}
+function copyStats(){const d=S._stats||statsData();const html='<html><body>'+statsHTML(d)+'</body></html>',plain=statsPlain(d);
+  try{if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})})]).then(()=>toast('Laura360 report copied. Paste them into the body of an email in Outlook.'),()=>copyHtmlSync(html,plain));return;}}catch(e){}
+  copyHtmlSync(html,plain);}
+function downloadStats(){const d=S._stats||statsData();
+  const sum={name:'Summary',widths:[40,18],pctCols:[],bold:[0],rows:[['Measure','Value'],['As of',fmtDate(d.asOf)],['Scope',d.scope],['Exam attempts',d.att],['Passed',d.pass],['Failed',d.fail],['Pass rate',pctN(d.rate)],['First-time pass rate',pctN(d.ftp)],['Average score',d.avg===null?'':Math.round(d.avg*10)/10],['Crew who sat an exam',d.crew],['Crew with a fail',d.failCrew],['Crew who failed 2+ in a row',d.repeatCrew],['Cases not passed yet',d.notPassed],[],...statsNarr(d).map(x=>[x])]};
+  const r1=v=>v===null||v===undefined?'':Math.round(v*10)/10;
+  const exam={name:'By exam',widths:[56,24,10,10,10,10,12,14,12,10,14,16,14,14],pctCols:[6,7],bold:[0],freeze:1,filter:1,rows:[['Exam','Subject','Crew','Attempts','Passed','Failed','Pass rate','First-time pass','Avg score','Lowest','Attempts to pass','Failed 2+ in a row','Not passed yet','Not attempted'],...stSorted(d.byExam).map(g=>[g.k,g.subject,g.crew,g.att,g.pass,g.fail,g.rate===null?'':g.rate,g.ftp===null?'':g.ftp,r1(g.avg),g.min===null?'':g.min,r1(g.toPass),g.repeat,g.notPassed,g.na])]};
+  const cons={name:'Failed 2+ in a row',widths:[30,30,18,52,10,8,10,34,16],bold:[0],freeze:1,filter:1,rows:[['Crew member','Login','Job role','Exam','In a row','Fails','Attempts','Results in order','Status'],...d.consec.map(c=>[c.name,c.login,c.role||'No job role',c.exam,c.run,c.fails,c.attempts,c.scores.join('  '),c.passed?'Passed '+fmtDate(c.passD):'No pass on record'])]};
+  const role={name:'By job role',widths:[26,10,10,10,10,12,14,12,14,16,14],pctCols:[5,6],bold:[0],freeze:1,filter:1,rows:[['Job role','Crew','Attempts','Passed','Failed','Pass rate','First-time pass','Avg score','Crew with a fail','Failed 2+ in a row','Not attempted'],...d.byRole.map(g=>[g.k,g.crew,g.att,g.pass,g.fail,g.rate===null?'':g.rate,g.ftp===null?'':g.ftp,r1(g.avg),g.failCrew,g.repeat,g.na])]};
+  const crew={name:'Crew with fails',widths:[30,30,18,14,12,12,14],bold:[0],freeze:1,filter:1,rows:[['Crew member','Login','Job role','Failed attempts','Exams failed','Most in a row','Not passed yet'],...d.topCrew.map(p=>[p.name,p.login,p.role||'No job role',p.fails,p.exams,p.run,p.open])]};
+  const mon={name:'By month',widths:[14,10,10,10,12],pctCols:[4],bold:[0],freeze:1,rows:[['Month','Attempts','Passed','Failed','Pass rate'],...d.months.map(g=>[g.m,g.att,g.pass,g.fail,g.rate])]};
+  const dist={name:'Scores',widths:[14,10],bold:[0],rows:[['Score','Attempts'],...d.dist.map(b=>[b.l,b.n])]};
+  const blob=xlsxBlob([sum,exam,cons,role,crew,mon,dist]);
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Laura360 Pelesys Learning Analytics ${roleTitle()?roleTitle().replace(/[^\w ,+-]/g,'')+' ':''}${d.asOf}.xlsx`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},800);toast('Excel file downloaded.');}catch(e){toast('Download is blocked here.');}
 }
 function copyHtmlSync(html,plain){
   const div=document.createElement('div');div.contentEditable='true';div.style.position='fixed';div.style.left='-9999px';div.innerHTML=html;document.body.appendChild(div);
@@ -2520,6 +2759,12 @@ document.addEventListener('click',e=>{
   else if(a==='ptab'){S.profTab=t.dataset.v;S.sort.d=null;renderDrawer();}
   else if(a==='prole'){const v=t.dataset.v,all=(S.roleOpts||[]).concat(['__none']);if(v==='__all')S.f.role=[];else{let r=S.f.role.length&&S.f.role.length<all.length?S.f.role.slice():[];r=r.includes(v)?r.filter(x=>x!==v):r.concat(v);S.f.role=r.length===all.length?[]:r;}S.limit={};render();}
   else if(a==='pcopy'){copyProgress();}
+  else if(a==='stlist'){const x=t.dataset;S.stl={w:x.w,f:x.f||'',r:x.r||'',a:+x.a||0,b:+x.b||0,m:x.m||'',t:x.t||''};openDrawer('stlist');}
+  else if(a==='stcopy'){copyStats();}
+  else if(a==='stxlsx'){downloadStats();}
+  else if(a==='stall'){S.stAll=!S.stAll;render();}
+  else if(a==='stconsall'){S.stConsAll=!S.stConsAll;render();}
+  else if(a==='stsort'){const k=t.dataset.k,c=S.stSort||{k:'fail',dir:'desc'};S.stSort={k,dir:c.k===k?(c.dir==='desc'?'asc':'desc'):(k==='k'?'asc':'desc')};render();}
   else if(a==='pxlsx'){downloadProgress();}
   else if(a==='fv'){S.fv=!S.fv;render();window.scrollTo({top:0});}
   else if(a==='ivrec'||a==='ivcrew'){S.issView=a==='ivcrew'?'crew':'rec';S.limit={};render();}
@@ -2578,7 +2823,15 @@ document.addEventListener('change',e=>{
 
 /* ---------- start ---------- */
 document.body.classList.add('starting');renderStart();
-restore().then(has=>{restoreBaseline();S.hasSaved=has;if(has){build();S.started=true;document.body.classList.remove('starting');S.tab='overview';render();}else renderStart();if(S._migrated){save();try{localStorage.removeItem(STORE);}catch(_){}}}).catch(()=>renderStart());
+function loadFolderData(){return new Promise(res=>{if(window.PELESYS_DATA&&window.PELESYS_DATA.files){res(window.PELESYS_DATA);return;}if(location.protocol!=='file:'&&!/[?&]folder=1/.test(location.search)){res(null);return;}
+  const sc=document.createElement('script');let done=false;const fin=v=>{if(done)return;done=true;sc.remove();res(v);};
+  sc.src='reports-data.js?t='+Date.now();sc.onload=()=>fin(window.PELESYS_DATA||null);sc.onerror=()=>fin(null);setTimeout(()=>fin(window.PELESYS_DATA||null),8000);document.head.appendChild(sc);});}
+function applyFolderBaseline(D){if(D&&D.baseline&&D.baseline.text&&(!S.base||S.base.name!==D.baseline.name)){const iso=fileStampISO(D.baseline.name);if(iso){S.base={name:D.baseline.name,iso,rows:parseCSV(D.baseline.text).data,auto:true};S._baseRecs=null;}}}
+Promise.all([restore(),loadFolderData()]).then(([has,D])=>{restoreBaseline().then(()=>{applyFolderBaseline(D);if(S.tab==='progress')render();});S.hasSaved=has;
+  if(D&&D.files&&D.files.length){S.folderMode=D;
+    const enr=D.files.find(f=>/ReportEnrollmentReports/i.test(f.name)),fIso=enr?fileStampISO(enr.name):'',cur=has?dataAsOf():'';
+    if(!has||(fIso&&fIso!==cur)){S.started=true;document.body.classList.remove('starting');S.tab='overview';loadBatch(D.files.map(f=>({name:f.name,text:f.text})));toast('Latest reports loaded from the shared folder.');return;}}
+  if(has){build();S.started=true;document.body.classList.remove('starting');S.tab='overview';render();}else renderStart();if(S._migrated){save();try{localStorage.removeItem(STORE);}catch(_){}}}).catch(()=>renderStart());
 setInterval(()=>{if(S.started){renderFresh();renderReports();}else renderStart();},60000);
 })();
 </script>
