@@ -1047,6 +1047,66 @@ button.sh-n{background:none;border:0;padding:0;font:inherit;font-size:11.5px;fon
 .lau-mark,.lb-ic{background:linear-gradient(140deg,#3E2D8F,#2A1C73)!important;color:#fff}
 .lau-mark svg{width:26px!important;height:26px!important}.lb-ic svg{width:22px!important;height:22px!important}
 /* Laura360 */
+/* Laura360 compact layout */
+.stwrap{display:flex;flex-direction:column;gap:12px}
+.stwrap .card{margin:0}
+.stwrap h3{font-size:14px;font-weight:720;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:0 0 8px}
+.stwrap h3 small{font-size:11.5px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.stctl{display:flex;flex-direction:row!important;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 14px!important}
+.stctl .stsel{flex:0 1 420px;min-width:240px;flex-direction:row;align-items:center;gap:10px;max-width:none}
+.stctl .stsel select{height:38px;font-size:14px;border-radius:12px}
+.stroles{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.stroles .prc{padding:6px 11px;font-size:12.5px}
+.stctl .stc-act{margin-left:auto}
+.strow1{display:grid;grid-template-columns:minmax(0,.9fr) repeat(3,minmax(0,1fr));gap:12px}
+.strow1 .sttiles{grid-template-columns:1fr 1fr!important;gap:10px}
+.strow1 .sttile{padding:10px 12px;border-radius:16px;justify-content:center}
+.strow1 .sttile b{font-size:21px}.strow1 .sttile span{font-size:11.5px}
+.dncard{padding:12px 14px!important}
+.dncard .dnw{flex-direction:row;align-items:center;gap:14px;margin-top:0}
+.dncard .dn{width:118px;flex:none}
+.dncard .dn-c b{font-size:22px}.dncard .dn-c span{font-size:10.5px;margin-top:2px}
+.dncard .dn-lg li>*{grid-template-columns:10px 1fr auto;padding:5px 6px;font-size:12.5px;gap:7px}
+.dncard .dn-lg small{display:none}
+.dncard .dn-lg i{width:10px;height:10px;border-radius:3px}
+.dncard .dn-none{min-height:118px}
+.strow3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.stc3{padding:12px 14px!important;min-width:0}
+.stc3 .stex{gap:0}.stc3 .stex-r{grid-template-columns:minmax(0,1.5fr) minmax(40px,.8fr) 46px;gap:9px;padding:5px 0}
+.stc3 .stex-n{font-size:12.5px}.stc3 .stex-v{min-width:0;font-size:12.5px}.stc3 .stex-v small{font-size:10.5px}
+.stc3 .shist{height:170px;gap:5px}.stc3 .sh-l{font-size:9.5px}
+.kk{display:inline-block;width:9px;height:9px;border-radius:3px;margin-left:4px}.kk.ko{background:var(--c-fail)}.kk.ok{background:var(--c-r1)}
+.stc3 .stpl{gap:5px}
+.stc3 .stp{grid-template-columns:28px minmax(0,1fr) auto;padding:6px 8px;gap:8px;border-radius:12px}
+.stc3 .stp-a{width:28px;height:28px;font-size:12px}
+.stc3 .stp-t b{font-size:12.5px}.stc3 .stp-t small{font-size:10.5px}
+.stc3 .stp-s{grid-column:2/-1;justify-content:flex-start}.stc3 .stp>.pill,.stc3 .stp>span:last-child{grid-column:3;grid-row:1}
+.stc3 .att{font-size:10.5px;padding:0 5px}.stc3 .pill{font-size:10.5px}
+.stc3 .dn-none{min-height:150px}
+.stmore{margin-top:6px;font-size:12.5px}
+.strow4{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px;align-items:start}
+.strl2{padding:12px 14px!important}
+.strl2-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.strl2-c{border:1px solid var(--line);border-radius:14px;padding:9px 11px}
+.strl2-k{display:flex;align-items:center;gap:7px;margin-bottom:6px}.strl2-k i{width:10px;height:10px;border-radius:3px}.strl2-k b{font-size:13px}.strl2-k small{font-size:11px;color:var(--muted);margin-left:auto}
+.strl2-n{display:flex;gap:10px;justify-content:space-between}.strl2-n span{display:flex;flex-direction:column;font-size:10.5px;color:var(--muted)}.strl2-n b{font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.strow4 .stdet-h{padding:14px 16px}
+.strow4 .stdet{grid-column:1/-1}
+.strow4 .stdet:has(.stdet-h[aria-expanded="false"]){grid-column:auto}
+.daily.slim{padding:9px 14px!important;margin-bottom:10px;gap:10px}
+.daily.slim small{display:none}.daily.slim .dl-ic{width:32px;height:32px}.daily.slim b{font-size:14px}
+@media (max-width:1180px){.strow1{grid-template-columns:1fr 1fr}.strow3{grid-template-columns:1fr 1fr}.strow3>:last-child{grid-column:1/-1}.strow4{grid-template-columns:1fr}}
+@media (max-width:760px){.strow1,.strow3{grid-template-columns:1fr}.stctl .stsel{flex:1 1 100%;min-width:0}.stctl .stc-act{margin-left:0;width:100%}.stctl .stc-act .btn{flex:1}.dncard .dn{width:110px}}
+/* Laura360 sidebar button: no white box */
+.laura-btn[aria-current="page"]{background:linear-gradient(135deg,rgba(247,182,210,.26),rgba(255,255,255,.10) 70%)!important;color:#fff!important;border-color:rgba(247,182,210,.75)!important}
+.laura-btn[aria-current="page"] .lb-t b i{color:#F7B6D2!important}
+@media (min-width:981px){body.sidemin .laura-btn,body.sidemin .laura-btn:hover,body.sidemin .laura-btn[aria-current="page"]{background:transparent!important;border:0!important;box-shadow:none!important;transform:none}
+  body.sidemin .laura-btn .lb-ic{width:40px!important;height:40px!important;border-radius:13px;background:rgba(255,255,255,.10)!important;box-shadow:none}
+  body.sidemin .laura-btn:hover .lb-ic{background:rgba(255,255,255,.18)!important}
+  body.sidemin .laura-btn[aria-current="page"] .lb-ic{background:linear-gradient(140deg,#4A3A9E,#2F2180)!important;box-shadow:0 0 0 2px #F4AFCB}}
+.lb-ic{background:rgba(255,255,255,.10)!important}
+.laura-btn[aria-current="page"] .lb-ic{background:linear-gradient(140deg,#4A3A9E,#2F2180)!important}
+
 .bar-top .ttl:has(.lau){flex:0 0 auto;min-width:max-content}
 @media (min-width:981px){.bar-top:has(.lau) .fresh{flex:0 1 auto;min-width:0;overflow:hidden}.bar-top:has(.lau) .fresh *{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .lau{display:inline-flex;align-items:center;gap:12px;vertical-align:middle}
@@ -1458,7 +1518,7 @@ function render(){
   if(!S.recs.length&&S.tab!=='settings'&&S.tab!=='updates'){$('#view').innerHTML=demo+`<div class="card"><div class="empty"><b>No enrollment records yet</b>Load the Pelesys Enrollment Report to start the audit.</div></div>`;return;}
   const tf0=S._lastTab===S.tab?document.querySelector('#view .tframe'):null,keep=tf0?[tf0.scrollTop,tf0.scrollLeft]:null;S._lastTab=S.tab;
   const lu=S.folderMode?dataAsOf():lastUpload(),todayD=todayISO(),needUp=S.recs.length&&!S.demo&&(!lu||lu.slice(0,10)<todayD)&&S.dailyHide!==todayD;
-  const daily=needUp?`<div class="daily" role="alert"><span class="dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span><div><span class="dl-eye"><i></i>Action needed today</span><b>Upload today's Pelesys reports</b><small>Last upload ${lu?esc(fmtStamp(lu))+' · '+esc(ageText(lu)):'unknown'}. ${S.folderMode?'Export the four reports from Pelesys, save them in the shared <strong>Reports</strong> folder and double-click <strong>Update dashboard</strong>.':'The data on screen is not up to date: export the four reports from Pelesys and load them.'}</small></div><div class="dl-b"><button class="btn primary sm" data-act="load">Load today's reports</button><button class="btn ghost sm" data-act="dailyhide">Remind me tomorrow</button></div></div>`:'';
+  const daily=needUp?`<div class="daily${S.tab==='stats'?' slim':''}" role="alert"><span class="dl-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></svg></span><div><span class="dl-eye"><i></i>Action needed today</span><b>Upload today's Pelesys reports</b><small>Last upload ${lu?esc(fmtStamp(lu))+' · '+esc(ageText(lu)):'unknown'}. ${S.folderMode?'Export the four reports from Pelesys, save them in the shared <strong>Reports</strong> folder and double-click <strong>Update dashboard</strong>.':'The data on screen is not up to date: export the four reports from Pelesys and load them.'}</small></div><div class="dl-b"><button class="btn primary sm" data-act="load">Load today's reports</button><button class="btn ghost sm" data-act="dailyhide">Remind me tomorrow</button></div></div>`:'';
   if(needUp&&S._dailyPop!==todayD&&!$('#dailyModal')){S._dailyPop=todayD;const m=document.createElement('div');m.id='dailyModal';m.className='dmodal';
     m.innerHTML=`<div class="dm-card" role="alertdialog" aria-labelledby="dmT"><span class="dm-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></span><p class="dm-eye">Daily reminder</p><h2 id="dmT">Upload today's Pelesys reports</h2><p class="dm-t">The last upload was ${lu?esc(fmtStamp(lu))+' ('+esc(ageText(lu))+')':'not recorded'}. ${S.folderMode?'Export the Enrollment, Users, User Course and Course Learning reports from Pelesys, save them in the Reports folder (Admin) and double-click Update dashboard. Everyone who opens the dashboard will then see today\'s data.':'Export the Enrollment, Users, User Course and Course Learning reports from Pelesys and load them so today\'s audit is correct.'}</p><div class="dm-b">${S.folderMode?'<button class="btn primary big" data-act="dailyclose">OK, I will update the folder</button>':'<button class="btn primary big" data-act="load">Load today\'s reports</button>'}<button class="btn ghost" data-act="dailyclose">Not now</button></div></div>`;
     document.body.appendChild(m);}
@@ -2376,7 +2436,7 @@ function statsData(){
     notPassed:consec.filter(c=>!c.passed).length,chains:[...chains.values()],exams,examName:(exams.find(x=>x.fam===S.stExam)||{}).k||'',cnt:(()=>{const t=[...chains.values()];return{ftp:t.filter(c=>c.first&&c.first.st==='done').length,after:t.filter(c=>c.passed&&c.first&&c.first.st==='failed').length,nopass:t.filter(c=>c.att.length&&!c.passed).length,na:t.filter(c=>c.na).length};})(),famName:new Map(byExam.map(g=>[g.fam,g.k])),byExam,consec,byRole,topCrew,dist,months,pm,scope,asOf:(dataAsOf()||todayISO()).slice(0,10)};
 }
 const pctN=v=>v===null||v===undefined?'—':Math.round(v*100)+'%';
-const pctT=v=>v>0&&v<.005?'<1%':v<1&&v>.995?'>99%':pctN(v);
+const pctT=v=>v===null||v===undefined?'—':v>0&&v<.005?'<1%':v<1&&v>.995?'>99%':pctN(v);
 const sc1=v=>v===null||v===undefined?'—':(Math.round(v*10)/10).toLocaleString('en-GB');
 const ST_COLS=[['k','Exam','t'],['crew','Crew','n'],['att','Attempts','n'],['pass','Passed','n'],['fail','Failed','n'],['rate','Pass rate','p'],['ftp','First-time pass','p'],['avg','Avg score','s'],['toPass','Attempts to pass','s'],['repeat','Failed 2+ in a row','n']];
 const ST_CLICK={crew:'crew',att:'att',pass:'pass',fail:'fail',rate:'fail',ftp:'ftpno',avg:'scored',toPass:'toPass',repeat:'repeat',notPassed:'notPassed',na:'na'};
@@ -2397,49 +2457,35 @@ function vStats(){
   const d=statsData();S._stats=d;
   const opts=(()=>{const g=new Map();d.exams.forEach(x=>{if(!g.has(x.subject))g.set(x.subject,[]);g.get(x.subject).push(x);});
     return`<option value="">All exams (${N(d.exams.length)})</option>`+[...g.entries()].sort((a,b)=>a[0].localeCompare(b[0])).map(([s,l])=>`<optgroup label="${esc(s||'Other')}">${l.map(x=>`<option value="${esc(x.fam)}" ${S.stExam===x.fam?'selected':''}>${esc(x.k)}</option>`).join('')}</optgroup>`).join('');})();
-  const exName=S.stExam?d.examName:'';
-  const ctl=`<div class="card stctl"><div class="stc-row">
-      <label class="stsel"><span>Exam</span><select id="stExam" aria-label="Choose an exam">${opts}</select></label>
-      ${S.stExam?`<button class="btn sm ghost" data-act="stexclr">Show all exams</button>`:''}
-      <div class="stc-act"><button class="btn" data-act="stcopy">Copy for email</button><button class="btn" data-act="stxlsx">Download Excel</button></div></div>
-      <p class="stc-meta">Data as of ${fmtDate(d.asOf)} · ${esc(d.scope)}${exName?'':' · exams only'}</p></div>${progRoles('Job roles','Cabin Crew, Cabin Supervisor and Purser are selected when you open the dashboard · change them here or in the filters at the top')}`;
+  const ro=(S.roleOpts||[]).concat(S.roleOpts&&S.roleOpts.length?['__none']:[]),sel=S.f.role,allR=!sel.length||sel.length===ro.length;
+  const chips=ro.length?`<div class="stroles"><button type="button" class="prc ${allR?'on':''}" data-act="prole" data-v="__all">All roles</button>${ro.map(v=>{const on=!allR&&sel.includes(v);return`<button type="button" class="prc ${on?'on':''}" data-act="prole" data-v="${esc(v)}" aria-pressed="${on}">${on?'✓ ':''}${esc(roleLabel(v))}</button>`;}).join('')}</div>`:'';
+  const ctl=`<div class="card stctl"><label class="stsel"><span>Exam</span><select id="stExam" aria-label="Choose an exam">${opts}</select></label>${S.stExam?`<button class="btn sm ghost" data-act="stexclr" title="Show all exams">✕</button>`:''}${chips}<div class="stc-act"><button class="btn sm" data-act="stcopy">Copy for email</button><button class="btn sm" data-act="stxlsx">Excel</button></div></div>`;
   if(!d.att&&!d.n)return ctl+`<div class="card"><div class="empty"><b>No exam results in this selection</b>Choose other job roles, another exam, or clear the filters at the top.</div></div>`;
-  /* three donuts */
   const c=d.cnt;
   const roleF=new Map();d.chains.forEach(ch=>ch.att.forEach(r=>{if(r.st!=='failed')return;const k=ch.role||'No job role';roleF.set(k,(roleF.get(k)||0)+1);}));
   const rs=[...roleF.entries()].sort((a,b)=>{const ia=ROLE_ORDER.indexOf(a[0]),ib=ROLE_ORDER.indexOf(b[0]);return(ia<0?9:ia)-(ib<0?9:ib)||b[1]-a[1];});
   const main=rs.filter(([k])=>roleSlot(k)!=='r4'),oth=rs.filter(([k])=>roleSlot(k)==='r4');
   const roleSegs=main.map(([k,v])=>({l:k,v,c:roleSlot(k),w:'fail',o:{r:k,t:'Failed attempts · '+k}}));
   if(oth.length)roleSegs.push(oth.length===1?{l:oth[0][0],v:oth[0][1],c:'r4',w:'fail',o:{r:oth[0][0],t:'Failed attempts · '+oth[0][0]}}:{l:'Other job roles',v:oth.reduce((s,x)=>s+x[1],0),c:'r4'});
-  const donuts=`<div class="stdn">
-    <div class="card dncard"><div class="dn-h"><h2>Results</h2><p>Every exam attempt</p></div>${stDonut([{l:'Passed',v:d.pass,c:'pass',w:'pass'},{l:'Failed',v:d.fail,c:'fail',w:'fail'}],pctN(d.rate),'pass rate','Passed and failed attempts')}</div>
-    <div class="card dncard"><div class="dn-h"><h2>First attempt</h2><p>Crew who passed: at the first attempt or after a fail</p></div>${stDonut([{l:'Passed first time',v:c.ftp,c:'pass',w:'ftp'},{l:'Passed after a fail',v:c.after,c:'warn',w:'toPass'}],pctN(c.ftp+c.after?c.ftp/(c.ftp+c.after):null),'first time','First attempt outcome')}</div>
-    <div class="card dncard"><div class="dn-h"><h2>Who failed</h2><p>Failed attempts by job role</p></div>${d.fail?stDonut(roleSegs,N(d.fail),d.fail===1?'failed attempt':'failed attempts','Failed attempts by job role'):`<div class="dn-none"><b>No failed attempts</b><span>Everyone passed in this selection.</span></div>`}</div></div>`;
   const tile=(v,l,w,cls)=>w?`<button type="button" class="sttile ${cls||''}" data-act="stlist" data-w="${w}" title="See who"><b>${v}</b><span>${l}</span></button>`:`<div class="sttile ${cls||''}"><b>${v}</b><span>${l}</span></div>`;
-  const tiles=`<div class="sttiles">${tile(N(d.att),'exam attempts','att')}${tile(N(d.crew),'crew sat an exam')}${tile(sc1(d.avg),'average score · pass mark '+d.pm,'scored')}${tile(N(d.repeatCrew),'failed 2+ times in a row','repeat',d.repeatCrew?'bad':'')}</div>`;
-  /* left: exams needing attention / crew who failed this exam */
+  const row1=`<div class="strow1">
+    <div class="sttiles">${tile(N(d.att),'exam attempts','att')}${tile(N(d.crew),'crew')}${tile(sc1(d.avg),'average score','scored')}${tile(N(d.repeatCrew),'failed 2+ in a row','repeat',d.repeatCrew?'bad':'')}</div>
+    <div class="card dncard"><h3>Results</h3>${stDonut([{l:'Passed',v:d.pass,c:'pass',w:'pass'},{l:'Failed',v:d.fail,c:'fail',w:'fail'}],pctT(d.rate),'pass rate','Passed and failed attempts')}</div>
+    <div class="card dncard"><h3>First attempt</h3>${stDonut([{l:'Passed first time',v:c.ftp,c:'pass',w:'ftp'},{l:'Passed after a fail',v:c.after,c:'warn',w:'toPass'}],pctT(c.ftp+c.after?c.ftp/(c.ftp+c.after):null),'first time','First attempt outcome')}</div>
+    <div class="card dncard"><h3>Who failed</h3>${d.fail?stDonut(roleSegs,N(d.fail),'fails','Failed attempts by job role'):`<div class="dn-none"><b>No fails</b><span>Everyone passed</span></div>`}</div></div>`;
   let left;
   if(!S.stExam){
-    const mf=d.byExam.filter(g=>g.fail).sort((a,b)=>b.fail-a.fail||b.rate-a.rate).slice(0,8),mx=Math.max(1,...mf.map(g=>g.fail));
-    left=`<div class="card"><div class="card-h"><div><h2>Exams with the most fails</h2><p>Select an exam to see only its numbers</p></div></div>${mf.length?`<div class="stex">${mf.map(g=>`<div class="stex-r"><button type="button" class="stex-n" data-act="stex" data-f="${esc(g.fam)}" title="${esc(g.k)} · show only this exam">${esc(g.k)}</button><div class="stex-b"><i style="width:${Math.max(3,g.fail/mx*100)}%"></i></div><div class="stex-v">${stBtn('<b>'+N(g.fail)+'</b> failed','fail',{f:g.fam,t:'Failed attempts'})}<small>${pctT(g.att?g.fail/g.att:0)} of ${N(g.att)}</small></div></div>`).join('')}</div>`:'<p class="note">No failed attempts in this selection.</p>'}</div>`;
+    const mf=d.byExam.filter(g=>g.fail).sort((a,b)=>b.fail-a.fail||b.rate-a.rate).slice(0,6),mx=Math.max(1,...mf.map(g=>g.fail));
+    left=`<div class="card stc3"><h3>Most failed exams <small>select one to see only its numbers</small></h3>${mf.length?`<div class="stex">${mf.map(g=>`<div class="stex-r"><button type="button" class="stex-n" data-act="stex" data-f="${esc(g.fam)}" title="${esc(g.k)} · show only this exam">${esc(g.k)}</button><div class="stex-b"><i style="width:${Math.max(3,g.fail/mx*100)}%"></i></div><div class="stex-v">${stBtn('<b>'+N(g.fail)+'</b>','fail',{f:g.fam,t:'Failed attempts'})}<small>${pctT(g.att?g.fail/g.att:0)}</small></div></div>`).join('')}</div>`:'<p class="note">No failed attempts.</p>'}</div>`;
   }else{
     const fl=d.chains.filter(ch=>ch.fails).sort((a,b)=>(a.passed-b.passed)||b.fails-a.fails||a.name.localeCompare(b.name));
-    left=`<div class="card"><div class="card-h"><div><h2>Crew who failed this exam</h2><p>${N(fl.length)} crew · select a name to open the profile</p></div></div>${fl.length?`<div class="stpl">${fl.slice(0,30).map(ch=>stPerson(ch.login,ch.name,ch.role,'',ch.att,ch.passed)).join('')}</div>${fl.length>30?`<p class="note">Showing 30 of ${N(fl.length)} · ${stBtn('see all','failCrew')}</p>`:''}`:'<p class="note">Nobody failed this exam in this selection.</p>'}</div>`;
+    left=`<div class="card stc3"><h3>Crew who failed this exam <small>${N(fl.length)}</small></h3>${fl.length?`<div class="stpl">${fl.slice(0,5).map(ch=>stPerson(ch.login,ch.name,ch.role,'',ch.att,ch.passed)).join('')}</div>${fl.length>5?`<p class="stmore">${stBtn('See all '+N(fl.length),'failCrew')}</p>`:''}`:'<p class="note">Nobody failed this exam.</p>'}</div>`;
   }
-  /* right: score distribution */
   const dmx=Math.max(1,...d.dist.map(b=>b.n));
-  const hist=`<div class="card"><div class="card-h"><div><h2>Scores</h2><p>How many attempts scored in each range</p></div></div><div class="shist">${d.dist.map(b=>`<div class="sh-c" title="${esc(b.l)}: ${N(b.n)} attempts">${b.n?`<button type="button" class="sh-n" data-act="stlist" data-w="bin" data-a="${b.a}" data-b="${b.b}" data-t="Scores ${esc(b.l)}">${N(b.n)}</button>`:'<span class="sh-n">0</span>'}<div class="sh-b ${b.pass?'ok':'ko'}" style="height:${b.n?Math.max(3,b.n/dmx*100):0}%"></div><span class="sh-l">${esc(b.l)}</span></div>`).join('')}</div>
-    <div class="shk"><span><i class="ko"></i>Below the pass mark (${d.pm})</span><span><i class="ok"></i>Pass mark or above</span></div></div>`;
-  /* repeat fails */
+  const hist=`<div class="card stc3"><h3>Scores <small><i class="kk ko"></i>below ${d.pm} <i class="kk ok"></i>${d.pm} or above</small></h3><div class="shist">${d.dist.map(b=>`<div class="sh-c" title="${esc(b.l)}: ${N(b.n)} attempts">${b.n?`<button type="button" class="sh-n" data-act="stlist" data-w="bin" data-a="${b.a}" data-b="${b.b}" data-t="Scores ${esc(b.l)}">${N(b.n)}</button>`:'<span class="sh-n">0</span>'}<div class="sh-b ${b.pass?'ok':'ko'}" style="height:${b.n?Math.max(3,b.n/dmx*100):0}%"></div><span class="sh-l">${esc(b.l)}</span></div>`).join('')}</div></div>`;
   const rp=d.consec;
-  const repeat=`<div class="card"><div class="card-h"><div><h2>Failed the same exam 2 or more times in a row</h2><p>${rp.length?`${N(rp.length)} case${rp.length>1?'s':''} · select a name to open the profile`:'Resits and newer versions of the exam count as the same exam'}</p></div></div>${rp.length?`<div class="stpl">${rp.slice(0,24).map(x=>stPerson(x.login,x.name,x.role,S.stExam?'':x.exam,null,x.passed,x.scores,x.passD)).join('')}</div>${rp.length>24?`<p class="note">${stBtn('See all '+N(rp.length),'repeat')}</p>`:''}`:`<div class="dn-none sm"><b>Nobody</b><span>No one failed the same exam twice in a row.</span></div>`}</div>`;
-  /* job roles */
-  const rmax=Math.max(1,...d.byRole.map(g=>g.att));
-  const roles=`<div class="card"><div class="card-h"><div><h2>By job role</h2><p>Pass rate and first-time pass rate</p></div></div><div class="strl">${d.byRole.map(g=>`<div class="strl-r"><div class="strl-k"><i style="background:var(--c-${roleSlot(g.k)})"></i><b>${esc(g.k)}</b><small>${N(g.crew)} crew · ${N(g.att)} attempts</small></div>
-      <div class="strl-m"><span class="lab">Pass rate</span><div class="strl-b"><i style="width:${Math.round((g.rate||0)*100)}%"></i></div><b>${pctN(g.rate)}</b></div>
-      <div class="strl-m"><span class="lab">First time</span><div class="strl-b"><i class="ft" style="width:${Math.round((g.ftp||0)*100)}%"></i></div><b>${pctN(g.ftp)}</b></div>
-      <div class="strl-f">${g.fail?stBtn(N(g.fail)+' failed','fail',{r:g.k,t:'Failed attempts · '+g.k}):'<span class="faint">0 failed</span>'}</div></div>`).join('')}</div></div>`;
-  /* detailed tables (hidden by default) */
+  const repeat=`<div class="card stc3"><h3>Failed 2+ times in a row <small>${N(rp.length)} case${rp.length===1?'':'s'}</small></h3>${rp.length?`<div class="stpl">${rp.slice(0,5).map(x=>stPerson(x.login,x.name,x.role,S.stExam?'':x.exam,null,x.passed,x.scores,x.passD)).join('')}</div>${rp.length>5?`<p class="stmore">${stBtn('See all '+N(rp.length),'repeat')}</p>`:''}`:`<div class="dn-none"><b>Nobody</b><span>No one failed the same exam twice in a row</span></div>`}</div>`;
+  const roles=`<div class="card strl2"><h3>By job role</h3><div class="strl2-g">${d.byRole.map(g=>`<div class="strl2-c"><div class="strl2-k"><i style="background:var(--c-${roleSlot(g.k)})"></i><b>${esc(g.k)}</b><small>${N(g.crew)} crew</small></div><div class="strl2-n"><span><b>${pctN(g.rate)}</b>pass rate</span><span><b>${pctN(g.ftp)}</b>first time</span><span>${g.fail?stBtn('<b>'+N(g.fail)+'</b>','fail',{r:g.k,t:'Failed attempts · '+g.k}):'<b>0</b>'}failed</span></div></div>`).join('')}</div></div>`;
   const s=S.stSort||{k:'fail',dir:'desc'},rows=stSorted(d.byExam),shown=S.stAll?rows:rows.slice(0,30);
   const fmt=(t,v)=>t==='p'?pctN(v):t==='s'?sc1(v):t==='n'?N(v):esc(v);
   const examT=`<div class="tframe"><table class="sttbl"><thead><tr>${ST_COLS.map(([k,l,t])=>`<th class="${t==='t'?'':'n'} stsort ${s.k===k?'on':''}" data-act="stsort" data-k="${k}">${esc(l)}${s.k===k?(s.dir==='asc'?' ▲':' ▼'):''}</th>`).join('')}</tr></thead><tbody>${shown.map(g=>`<tr>${ST_COLS.map(([k,,t])=>k==='k'?`<td class="wt"><button type="button" class="lnk" data-act="stex" data-f="${esc(g.fam)}">${esc(g.k)}</button><small>${esc(g.subject)}</small></td>`:`<td class="n">${ST_CLICK[k]&&g[k]?stBtn(fmt(t,g[k]),ST_CLICK[k],{f:g.fam}):fmt(t,g[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>${rows.length>30?`<div class="more"><button class="btn sm ghost" data-act="stall">${S.stAll?'Show the first 30':'Show all '+N(rows.length)+' exams'}</button></div>`:''}`;
@@ -2447,9 +2493,9 @@ function vStats(){
   const crewT=tc.length?`<div class="tframe"><table><thead><tr><th class="nosort">Crew member</th><th class="nosort">Job role</th><th class="nosort n">Failed attempts</th><th class="nosort n">Exams failed</th><th class="nosort n">Most in a row</th></tr></thead><tbody>${tc.map(p=>`<tr><td><button class="lnk" data-crew="${esc(p.login)}">${esc(p.name)}</button></td><td>${esc(p.role||'No job role')}</td><td class="n">${N(p.fails)}</td><td class="n">${N(p.exams)}</td><td class="n">${N(p.run)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="note">No failed attempts.</p>';
   const monT=d.months.length?`<div class="tframe"><table><thead><tr><th class="nosort">Month</th><th class="nosort n">Attempts</th><th class="nosort n">Passed</th><th class="nosort n">Failed</th><th class="nosort n">Pass rate</th></tr></thead><tbody>${d.months.map(g=>`<tr><td>${MON[+g.m.slice(5)-1]} ${g.m.slice(0,4)}</td><td class="n">${stBtn(N(g.att),'month',{m:g.m,t:'Attempts in '+MON[+g.m.slice(5)-1]+' '+g.m.slice(0,4)})}</td><td class="n">${N(g.pass)}</td><td class="n">${N(g.fail)}</td><td class="n">${pctN(g.rate)}</td></tr>`).join('')}</tbody></table></div>`:'<p class="note">No dated attempts.</p>';
   const tabs=[['exams','Every exam'],['crew','Crew with fails'],['months','Month by month']],tb=S.stTab||'exams';
-  const det=`<div class="card stdet"><button type="button" class="stdet-h" data-act="stdet" aria-expanded="${!!S.stDet}"><span><b>Detailed tables</b><small>Every exam, crew with fails, month by month · also in the Excel file</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
+  const det=`<div class="card stdet"><button type="button" class="stdet-h" data-act="stdet" aria-expanded="${!!S.stDet}"><span><b>Detailed tables</b><small>every exam · crew with fails · month by month</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
     ${S.stDet?`<div class="seg sttabs">${tabs.map(([k,l])=>`<button type="button" class="${tb===k?'on':''}" data-act="sttab" data-v="${k}">${l}</button>`).join('')}</div>${tb==='exams'?examT:tb==='crew'?crewT:monT}`:''}</div>`;
-  return ctl+(exName?`<div class="stexh"><span class="eyebrow">Exam</span><h2>${esc(exName)}</h2></div>`:'')+donuts+tiles+`<div class="pgrid">${left}${hist}</div>`+`<div class="pgrid">${repeat}${roles}</div>`+det;
+  return`<div class="stwrap">${ctl}${row1}<div class="strow3">${left}${hist}${repeat}</div><div class="strow4">${roles}${det}</div></div>`;
 }
 function stPerson(login,name,role,exam,att,passed,scores,passD){
   const sc=scores||(att||[]).map(r=>(r.st==='done'?'✓':'✗')+(r.score!==null?r.score:''));
