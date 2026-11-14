@@ -1048,7 +1048,10 @@ button.sh-n{background:none;border:0;padding:0;font:inherit;font-size:11.5px;fon
 .lau-mark svg{width:26px!important;height:26px!important}.lb-ic svg{width:22px!important;height:22px!important}
 /* Laura360 */
 /* exam picker */
-.stctl{position:relative;z-index:30;overflow:visible!important}
+.att.inf{background:transparent!important;border:1px dashed currentColor;font-style:italic}
+.stleg{font-size:11px;color:var(--muted);margin:-2px 0 8px;line-height:1.4}.stleg .att{margin-right:4px}
+.stctl{position:relative;z-index:auto;overflow:visible!important}
+.stctl:has(.exsel-pop:not([hidden])){z-index:30}
 :root[data-theme="dark"] .exsel-pop{background:#1C1638}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .exsel-pop{background:#1C1638}}
 .exsel{position:relative;flex:0 1 460px;min-width:260px}
@@ -1446,7 +1449,7 @@ function build(asOf){
   const logins=new Set(recs.map(r=>r.login));
   S.noEnroll=[...S.dir.values()].filter(u=>!logins.has(u.login));
   const dv=[...S.dir.values()],roles=[...new Set(dv.map(u=>u.role).filter(Boolean))].sort(),fleets=[...new Set(dv.map(u=>u.fleet).filter(Boolean))].sort();
-  S.roleOpts=roles;if(!S.roleInit){S.roleInit=true;S.f.role=defRoles(roles);}S.f.role=S.f.role.filter(v=>v==='__none'?roles.length:roles.includes(v));$('#frole').hidden=!roles.length;renderRoleSel();fillSelect2('#ffleet','All fleets',fleets,'No fleet','fleet');
+  S.roleOpts=roles;if(!S.roleInit){S.roleInit=true;S.f.role=defRoles(roles);}S.f.role=S.f.role.filter(v=>v==='__none'?roles.length:roles.includes(v));$('#frole').hidden=!roles.length;renderRoleSel();$('#ffleet').hidden=true;S.f.fleet='';/* fleet filter removed: always all fleets */
   fillSelect('#farea','All areas',AREAS);
 }
 function fillSelect2(sel,first,vals,none,key){const el=$(sel),cur=S.f[key]||'';el.innerHTML=`<option value="">${first}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('')+(vals.length?`<option value="__none">${none}</option>`:'');const okv=vals.length&&(vals.includes(cur)||cur==='__none');el.value=okv?cur:'';if(!okv)S.f[key]='';el.hidden=!vals.length;}
@@ -2419,7 +2422,9 @@ const RS_RW=new Set(['resit','retake','retest','re','remedial','test','exam','in
 const famKey=r=>r.subject+'|'+([...rsToks(r.title)].filter(w=>!RS_RW.has(w)).sort().join(' ')||r.base);
 const attD=r=>r.compl||r.start||'';
 const isRs=r=>RS_RESIT.test(r.title||'');
-const chipOf=r=>r.inferred?'✗?':(r.st==='done'?'✓':'✗')+(r.score!==null&&r.score!==undefined?r.score:'');
+const INFER_FAILS=false;/* statistics use only the fails recorded in the reports */
+const INF_CHIP='✗\u00a0no\u00a0score';
+const chipOf=r=>r.inferred?INF_CHIP:(r.st==='done'?'✓':'✗')+(r.score!==null&&r.score!==undefined?r.score:'');
 const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
 function statsData(){
   const f=S.f;
@@ -2442,11 +2447,11 @@ function statsData(){
     const ghost=(r,why)=>({id:(+r.id||0)-.5,login:r.login,name:r.name,role:r.role,title:r.title,subject:r.subject,base:r.base,st:'failed',score:null,compl:'',start:r.start||r.compl,inferred:why});
     for(const r of seq){
       const prevFail=prev&&prev.st==='failed';
-      if(isRs(r)&&!prevFail&&!passedYet){
+      if(INFER_FAILS&&isRs(r)&&!prevFail&&!passedYet){
         if(prev&&prev.st==='done'&&(prev.score===null||prev.score===undefined||isNaN(prev.score))&&!isRs(prev)){const i=out.lastIndexOf(prev);out[i]=prev=ghost(prev,'Shown as Completed with no score, then a resit was booked, so it was failed');}
         else out.push(prev=ghost(r,'A resit was booked, so the exam before it was failed'));
       }
-      else if(!isRs(r)&&prevFail&&!isRs(prev)&&!prev.inferred&&sd(prev)!=='9'&&sd(r)!=='9'&&dayDiff(sd(prev),sd(r))>7)out.push(prev=ghost(r,'Sat the exam again in a new batch, so the resit was failed'));
+      else if(INFER_FAILS&&!isRs(r)&&prevFail&&!isRs(prev)&&!prev.inferred&&sd(prev)!=='9'&&sd(r)!=='9'&&dayDiff(sd(prev),sd(r))>7)out.push(prev=ghost(r,'Sat the exam again in a new batch, so the resit was failed'));
       if(isAtt(r)){out.push(r);prev=r;if(r.st==='done'&&r.score!==null&&r.score!==undefined&&!isNaN(r.score))passedYet=true;}
     }
     c.att=out;
@@ -2561,7 +2566,7 @@ function vStats(){
   const dmx=Math.max(1,...d.dist.map(b=>b.n));
   const hist=`<div class="card stc3"><h3>Scores <small><i class="kk ko"></i>below ${d.pm} <i class="kk ok"></i>${d.pm} or above</small></h3><div class="shist">${d.dist.map(b=>`<div class="sh-c" title="${esc(b.l)}: ${N(b.n)} attempts">${b.n?`<button type="button" class="sh-n" data-act="stlist" data-w="bin" data-a="${b.a}" data-b="${b.b}" data-t="Scores ${esc(b.l)}">${N(b.n)}</button>`:'<span class="sh-n">0</span>'}<div class="sh-b ${b.pass?'ok':'ko'}" style="height:${b.n?Math.max(3,b.n/dmx*100):0}%"></div><span class="sh-l">${esc(b.l)}</span></div>`).join('')}</div></div>`;
   const rp=d.consec;
-  const repeat=`<div class="card stc3"><h3>Failed 2+ times in a row <small>${N(rp.length)} case${rp.length===1?'':'s'}</small></h3>${rp.length?`<div class="stpl">${rp.slice(0,5).map(x=>stPerson(x.login,x.name,x.role,S.stExam?'':x.exam,null,x.passed,x.scores,x.passD)).join('')}</div>${rp.length>5?`<p class="stmore">${stBtn('See all '+N(rp.length),'repeat')}</p>`:''}`:`<div class="dn-none"><b>Nobody</b><span>No one failed the same exam twice in a row</span></div>`}</div>`;
+  const repeat=`<div class="card stc3"><h3>Failed 2+ times in a row <small>${N(rp.length)} case${rp.length===1?'':'s'}</small></h3>${rp.some(x=>x.scores.includes(INF_CHIP))?`<p class="stleg"><span class="att ko inf">${INF_CHIP}</span> failed, but Pelesys has no record: a resit was booked or the exam was sat again in a new batch</p>`:''}${rp.length?`<div class="stpl">${rp.slice(0,5).map(x=>stPerson(x.login,x.name,x.role,S.stExam?'':x.exam,null,x.passed,x.scores,x.passD)).join('')}</div>${rp.length>5?`<p class="stmore">${stBtn('See all '+N(rp.length),'repeat')}</p>`:''}`:`<div class="dn-none"><b>Nobody</b><span>No one failed the same exam twice in a row</span></div>`}</div>`;
   const roles=`<div class="card strl2"><h3>By job role</h3><div class="strl2-g">${d.byRole.map(g=>`<div class="strl2-c"><div class="strl2-k"><i style="background:var(--c-${roleSlot(g.k)})"></i><b>${esc(g.k)}</b><small>${N(g.crew)} crew</small></div><div class="strl2-n"><span><b>${pctT(g.rate)}</b>pass rate</span><span><b>${pctT(g.ftp)}</b>first time</span><span>${g.fail?`<button type="button" class="stc2" data-act="stlist" data-w="fail" data-r="${esc(g.k)}" data-t="${esc('Failed attempts · '+g.k)}" title="See who"><b>${N(g.fail)}</b></button>`:'<b>0</b>'}failed</span></div></div>`).join('')}</div></div>`;
   const s=S.stSort||{k:'fail',dir:'desc'},rows=stSorted(d.byExam),shown=S.stAll?rows:rows.slice(0,30);
   const fmt=(t,v)=>t==='p'?pctN(v):t==='s'?sc1(v):t==='n'?N(v):esc(v);
@@ -2577,7 +2582,7 @@ function vStats(){
 function stPerson(login,name,role,exam,att,passed,scores,passD){
   const sc=scores||(att||[]).map(r=>chipOf(r));
   const pd=passD||(passed&&att?attD([...att].reverse().find(r=>r.st==='done')):'');
-  return`<button type="button" class="stp" data-crew="${esc(login)}"><span class="stp-a">${esc((name||'?').replace(/[^A-Za-z]/g,'').slice(0,1).toUpperCase())}</span><span class="stp-t"><b>${esc(name)}</b><small>${esc(role||'No job role')}${exam?' · '+esc(exam):''}</small></span><span class="stp-s">${sc.map(x=>`<span class="att ${x[0]==='✓'?'ok':'ko'}"${x==='✗?'?' title="Fail not recorded in Pelesys: shown by a resit or a new batch"':''}>${esc(x)}</span>`).join('')}</span>${passed?`<span class="pill chg-ok">Passed${pd?' '+esc(fmtShort(pd)):''}</span>`:'<span></span>'}</button>`;
+  return`<button type="button" class="stp" data-crew="${esc(login)}"><span class="stp-a">${esc((name||'?').replace(/[^A-Za-z]/g,'').slice(0,1).toUpperCase())}</span><span class="stp-t"><b>${esc(name)}</b><small>${esc(role||'No job role')}${exam?' · '+esc(exam):''}</small></span><span class="stp-s">${sc.map(x=>`<span class="att ${x[0]==='✓'?'ok':'ko'}${x===INF_CHIP?' inf':''}"${x===INF_CHIP?' title="Failed, but Pelesys has no record or score: a resit was booked or the exam was sat again in a new batch"':''}>${esc(x)}</span>`).join('')}</span>${passed?`<span class="pill chg-ok">Passed${pd?' '+esc(fmtShort(pd)):''}</span>`:'<span></span>'}</button>`;
 }
 const ST_W={att:'Exam attempts',pass:'Passed attempts',fail:'Failed attempts',crew:'Crew on this exam',ftp:'Passed at the first attempt',ftpno:'Did not pass at the first attempt',failCrew:'Crew with a failed attempt',repeat:'Failed 2 or more times in a row',notPassed:'No pass on record',na:'Not attempted',toPass:'Needed more than one attempt',low:'Attempts below the pass mark',bin:'Scores',month:'Attempts in the month',scored:'Every scored attempt'};
 function stItems(spec){
@@ -2604,7 +2609,7 @@ function stItems(spec){
 function stListDrawer(){
   const sp=S.stl||{},rows=stItems(sp),crew=new Set(rows.map(r=>r.login)).size;
   const cols=[{key:'name',label:'Crew member',val:r=>r.name,html:r=>`<b>${esc(r.name)}</b><small class="mono" style="display:block;color:var(--faint)">${esc(r.login)}</small>`},{key:'role',label:'Job role',val:r=>r.role},{key:'exam',label:'Exam',val:r=>r.exam,cls:'wt'},
-    {key:'res',label:'Results (score)',val:r=>r.res,html:r=>r.res.split(' ').map(x=>x==='—'?DASH:`<span class="att ${x[0]==='✓'?'ok':'ko'}">${esc(x)}</span>`).join(' '),cls:'nw'},
+    {key:'res',label:'Results (score)',val:r=>r.res,html:r=>r.res.split(' ').map(x=>x==='—'?DASH:`<span class="att ${x[0]==='✓'?'ok':'ko'}${x===INF_CHIP?' inf':''}"${x===INF_CHIP?' title="Failed, but Pelesys has no record or score"':''}>${esc(x)}</span>`).join(' '),cls:'nw'},
     {key:'date',label:'Date',val:r=>r.date,html:r=>r.date?esc(fmtDate(r.date)):DASH,cls:'nw'},{key:'status',label:'Status',val:r=>r.status,html:r=>r.status?`<span class="pill ${/^Passed/.test(r.status)?'chg-ok':'chg-bad'}">${esc(r.status)}</span>`:DASH,cls:'nw'},
     {key:'score',label:'Score',val:r=>r.score,exportOnly:true}];
   const where=[sp.f&&((S._stats&&S._stats.famName.get(sp.f))||''),sp.r,roleTitle()&&!sp.r?roleTitle():''].filter(Boolean).join(' · ')||'All exams';
